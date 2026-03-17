@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>受講生の声 ｜ 自然のめぐみ・セルフケア by 自然の英語工房</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:       #3B6D11;
+      --green-light: #EAF3DE;
+      --green-mid:   #639922;
+      --sand:        #F7F4EE;
+      --text:        #2C2C2A;
+      --text-mid:    #5F5E5A;
+      --text-light:  #888780;
+      --border:      rgba(44,44,42,0.12);
+      --border-mid:  rgba(44,44,42,0.22);
+      --serif:       'Noto Serif JP', serif;
+      --sans:        'Noto Sans JP', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      color: var(--text);
+      background: #fff;
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    /* HEADER */
+    header {
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 0.5px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(250,247,242,0.96);
+      backdrop-filter: blur(8px);
+      z-index: 100;
+    }
+
+    .logo {
+      font-family: 'Zen Antique Soft', serif;
+      font-size: 14px;
+      color: #8B5E3C;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      line-height: 1.4;
+    }
+
+    .logo span {
+      font-size: 10px;
+      color: var(--text-light);
+      display: block;
+      letter-spacing: 0.1em;
+      margin-top: 1px;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #8B5E3C;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-drawer {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(320px, 85vw);
+      height: 100vh;
+      background: #FAF7F2;
+      z-index: 150;
+      padding: 80px 40px 40px;
+      transition: right 0.35s ease;
+      border-left: 1px solid #E8DDD0;
+      box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+    }
+
+    .nav-drawer.open { right: 0; }
+
+    .nav-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-drawer ul li a {
+      display: block;
+      padding: 16px 0;
+      font-family: 'Zen Antique Soft', serif;
+      font-size: 1.05rem;
+      color: #2C2416;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #E8DDD0;
+      transition: color 0.2s, padding-left 0.2s;
+    }
+
+    .nav-drawer ul li a:hover { color: var(--green); padding-left: 8px; }
+    .nav-drawer ul li:last-child a { border-bottom: none; }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 140;
+    }
+
+    .nav-overlay.open { display: block; }
+
+    /* HERO */
+    .hero {
+      padding: 5rem 2rem 3rem;
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    /* VOICES GRID */
+    .voices-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 2rem 5rem;
+    }
+
+    .voices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .voice-card {
+      background: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      border: 0.5px solid var(--border-mid);
+    }
+
+    .voice-name {
+      font-size: 11px;
+      color: var(--green);
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: 0.05em;
+    }
+
+    .voice-text {
+      font-size: 13px;
+      color: var(--text-mid);
+      line-height: 1.9;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 3rem;
+      border: 0.5px solid var(--border-mid);
+      border-radius: 8px;
+      padding: 10px 24px;
+      font-size: 13px;
+      color: var(--text-mid);
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .back-btn:hover { background: var(--sand); }
+
+    footer {
+      padding: 2rem;
+      border-top: 0.5px solid var(--border);
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-light);
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 1rem 1.2rem; }
+      .hero { padding: 3.5rem 1.2rem 2rem; }
+      .voices-wrap { padding: 0 1.2rem 4rem; }
+      .voices-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="https://shizen-megumi.pages.dev/" class="logo">
+      自然のめぐみ・セルフケア
+      <span>by 自然の英語工房</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <div class="nav-drawer" id="nav-drawer">
+    <ul>
+      <li><a href="https://shizen-megumi.pages.dev/">教室 TOP</a></li>
+      <li><a href="tt.html">養成講座 TOP</a></li>
+      <li><a href="voices.html">受講生の声</a></li>
+      <li><a href="tt.html#courses">募集中コース</a></li>
+      <li><a href="https://forms.gle/PeXXUzWMtPKxffpdA" target="_blank">お問い合わせ</a></li>
+      <li><a href="https://shizen-megumi.pages.dev/about">講師について</a></li>
+    </ul>
+  </div>
+
+  <div class="hero">
+    <p class="eyebrow">VOICES</p>
+    <h1 style="font-family:var(--serif);font-weight:300;font-size:clamp(22px,4vw,32px);line-height:1.8;color:var(--text);margin-bottom:0.8rem;">受講生の声</h1>
+    <p style="font-size:13px;color:var(--text-mid);">養成コースを修了された方々からのメッセージです。</p>
+  </div>
+
+  <div class="voices-wrap">
+    <div class="voices-grid">
+
+      <div class="voice-card">
+        <p class="voice-name">R.Y.さん　フロー１</p>
+        <p class="voice-text">今回も沢山のことを教えていただき、ありがとうございました。フローレベル１の座学の解剖学、実技を学ぶなかで、日常の暮らしにも活かせることが多く、毎回、心が浄化されました。また、先生が発する言葉、１つ１つに愛があって、私の心に響いていました。そんなお教室でヨガを学べることに感謝して、私もヨガの良さを伝えていきます！！</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">Y.T.さん　フロー１</p>
+        <p class="voice-text">１つ１つのアーサナを丁寧に学ぶ事ができました。身体の使い方が明確になり、どこに効く、効かせるポーズというのを知る、体感する事ができました。アーサナだけではなく、心の取り扱い方も沢山触れていただき、自分自身に気づかせてもらう１ヶ月になりました。ヨガの練習と瞑想をするのが楽しくなりました。コツコツ続けようと思います！！</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">S.M.さん　フロー１</p>
+        <p class="voice-text">ポーズだけではなく、ヨガの教え、意味などを知ることによって"本当の意味でのヨガ"を楽しむ事ができました。コースを通して自分が少し変化している事に気づくこともできました。また練習を続けていき、自分にどのような変化があるのか、楽しみです。ありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／R.Y.さん　リラックス１</p>
+        <p class="voice-text">このコースを受講しようと思ったきっかけは、普段のクラスが本当に気持ち良くて、そこからヨガが大好きになり、学びを深めたいという理由でした。毎回の学びは私生活の中でも取り入れられることばかりで、受講して良かったな、楽しいなと、心から思っています。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">諸富町／N.S.さん　フロー１</p>
+        <p class="voice-text">流れに身を任せて、このTTを受けて良かったです。もともとポジティブな私がさらにポジティブになれたと思います。結婚してこの佐賀の地に来て、このスタジオに出会えたことも必然なんですね。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">大町町／M.M.さん　フロー１</p>
+        <p class="voice-text">とても楽しい３週間でした。今回で3回目の養成コース。フロー１の養成コースを受けて、力強さや活力を感じ、しなやかさの中に折れない強さのある軸が形成されていく感覚がありました。改めてヨガの深い部分にふれ、ますますヨガが好きになりました。３週間、ありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">みやき町／Y.E.さん　フロー１</p>
+        <p class="voice-text">このコースに参加してただするだけだったヨガが、こんなに面白いんだ。と気づけて、自分と向き合うことの大事さも感じました。いろんな自分に出会えました。これからもお家や日常生活で続けていきたいと思います。自信を持って。守られている。信頼して。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／S.Kさん　リラックス１</p>
+        <p class="voice-text">胸を開く（心を開く）ことで、自分の過ごす時間を幸せな時間に作り出せるということ。瞑想の時間を持つことの大切さも身に沁みる程、感じました。私の周りの人達にも幸せな生活を過ごしてもらえるよう、必ず伝えたいと思います。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／A.Iさん　リラックス１</p>
+        <p class="voice-text">ポーズや体の仕組みだけでなく、まずは自分をリラックスさせることも大切なのだと学びました。自分が心地よいと思えるものを選ぶ練習だと、日常の小さなことが新鮮に感じます。ゆったり楽しかったです。ありがとうございました！</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／A.Iさん　フロー１</p>
+        <p class="voice-text">"自分を楽にする事"、"自由に生きること"。ポーズだけでなく、私の内面に向き合わせてくれた良い機会でした。新しいものと出会うワクワクする気持ち、自分がしたい事を恐れず選択する勇気は、これからの私を支えてくれると思います。ありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">神埼市／M.Oさん</p>
+        <p class="voice-text">心地よい環境で充実した時間を過ごし、学べたことに感謝します。エネルギーに満ち溢れたMeg先生の温かなご指導で、私らしく教え導く一歩を歩き出せたと思います。ありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">鳥栖市／A.Nさん</p>
+        <p class="voice-text">できる、できないではなく、自分のできる範囲でどれだけEnjoyできるかを学びました。ヨガを始めて９ヶ月経ち、毎日練習することで、自然と今までできなかったポーズができるようになりました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／J.Yさん</p>
+        <p class="voice-text">「頑を張らない。頑張るのは、自分でないものになろうとしている。」コースを受けて、この言葉の重みをますます感じることができました。ここで学んだ時間は、私のこれからの人生の大きな糧になりそうです。本当にありがとうございました！！</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／N.Sさん</p>
+        <p class="voice-text">"心をほぐすから、身体もほぐれる。"これから自分の目線、捉え方ひとつで、とーっても幸せになれることが学べた貴重なコース受講でした。Meg先生、本当にありがとうございました。自然の英語工房で良かったです💕</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／M.Hさん</p>
+        <p class="voice-text">受講するごとにヨガに対する考え方、日常生活の過ごし方が変わってきました。今では「自分にはプラスのことしか起こらない」を信じて良かったと思います。受講するにあたり、関わってくださった皆様に感謝いたします。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／Y.Mさん</p>
+        <p class="voice-text">内面からヨガを理解することで、ありのままの自分に気づくことができ、自分はどうしたいのかわかるようになりました。今までの私の日常が少しずつ変化しているのを感じて、毎日が楽チンで楽しみに溢れています。ヨガ大好きです。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">吉野ヶ里町／E.Tさん</p>
+        <p class="voice-text">これから苦手なこと、困難なことが起きても、"今こそヨガを活かす時、練習の場だ"と前向きに捉えられそうです。教室に来るだけでリラックスできました。庭の緑を見たり、鳥の声を聞いたり。ありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／R.Hさん</p>
+        <p class="voice-text">毎週、学ぶ事が多くて、今までふわふわとしていた頭の中がすっきりと整理されました。余分な考えをきれいに掃除して、シンプルで気持ちがいい考えになれたように思います。どうもありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／R.Iさん</p>
+        <p class="voice-text">今後の人生の中でいろんな出来事が起こっても、今回学んだ事を思い出していけばいいんだと思ったら心強く感じました。いつも前向きなMeg先生、ほんとにありがとうございました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／M.Tさん</p>
+        <p class="voice-text">"生活そのものがヨガ"ということを先生ご自身が実践しておられ、ご自宅や生活スタイルに触れることで、とても刺激になった。座学とポーズの指導を集中して受講することで、ヨガとは何かという基礎の部分を学ぶことができた。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">みやま市／C.Tさん</p>
+        <p class="voice-text">あらためてヨガは深いと感じました。さらにその奥が見えてきて・・・まだずーっと先まで道が続いている事がわかりました。ヨガに出会えてよかったです。Meg先生に感謝です。受講してよかったです。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">大牟田市／S.Uさん</p>
+        <p class="voice-text">養成コースを受ける事で確信に変わり、今まで以上にヨガの素晴らしさ、楽しさを周囲に広めていきたいと思うようになりました。あっという間の４０時間。今日のように楽しみながらもっともっとヨガを知りたいと思いました。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">佐賀市／T.Kさん</p>
+        <p class="voice-text">最初は交通事故のリハビリ目的でヨガを始めたのですが、このコースに参加してますますヨガの魅力に取り憑かれてしまいました。今後もさらに別のコースを受講して、ヨガをさらに深めて行きたいと思います。</p>
+      </div>
+
+      <div class="voice-card">
+        <p class="voice-name">多久市／M.Tさん</p>
+        <p class="voice-text">ヨガの深い部分に触れる事ができ、ますますヨガが好きになりました。Meg先生の分かりやすいご指導に感謝します。ありがとうございました。</p>
+      </div>
+
+    </div>
+
+    <div style="text-align:center;">
+      <a href="tt.html" class="back-btn">← 養成講座TOPに戻る</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 自然のめぐみ・セルフケア by 自然の英語工房　All rights reserved.</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+
+    function toggleMenu() {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+  </script>
+
+</body>
+</html>

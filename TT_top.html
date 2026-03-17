@@ -6,7 +6,7 @@
   <title>ヨガ養成講座 ｜ 自然のめぐみ・セルフケア by 自然の英語工房</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -37,45 +37,112 @@
 
     /* ── HEADER ── */
     header {
-      padding: 1.4rem 2rem;
+      padding: 1.2rem 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
       border-bottom: 0.5px solid var(--border);
       position: sticky;
       top: 0;
-      background: rgba(255,255,255,0.96);
-      backdrop-filter: blur(6px);
+      background: rgba(250,247,242,0.96);
+      backdrop-filter: blur(8px);
       z-index: 100;
     }
 
     .logo {
-      font-family: var(--serif);
-      font-weight: 300;
-      font-size: 15px;
-      color: var(--text);
-      letter-spacing: 0.05em;
+      font-family: 'Zen Antique Soft', serif;
+      font-size: 14px;
+      color: #8B5E3C;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      line-height: 1.4;
     }
 
     .logo span {
       font-size: 10px;
       color: var(--text-light);
       display: block;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       margin-top: 1px;
     }
 
-    nav { display: flex; gap: 1.8rem; }
-
-    nav a {
-      font-size: 12px;
-      color: var(--text-mid);
-      text-decoration: none;
-      letter-spacing: 0.05em;
-      transition: color 0.2s;
+    /* ハンバーガーボタン */
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 200;
     }
 
-    nav a:hover { color: var(--green); }
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #8B5E3C;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* ドロワー */
+    .nav-drawer {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(320px, 85vw);
+      height: 100vh;
+      background: #FAF7F2;
+      z-index: 150;
+      padding: 80px 40px 40px;
+      transition: right 0.35s ease;
+      border-left: 1px solid #E8DDD0;
+      box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+    }
+
+    .nav-drawer.open { right: 0; }
+
+    .nav-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-drawer ul li a {
+      display: block;
+      padding: 16px 0;
+      font-family: 'Zen Antique Soft', serif;
+      font-size: 1.05rem;
+      color: #2C2416;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      border-bottom: 1px solid #E8DDD0;
+      transition: color 0.2s, padding-left 0.2s;
+    }
+
+    .nav-drawer ul li a:hover { color: var(--green); padding-left: 8px; }
+    .nav-drawer ul li:last-child a { border-bottom: none; }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 140;
+    }
+
+    .nav-overlay.open { display: block; }
 
     /* ── HERO ── */
     .hero {
@@ -441,17 +508,26 @@
 
   <!-- HEADER -->
   <header>
-    <a href="https://shizen-megumi.pages.dev/" class="logo" style="text-decoration:none;">
-      自然のめぐみ・セルフケア by 自然の英語工房
-      <span>SHIZEN NO MEGUMI</span>
+    <a href="https://shizen-megumi.pages.dev/" class="logo">
+      自然のめぐみ・セルフケア
+      <span>by 自然の英語工房</span>
     </a>
-    <nav>
-      <a href="#philosophy">哲学</a>
-      <a href="#courses">コース</a>
-      <a href="#price">料金</a>
-      <a href="https://forms.gle/PeXXUzWMtPKxffpdA" target="_blank">お問い合わせ</a>
-    </nav>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
   </header>
+
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <div class="nav-drawer" id="nav-drawer">
+    <ul>
+      <li><a href="https://shizen-megumi.pages.dev/">教室 TOP</a></li>
+      <li><a href="#">養成講座 TOP</a></li>
+      <li><a href="#voices">受講生の声</a></li>
+      <li><a href="#courses">募集中コース</a></li>
+      <li><a href="https://forms.gle/PeXXUzWMtPKxffpdA" target="_blank">お問い合わせ</a></li>
+      <li><a href="https://shizen-megumi.pages.dev/about">講師について</a></li>
+    </ul>
+  </div>
 
   <!-- HERO -->
   <div class="hero">
@@ -530,11 +606,12 @@
   <!-- COURSES -->
   <section class="courses" id="courses">
     <p class="section-label">COURSES</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:1.2rem;padding:10px 14px;background:var(--sand);border-radius:10px;align-items:center;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:0.6rem;padding:10px 14px;background:var(--sand);border-radius:10px;align-items:center;">
       <span style="font-size:12px;font-weight:500;color:var(--text);">お得な割引制度：</span>
       <span style="font-size:12px;padding:3px 12px;border-radius:20px;background:#fff;border:1px solid var(--green);color:var(--green);">🌿 早割　期日までの申込＋入金完了で ▲¥5,000</span>
       <span style="font-size:12px;padding:3px 12px;border-radius:20px;background:#fff;border:1px solid var(--green);color:var(--green);">🌿 修了生割引　当スクールいずれかの修了者 ▲¥5,000</span>
     </div>
+    <p style="font-size:11px;color:var(--text-light);margin-bottom:1.2rem;padding-left:4px;">※各種割引の併用はできません。有利な方を適用します。</p>
     <div class="courses-grid">
 
       <div class="course-card">
@@ -565,7 +642,7 @@
         <div class="card-left">
           <span class="card-tag tag-spec">専門特化（各20時間）</span>
           <p class="card-name">骨盤ヨガ ／ マタニティ ／ リストラティブ ／ ヨガニドラ</p>
-          <p class="card-desc">自分のため、またはスキルアップに。誰でも参加OK。修了証を発行。40h修了者割引あり。</p>
+          <p class="card-desc">自分のため、またはスキルアップに。誰でも参加OK。修了証を発行。</p>
         </div>
         <div class="card-price">
           <p class="price-from">早割</p>
@@ -574,83 +651,45 @@
       </div>
 
     </div>
+    <p style="font-size:11px;color:var(--text-light);margin-top:1rem;padding-left:4px;">全コース税込・テキスト代込み　／　修了者には「自然のめぐみヨガ」独自の修了証を発行</p>
+    <p style="font-size:11px;color:var(--text-light);margin-top:4px;padding-left:4px;">※実際の開催時に価格は変更になることもあります。</p>
   </section>
 
-  <!-- PRICE -->
-  <section id="price" style="background:var(--sand);padding:5rem 2rem;">
+  <!-- VOICES -->
+  <section id="voices" style="background:var(--sand);padding:5rem 2rem;">
     <div style="max-width:720px;margin:0 auto;">
-      <p style="font-size:10px;letter-spacing:0.22em;color:var(--text-light);text-align:center;margin-bottom:1.5rem;">PRICE</p>
-      <h2 style="font-family:var(--serif);font-weight:300;font-size:clamp(18px,2.5vw,22px);line-height:1.9;color:var(--text);text-align:center;margin-bottom:2rem;">受講料</h2>
-      <div style="max-width:560px;margin:0 auto;display:flex;flex-direction:column;gap:8px;">
+      <p style="font-size:10px;letter-spacing:0.22em;color:var(--text-light);text-align:center;margin-bottom:1.5rem;">VOICES</p>
+      <h2 style="font-family:var(--serif);font-weight:300;font-size:clamp(18px,2.5vw,22px);line-height:1.9;color:var(--text);text-align:center;margin-bottom:2.5rem;">受講生の声</h2>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:2rem;">
 
-        <div style="border:0.5px solid var(--border-mid);border-radius:12px;overflow:hidden;">
-          <div style="background:var(--green-light);padding:10px 16px;font-size:12px;font-weight:500;color:var(--green);">生活ヨガ（20時間）</div>
-          <div style="display:flex;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--border);font-size:13px;background:#fff;"><span style="color:var(--text-mid);">通常価格</span><span style="font-weight:500;">¥99,000</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 16px;font-size:13px;background:#fff;"><span style="color:var(--text-mid);">早割価格</span><span style="font-weight:500;color:#185FA5;">¥94,000</span></div>
+        <div style="background:#fff;border-radius:12px;padding:20px;border:0.5px solid var(--border-mid);">
+          <p style="font-size:11px;color:var(--green);font-weight:500;margin-bottom:8px;">佐賀市／N.Sさん</p>
+          <p style="font-size:13px;color:var(--text-mid);line-height:1.9;">"心をほぐすから、身体もほぐれる。"これから自分の目線、捉え方ひとつで、とーっても幸せになれることが学べた貴重なコース受講でした。Meg先生、本当にありがとうございました。自然の英語工房で良かったです💕</p>
         </div>
 
-        <div style="border:1.5px solid #639922;border-radius:12px;overflow:hidden;">
-          <div style="background:var(--green-light);padding:10px 16px;font-size:12px;font-weight:500;color:var(--green);">指導者養成コース（40時間）リラックス／フロー Level1&amp;2</div>
-          <div style="display:flex;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--border);font-size:13px;background:#fff;"><span style="color:var(--text-mid);">通常価格</span><span style="font-weight:500;">¥275,000</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 16px;font-size:13px;background:#fff;"><span style="color:var(--text-mid);">早割価格</span><span style="font-weight:500;color:#185FA5;">¥265,000</span></div>
+        <div style="background:#fff;border-radius:12px;padding:20px;border:0.5px solid var(--border-mid);">
+          <p style="font-size:11px;color:var(--green);font-weight:500;margin-bottom:8px;">大町町／M.M.さん　フロー１</p>
+          <p style="font-size:13px;color:var(--text-mid);line-height:1.9;">力強さや活力を感じ、しなやかさの中に折れない強さのある軸が形成されていく感覚がありました。改めてヨガの深い部分にふれ、ますますヨガが好きになりました。</p>
         </div>
 
-        <div style="border:0.5px solid var(--border-mid);border-radius:12px;overflow:hidden;">
-          <div style="background:#FAEEDA;padding:10px 16px;font-size:12px;font-weight:500;color:#854F0B;">専門特化コース 各20時間（骨盤・マタニティ・リストラティブ・ヨガニドラ）</div>
-          <div style="display:flex;justify-content:space-between;padding:10px 16px;border-bottom:0.5px solid var(--border);font-size:13px;background:#fff;"><span style="color:var(--text-mid);">通常価格</span><span style="font-weight:500;">¥106,000</span></div>
-          <div style="display:flex;justify-content:space-between;padding:10px 16px;font-size:13px;background:#fff;"><span style="color:var(--text-mid);">早割価格</span><span style="font-weight:500;color:#185FA5;">¥99,000</span></div>
+        <div style="background:#fff;border-radius:12px;padding:20px;border:0.5px solid var(--border-mid);">
+          <p style="font-size:11px;color:var(--green);font-weight:500;margin-bottom:8px;">吉野ヶ里町／E.Tさん</p>
+          <p style="font-size:13px;color:var(--text-mid);line-height:1.9;">これから苦手なこと、困難なことが起きても、"今こそヨガを活かす時、練習の場だ"と前向きに捉えられそうです。教室に来るだけでリラックスできました。ありがとうございました。</p>
         </div>
 
-        <div style="border-radius:10px;padding:14px 16px;background:#fff;border:0.5px solid var(--border-mid);font-size:13px;color:var(--text-mid);line-height:2;">
-          <div style="display:flex;justify-content:space-between;border-bottom:0.5px solid var(--border);padding-bottom:8px;margin-bottom:8px;"><span>🌿 早割（①申し込み　②全額入金　期日までに完了）</span><span style="color:var(--green);font-weight:500;">▲¥5,000</span></div>
-          <div style="display:flex;justify-content:space-between;"><span>🌿 当スクールいずれかの養成コース修了者</span><span style="color:var(--green);font-weight:500;">▲¥5,000</span></div>
-          <p style="font-size:11px;color:var(--text-light);margin-top:8px;">※各種割引の併用不可・有利な方を適用　※全価格税込・テキスト（PDF）代込み</p>
+        <div style="background:#fff;border-radius:12px;padding:20px;border:0.5px solid var(--border-mid);">
+          <p style="font-size:11px;color:var(--green);font-weight:500;margin-bottom:8px;">佐賀市／J.Yさん</p>
+          <p style="font-size:13px;color:var(--text-mid);line-height:1.9;">「頑を張らない。頑張るのは、自分でないものになろうとしている。」コースを受けて、この言葉の重みをますます感じることができました。ここで学んだ時間は、私のこれからの人生の大きな糧になりそうです。</p>
         </div>
 
+      </div>
+      <div style="text-align:center;">
+        <a href="voices.html" style="display:inline-block;border:0.5px solid var(--green);border-radius:8px;padding:10px 28px;font-size:13px;color:var(--green);text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#EAF3DE'" onmouseout="this.style.background='transparent'">受講生の声をもっと見る →</a>
       </div>
     </div>
   </section>
 
-      <div class="course-card">
-        <div class="card-left">
-          <span class="card-tag tag-entry">入口・自己練習深化</span>
-          <p class="card-name">生活ヨガ（20時間）</p>
-          <p class="card-desc">「自分を知ること」から始める。40h指導者養成への登竜門。修了証を発行。</p>
-        </div>
-        <div class="card-price">
-          <p class="price-from">早割</p>
-          <p class="price-amount">¥94,000〜</p>
-        </div>
-      </div>
-
-      <div class="course-card featured">
-        <div class="card-left">
-          <span class="card-tag tag-pro">指導者養成</span>
-          <p class="card-name">指導者養成コース（40時間）<br>リラックスヨガ Level1&amp;2 ／ フローヨガ Level1&amp;2</p>
-          <p class="card-desc">修了後すぐに教えられるレベルまで丁寧に養成。指導資格を付与。</p>
-        </div>
-        <div class="card-price">
-          <p class="price-from">早割</p>
-          <p class="price-amount">¥265,000〜</p>
-        </div>
-      </div>
-
-      <div class="course-card">
-        <div class="card-left">
-          <span class="card-tag tag-spec">専門特化（各20時間）</span>
-          <p class="card-name">骨盤ヨガ ／ マタニティ ／ リストラティブ ／ ヨガニドラ</p>
-          <p class="card-desc">自分のため、またはスキルアップに。誰でも参加OK。修了証を発行。40h修了者割引あり。</p>
-        </div>
-        <div class="card-price">
-          <p class="price-from">早割</p>
-          <p class="price-amount">¥99,000〜</p>
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- COURSE MAP -->
+    <!-- COURSE MAP -->
   <section style="background:#fff; padding:5rem 2rem;">
     <div style="max-width:720px; margin:0 auto;">
       <p style="font-size:10px;letter-spacing:0.22em;color:var(--text-light);text-align:center;margin-bottom:1.5rem;">COURSE MAP</p>
@@ -794,12 +833,34 @@
     </p>
     <a href="https://forms.gle/PeXXUzWMtPKxffpdA" target="_blank" class="cta-btn primary">お問い合わせ</a>
     <a href="#courses" class="cta-btn">コース一覧を見る</a>
-    <p class="small-note">
-      全コース税込・テキスト代込み　／　修了者には「自然のめぐみヨガ」独自の修了証を発行
-    </p>
+
   </section>
 
   <!-- FOOTER -->
   <footer>
     <p>© 自然のめぐみ・セルフケア by 自然の英語工房　All rights reserved.</p>
-  </fo
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+
+    function toggleMenu() {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+  </script>
+</html>

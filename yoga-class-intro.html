@@ -6,7 +6,7 @@
   <title>ヨガクラスについて｜自然のめぐみ・セルフケア</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&family=Zen+Antique+Soft&family=Cormorant+Garamond:ital@1&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -252,12 +252,135 @@
         padding: 1.25rem 1.25rem;
       }
     }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 32px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250,249,247,0.95);
+      backdrop-filter: blur(8px);
+      border-bottom: 0.5px solid rgba(42,40,32,0.12);
+    }
+
+    .nav-logo {
+      font-family: 'Zen Antique Soft', serif;
+      font-size: 0.95rem;
+      color: #8B5E3C;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+      line-height: 1.3;
+    }
+
+    .hamburger {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 4px;
+      z-index: 200;
+    }
+
+    .hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: #8B5E3C;
+      border-radius: 2px;
+      transition: all 0.3s;
+    }
+
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-drawer {
+      position: fixed;
+      top: 0; right: -100%;
+      width: min(320px, 85vw);
+      height: 100vh;
+      background: #faf9f7;
+      z-index: 150;
+      padding: 80px 40px 40px;
+      transition: right 0.35s ease;
+      border-left: 0.5px solid rgba(42,40,32,0.12);
+      box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+    }
+
+    .nav-drawer.open { right: 0; }
+
+    .nav-drawer ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-drawer ul li a {
+      display: block;
+      padding: 16px 0;
+      font-family: 'Zen Antique Soft', serif;
+      font-size: 1.05rem;
+      color: #2a2820;
+      text-decoration: none;
+      letter-spacing: 0.1em;
+      border-bottom: 0.5px solid rgba(42,40,32,0.12);
+      transition: color 0.2s, padding-left 0.2s;
+    }
+
+    .nav-drawer ul li a:hover { color: #4a7c5f; padding-left: 8px; }
+    .nav-drawer ul li:last-child a { border-bottom: none; }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 140;
+    }
+
+    .nav-overlay.open { display: block; }
+
+    /* ヘッダーとmainの余白調整 */
+    header { padding-top: 6rem; }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">自然のめぐみ・セルフケア<span style="font-size:0.7em;display:block;letter-spacing:0.08em;opacity:0.75;">by 自然の英語工房</span></a>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="nav-overlay" id="nav-overlay"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <ul>
+    <li><a href="index.html">TOP</a></li>
+    <li><a href="about.html">About us</a></li>
+    <li><a href="yoga.html">ヨガ</a></li>
+    <li><a href="eigo.html">英語</a></li>
+    <li><a href="TT_top.html">ヨガ講師養成</a></li>
+    <li><a href="index.html#schedule">スケジュール</a></li>
+    <li><a href="index.html#access">アクセス</a></li>
+  </ul>
+</div>
+
   <header>
-    <p class="site-name">自然のめぐみ・セルフケア</p>
+    <p class="site-name">自然のめぐみ・セルフケア by 自然の英語工房</p>
   </header>
 
   <main>
@@ -356,8 +479,31 @@
   </main>
 
   <footer>
-    <p>© 自然のめぐみ・セルフケア</p>
+    <p>© 2026 自然のめぐみ・セルフケア by 自然の英語工房　|　<a href="index.html" style="color:inherit;">トップページへ</a></p>
   </footer>
 
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('nav-drawer');
+  const overlay = document.getElementById('nav-overlay');
+
+  function toggleMenu() {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+
+  hamburger.addEventListener('click', toggleMenu);
+  overlay.addEventListener('click', toggleMenu);
+
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      overlay.classList.remove('open');
+    });
+  });
+</script>
 </body>
 </html>

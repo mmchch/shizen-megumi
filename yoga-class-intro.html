@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ヨガクラスについて｜自然のめぐみ・セルフケア</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;500&family=Noto+Sans+JP:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #faf9f7;
+      --color-surface: #f2f0ec;
+      --color-text: #2a2820;
+      --color-text-muted: #6b6860;
+      --color-text-faint: #9e9c98;
+      --color-border: rgba(42, 40, 32, 0.12);
+      --color-accent: #4a7c5f;
+      --font-serif: 'Noto Serif JP', serif;
+      --font-sans: 'Noto Sans JP', sans-serif;
+      --max-width: 680px;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-serif);
+      line-height: 2;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      padding: 3rem 2rem 2rem;
+      text-align: center;
+      border-bottom: 0.5px solid var(--color-border);
+    }
+
+    .site-name {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.15em;
+      color: var(--color-text-faint);
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 2rem 6rem;
+    }
+
+    /* ── Fade-in animation ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .section {
+      opacity: 0;
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .section:nth-child(1)  { animation-delay: 0.1s; }
+    .section:nth-child(2)  { animation-delay: 0.2s; }
+    .section:nth-child(3)  { animation-delay: 0.3s; }
+    .section:nth-child(4)  { animation-delay: 0.4s; }
+    .section:nth-child(5)  { animation-delay: 0.5s; }
+    .section:nth-child(6)  { animation-delay: 0.6s; }
+    .section:nth-child(7)  { animation-delay: 0.7s; }
+    .section:nth-child(8)  { animation-delay: 0.75s; }
+    .section:nth-child(9)  { animation-delay: 0.8s; }
+    .section:nth-child(10) { animation-delay: 0.85s; }
+
+    /* ── Label ── */
+    .label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      color: var(--color-text-faint);
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── Title ── */
+    h1 {
+      font-size: clamp(22px, 4vw, 28px);
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--color-text);
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── Lead quote ── */
+    .lead {
+      border-left: 2px solid var(--color-accent);
+      padding-left: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .lead p {
+      font-size: 15px;
+      line-height: 2;
+      color: var(--color-text-muted);
+    }
+
+    /* ── Body text ── */
+    .prose {
+      margin-bottom: 2rem;
+    }
+
+    .prose p {
+      font-size: 15px;
+      line-height: 2.1;
+      color: var(--color-text);
+      margin-bottom: 1.25rem;
+    }
+
+    .prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Questions box ── */
+    .questions-box {
+      background: var(--color-surface);
+      border-radius: 12px;
+      padding: 1.5rem 1.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .questions-box .box-label {
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      color: var(--color-text-faint);
+      margin-bottom: 1rem;
+    }
+
+    .questions-box ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .questions-box li {
+      font-size: 14px;
+      color: var(--color-text);
+      line-height: 1.8;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .questions-box li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.75em;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--color-accent);
+    }
+
+    /* ── Divider ── */
+    .divider {
+      border: none;
+      border-top: 0.5px solid var(--color-border);
+      margin: 2.5rem 0;
+    }
+
+    /* ── Pull quote ── */
+    .pull-quote {
+      background: var(--color-surface);
+      border-radius: 12px;
+      padding: 1.75rem 2rem;
+      margin: 2.5rem 0;
+    }
+
+    .pull-quote p {
+      font-size: clamp(18px, 3vw, 22px);
+      font-weight: 500;
+      line-height: 1.7;
+      color: var(--color-text);
+    }
+
+    /* ── Footer prose ── */
+    .footer-prose {
+      margin-bottom: 2rem;
+    }
+
+    .footer-prose p {
+      font-size: 14px;
+      line-height: 2.1;
+      color: var(--color-text-muted);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-prose p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* ── Signature ── */
+    .signature {
+      font-family: var(--font-sans);
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--color-text-faint);
+      letter-spacing: 0.05em;
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 0.5px solid var(--color-border);
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 0.5px solid var(--color-border);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--color-text-faint);
+      letter-spacing: 0.08em;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      main {
+        padding: 2.5rem 1.25rem 5rem;
+      }
+
+      .pull-quote {
+        padding: 1.25rem 1.5rem;
+      }
+
+      .questions-box {
+        padding: 1.25rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="site-name">自然のめぐみ・セルフケア</p>
+  </header>
+
+  <main>
+
+    <div class="section">
+      <p class="label">メグミのヨガクラスについて</p>
+      <h1>ヨガは、人生の縮図です。</h1>
+    </div>
+
+    <div class="section lead">
+      <p>
+        外からの情報を減らすほど、内的集中は深くなる。<br>
+        雑音を手放すほど、自分の本来の声が聞こえてくる。<br>
+        このクラスは、その練習の場です。
+      </p>
+    </div>
+
+    <div class="section prose">
+      <p>
+        ヨガのポーズの中で、私たちはさまざまなことを体験します。難しいポーズに入ったとき、過去の自分と比べていませんか。先のことを恐れていませんか。人の目が気になって、自意識が邪魔をしていませんか。
+      </p>
+      <p>
+        不安や囚われには、じつは二つしか種類がありません。過去への後悔と、未来への恐れ。だとすれば、「今この瞬間」には、それらは存在できない。ポーズの中で今に戻ること、それ自体が、心の雑音から自由になる練習なのです。
+      </p>
+    </div>
+
+    <div class="section questions-box">
+      <p class="box-label">クラスの中で、いつも問いかけること</p>
+      <ul>
+        <li>安定した土台に頼れているか？</li>
+        <li>身体は今、快適か？</li>
+        <li>呼吸はゆっくり落ち着いているか？</li>
+        <li>顔は緩んでいるか？今、必死になっていないか？</li>
+        <li>自分でいるか？誰か別の人になろうとしていないか？</li>
+      </ul>
+    </div>
+
+    <div class="section prose">
+      <p>これらは、ポーズの問いであると同時に、人生の問いです。</p>
+      <p>
+        ヨガは、動く瞑想、動禅です。身体を動かしながら、自分の内側に集中して、自分を知る時間。今この瞬間にしか存在できない身体へ意識を向けることで、心も自ずと、今にいることができるようになります。過去でも未来でもない、今に集中すること。それが瞑想であり、ヨガがやっていることなのです。
+      </p>
+      <p>
+        私たちの気（エネルギー）は有限です。無意識のまま過ごすと、知らないうちに自分が望まないことへ気を流し続けてしまいます。不安を繰り返し考えること、「どうせ無理」を前提にすること、それ自体が、望まない現実をつくり出している。
+      </p>
+      <p>
+        だからこそ、まず雑音を減らす。身体と呼吸に意識を戻す。そして、意図を持って、自分が本当に望む方向へ気を向ける。このクラスで練習していることは、まさにその一連の流れです。
+      </p>
+    </div>
+
+    <hr class="divider section">
+
+    <div class="section prose">
+      <p>
+        「最低限の努力で、最大のパフォーマンスを」とよく言います。これはヨガの根本原理でもあります。力みは抵抗。抵抗はエネルギーの無駄遣い。整った状態から自然に動くとき、身体は一番よく動き、心は一番よく機能します。
+      </p>
+      <p>
+        抵抗はエネルギーの流れを滞らせてしまい、心身の不調へとつながります。私たちの自然な状態は、リラックスした状態。ヨガでは、抵抗に気づいては手放し、気づいては手放しを繰り返して、本来の自然な状態へと戻っていきます。その状態こそ、自然治癒力もパフォーマンスも、最大限に発揮されるときです。力みのない、自然な自分へと戻る。それがヨガの目指すところです。
+      </p>
+      <p>
+        そして、どんな状況の中にあっても、荒波の中にあっても、「今の自分は快適か」を身体に問い、呼吸を整えて、静かに対処する。目の前の流れに逆らうのではなく、それが最終的に自分の必要な場所へ連れて行くと信じて、リラックスしてその流れに乗る。後から振り返れば、あの時の状況のおかげで出会えたこと、できたことがあったと気づく。そんな体験を、重ねてきました。
+      </p>
+    </div>
+
+    <div class="section prose">
+      <p>
+        過去に原因があるのではなく、未来に原因がある。だから、今これが起きている。そう信じると、今に意味が生まれます。過去への怒りや後悔にエネルギーを流すのではなく、今この瞬間、自分が向かいたい方向へ意識を向けられるようになります。
+      </p>
+    </div>
+
+    <div class="section pull-quote">
+      <p>自然な自分になるのに、<br>努力はいらない。</p>
+    </div>
+
+    <div class="section prose">
+      <p>
+        努力が必要なのは、自分じゃない誰かになろうとするときだけです。誰かの期待に応えようとするとき、比べられる基準に合わせようとするとき。それが、顔を固くし、呼吸を浅くし、身体を緊張させます。
+      </p>
+      <p>
+        このクラスで練習しているのは、その鎧を少しずつ脱いでいくことでもあります。ポーズの中で「今、自分でいるか」と問い続けることが、マットの外での生き方を、少しずつ変えていく。
+      </p>
+    </div>
+
+    <hr class="divider section">
+
+    <div class="section footer-prose">
+      <p>
+        私自身、内側に集中することで人生の舵を取ってきました。このクラスでお伝えしていることは、哲学でも理論でもなく、自分が実際に通ってきた道です。25年以上の実践の中で体得してきたことを、動きと呼吸の言葉に織り交ぜながら、皆さんに手渡したいと思っています。
+      </p>
+      <p>
+        ヨガは体のためだけではありません。心の雑音を静め、自分の内側と繋がり、意図を持って生きる練習です。マットの上で体験することが、そのまま人生の縮図となって、日常へと溶け込んでいく。そんなクラスをお届けしています。
+      </p>
+      <p class="signature">自然のめぐみ・セルフケア by 自然の英語工房　主宰　メグミ</p>
+    </div>
+
+  </main>
+
+  <footer>
+    <p>© 自然のめぐみ・セルフケア</p>
+  </footer>
+
+</body>
+</html>

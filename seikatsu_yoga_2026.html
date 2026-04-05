@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生活ヨガ養成コース 20時間 2026年初夏 ｜ 自然のめぐみ・セルフケア</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --green:       #3B6D11;
+      --green-light: #EAF3DE;
+      --green-mid:   #639922;
+      --green-dark:  #27500A;
+      --teal:        #0F6E56;
+      --teal-dark:   #085041;
+      --teal-light:  #E1F5EE;
+      --sand:        #F7F4EE;
+      --blue:        #185FA5;
+      --blue-light:  #E6F1FB;
+      --text:        #2C2C2A;
+      --text-mid:    #5F5E5A;
+      --text-light:  #888780;
+      --border:      rgba(44,44,42,0.12);
+      --border-mid:  rgba(44,44,42,0.22);
+      --serif:       'Noto Serif JP', serif;
+      --sans:        'Noto Sans JP', sans-serif;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); color: var(--text); background: #fff; line-height: 1.8; font-size: 15px; }
+
+    header { padding: 1.2rem 2rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: rgba(250,247,242,0.96); backdrop-filter: blur(8px); z-index: 100; }
+    .logo { font-family: 'Zen Antique Soft', serif; font-size: 14px; color: #8B5E3C; letter-spacing: 0.08em; text-decoration: none; line-height: 1.4; }
+    .logo span { font-size: 10px; color: var(--text-light); display: block; letter-spacing: 0.1em; margin-top: 1px; }
+    .hamburger { display: flex; flex-direction: column; justify-content: center; gap: 5px; width: 36px; height: 36px; cursor: pointer; background: none; border: none; padding: 4px; z-index: 200; }
+    .hamburger span { display: block; width: 100%; height: 2px; background: #8B5E3C; border-radius: 2px; transition: all 0.3s; }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .nav-drawer { position: fixed; top: 0; right: -100%; width: min(320px, 85vw); height: 100vh; background: #FAF7F2; z-index: 150; padding: 80px 40px 40px; transition: right 0.35s ease; border-left: 1px solid #E8DDD0; box-shadow: -8px 0 32px rgba(0,0,0,0.08); }
+    .nav-drawer.open { right: 0; }
+    .nav-drawer ul { list-style: none; display: flex; flex-direction: column; gap: 0; padding: 0; margin: 0; }
+    .nav-drawer ul li a { display: block; padding: 16px 0; font-family: 'Zen Antique Soft', serif; font-size: 1.05rem; color: #2C2416; text-decoration: none; letter-spacing: 0.1em; border-bottom: 1px solid #E8DDD0; transition: color 0.2s, padding-left 0.2s; }
+    .nav-drawer ul li a:hover { color: var(--green); padding-left: 8px; }
+    .nav-drawer ul li:last-child a { border-bottom: none; }
+    .nav-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.3); z-index: 140; }
+    .nav-overlay.open { display: block; }
+
+    .hero { padding: 5rem 2rem 3.5rem; text-align: center; background: #fff; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.22em; color: var(--text-light); margin-bottom: 1rem; }
+    .hero-badge { display: inline-block; font-size: 12px; padding: 4px 14px; border-radius: 20px; background: var(--green-light); color: var(--green); margin-bottom: 1.2rem; font-weight: 500; }
+    h1 { font-family: var(--serif); font-weight: 200; font-size: clamp(26px, 4vw, 38px); line-height: 1.8; color: var(--text); margin-bottom: 0.8rem; }
+    h1 em { font-style: normal; font-weight: 400; border-bottom: 1px solid var(--green-mid); padding-bottom: 1px; }
+    .hero-sub { font-size: 14px; color: var(--text-mid); line-height: 2; margin-bottom: 2.5rem; }
+
+    .banner-a { display: flex; align-items: stretch; border-radius: 12px; overflow: hidden; border: 0.5px solid #B4B2A9; text-decoration: none; transition: opacity 0.2s; max-width: 640px; margin: 0 auto 1rem; }
+    .banner-a:hover { opacity: 0.88; }
+    .banner-a-accent { width: 5px; flex-shrink: 0; }
+    .banner-a-body { flex: 1; padding: 18px 20px; background: var(--sand); }
+    .banner-a-eyebrow { font-size: 10px; letter-spacing: 0.18em; color: var(--text-light); margin: 0 0 5px; }
+    .banner-a-title { font-family: var(--serif); font-size: 19px; font-weight: 300; color: var(--text); line-height: 1.6; margin: 0 0 6px; }
+    .banner-a-title em { font-style: normal; border-bottom: 1px solid var(--green-mid); padding-bottom: 1px; }
+    .banner-a-date { font-size: 12px; font-weight: 500; margin: 0 0 3px; }
+    .banner-a-sub { font-size: 12px; color: var(--text-mid); margin: 0; }
+    .banner-a-right { width: 110px; flex-shrink: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px 12px; gap: 4px; }
+    .banner-a-hours { font-family: var(--serif); font-size: 30px; font-weight: 200; color: #EAF3DE; line-height: 1; }
+    .banner-a-unit { font-size: 11px; color: #9FE1CB; letter-spacing: 0.1em; }
+    .banner-a-price { font-size: 10px; color: #9FE1CB; margin-top: 8px; text-align: center; line-height: 1.6; }
+
+    section { padding: 4rem 2rem; }
+    .inner { max-width: 680px; margin: 0 auto; }
+    .section-label { font-size: 10px; letter-spacing: 0.22em; color: var(--text-light); text-align: center; margin-bottom: 1.2rem; }
+    h2 { font-family: var(--serif); font-weight: 300; font-size: clamp(18px, 2.5vw, 24px); line-height: 1.9; color: var(--text); text-align: center; margin-bottom: 1.8rem; }
+    .body-text { font-size: 14px; color: var(--text-mid); line-height: 2.1; margin-bottom: 1rem; }
+    .body-text strong { font-weight: 500; color: var(--text); }
+    .highlight { border-left: 2px solid var(--blue); padding: 12px 16px; margin: 1.5rem 0; background: var(--blue-light); border-radius: 0 8px 8px 0; font-size: 13px; color: var(--blue); line-height: 2; }
+
+    .check-list { list-style: none; padding: 0; margin: 1rem 0; }
+    .check-list li { display: flex; gap: 10px; align-items: flex-start; font-size: 14px; color: var(--text-mid); padding: 8px 0; border-bottom: 0.5px solid var(--border); line-height: 1.7; }
+    .check-list li:last-child { border-bottom: none; }
+    .check-list li::before { content: '✓'; color: var(--green); font-weight: 500; flex-shrink: 0; }
+
+    .format-tags { display: flex; gap: 6px; flex-wrap: wrap; margin: 0.8rem 0; }
+    .ftag { font-size: 12px; padding: 4px 14px; border-radius: 20px; border: 0.5px solid var(--border-mid); color: var(--text-mid); }
+
+    .schedule-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 1rem 0; }
+    .schedule-table th { padding: 10px 14px; text-align: left; font-weight: 500; font-size: 12px; letter-spacing: 0.05em; }
+    .schedule-table td { padding: 10px 14px; border-bottom: 0.5px solid var(--border); color: var(--text-mid); }
+    .schedule-table tr:last-child td { border-bottom: none; }
+    .schedule-table tr:nth-child(even) td { background: var(--sand); }
+    .badge-last { font-size: 10px; background: #FAEEDA; color: #854F0B; padding: 2px 8px; border-radius: 10px; margin-left: 6px; white-space: nowrap; }
+
+    .deadline-box { background: var(--sand); border-radius: 10px; padding: 14px 18px; margin: 1rem 0; }
+    .deadline-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 6px 0; border-bottom: 0.5px solid var(--border); }
+    .deadline-row:last-child { border-bottom: none; }
+    .deadline-key { color: var(--text-mid); }
+    .deadline-val { font-weight: 500; color: var(--text); }
+    .deadline-val.green { color: var(--green); }
+    .deadline-val.teal { color: var(--teal); }
+
+    .curriculum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 1rem 0; }
+    .curriculum-item { background: var(--sand); border-radius: 8px; padding: 10px 14px; font-size: 13px; color: var(--text-mid); line-height: 1.6; }
+
+    .price-block { border: 0.5px solid var(--border-mid); border-radius: 12px; overflow: hidden; margin: 1rem 0; }
+    .price-row { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 0.5px solid var(--border); font-size: 14px; }
+    .price-row:last-child { border-bottom: none; }
+    .price-row.shaded { background: var(--sand); }
+    .price-key { color: var(--text-mid); font-size: 13px; }
+    .price-val { font-weight: 500; color: var(--text); }
+    .price-val.blue { color: var(--blue); }
+    .disc-box { background: var(--sand); border-radius: 12px; padding: 4px 0; margin: 0.8rem 0; }
+    .disc-row { display: flex; justify-content: space-between; align-items: center; font-size: 13px; padding: 10px 16px; border-bottom: 0.5px solid var(--border); color: var(--text-mid); gap: 12px; }
+    .disc-row:last-child { border-bottom: none; }
+    .disc-val { font-weight: 500; color: var(--green); white-space: nowrap; }
+    .warning-box { background: #FAEEDA; border-radius: 10px; padding: 14px 16px; margin: 0.8rem 0; font-size: 13px; color: #854F0B; line-height: 2; }
+    .note-small { font-size: 12px; color: var(--text-light); margin: 6px 0; line-height: 1.8; }
+
+    .cta-section { text-align: center; background: var(--sand); }
+    .cta-btn { display: inline-block; border-radius: 8px; padding: 14px 36px; font-size: 14px; font-family: var(--sans); text-decoration: none; cursor: pointer; transition: all 0.2s; margin: 6px; }
+    .cta-btn.primary { background: var(--green); border: 1px solid var(--green); color: #fff; }
+    .cta-btn.primary:hover { background: var(--green-mid); border-color: var(--green-mid); }
+    .cta-btn.secondary { background: transparent; border: 0.5px solid var(--border-mid); color: var(--text-mid); }
+    .cta-btn.secondary:hover { background: #fff; }
+
+    .class-divider { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+    .class-divider-bar { display: inline-block; width: 4px; height: 22px; border-radius: 2px; }
+    .class-divider-label { font-size: 14px; font-weight: 500; }
+
+    footer { padding: 2rem; border-top: 0.5px solid var(--border); text-align: center; font-size: 11px; color: var(--text-light); letter-spacing: 0.08em; }
+
+    @media (max-width: 600px) {
+      header { padding: 1rem 1.2rem; }
+      .hero { padding: 3.5rem 1.2rem 2.5rem; }
+      section { padding: 3rem 1.2rem; }
+      .curriculum-grid { grid-template-columns: 1fr; }
+      .banner-a-right { width: 90px; }
+      .schedule-table { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="https://shizen-megumi.pages.dev/" class="logo">
+      自然のめぐみ・セルフケア
+      <span>by 自然の英語工房</span>
+    </a>
+    <button class="hamburger" id="hamburger" aria-label="メニュー">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <div class="nav-overlay" id="nav-overlay"></div>
+  <div class="nav-drawer" id="nav-drawer">
+    <ul>
+      <li><a href="https://shizen-megumi.pages.dev/">教室 TOP</a></li>
+      <li><a href="tt.html">養成講座 TOP</a></li>
+      <li><a href="voices.html">受講生の声</a></li>
+      <li><a href="tt.html#courses">募集中コース</a></li>
+      <li><a href="https://forms.gle/4f1bu7n1jF5iXugC8" target="_blank">お問い合わせ</a></li>
+      <li><a href="https://shizen-megumi.pages.dev/about">講師について</a></li>
+    </ul>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="eyebrow">自然のめぐみ・セルフケア ／ 養成コース 参加者募集</p>
+    <span class="hero-badge">2026年 初夏開催・受講者募集中</span>
+    <h1>生活ヨガ 養成コース<br><em>20時間</em></h1>
+    <p class="hero-sub">
+      自分を"活かして生かす"ヨガ。<br>
+      人生の最後まで、自分の足で好きなことができる体へ。
+    </p>
+
+    <a href="#fri" class="banner-a">
+      <div class="banner-a-accent" style="background:var(--green);"></div>
+      <div class="banner-a-body">
+        <p class="banner-a-eyebrow">平日クラス ／ 2026年5月スタート</p>
+        <p class="banner-a-title">毎週<em>金曜日</em>　13:15〜16:15</p>
+        <p class="banner-a-date" style="color:var(--green);">5月15日（金）スタート　全5回</p>
+        <p class="banner-a-sub">早割締切：4月24日　募集締切：5月8日</p>
+      </div>
+      <div class="banner-a-right" style="background:var(--green-dark);">
+        <span class="banner-a-hours">20</span>
+        <span class="banner-a-unit">時間</span>
+        <span class="banner-a-price">¥99,000〜<br>早割あり</span>
+      </div>
+    </a>
+
+    <a href="#sun" class="banner-a">
+      <div class="banner-a-accent" style="background:var(--teal);"></div>
+      <div class="banner-a-body">
+        <p class="banner-a-eyebrow">日曜クラス ／ 2026年6月スタート</p>
+        <p class="banner-a-title">毎週<em>日曜日</em>　13:15〜16:15</p>
+        <p class="banner-a-date" style="color:var(--teal);">6月14日（日）スタート　全5回</p>
+        <p class="banner-a-sub">早割締切：5月31日　募集締切：6月7日</p>
+      </div>
+      <div class="banner-a-right" style="background:var(--teal-dark);">
+        <span class="banner-a-hours">20</span>
+        <span class="banner-a-unit">時間</span>
+        <span class="banner-a-price">¥99,000〜<br>早割あり</span>
+      </div>
+    </a>
+  </div>
+
+  <!-- ABOUT -->
+  <section style="background:var(--sand);">
+    <div class="inner">
+      <p class="section-label">ABOUT</p>
+      <h2>「自分を知ること」から始まるヨガ</h2>
+      <p class="body-text">生活ヨガは、<strong>人生の最後まで生き生き、活き活きと、自分の足で好きなことができる体・脚周り</strong>、そして本当の意味で"自分を活かして生かす"ことを目指すヨガです。</p>
+      <p class="body-text">動く瞑想というヨガの特徴を活かし、さまざまな動きのなかで自分の身体の状態に気づき、心が楽になれる方法を自分自身で見つけていきます。どんな自分も受け入れる練習を重ね、究極的には自分の周りをもありのまま受け入れていけるようになることを目指します。</p>
+      <p class="body-text">扱うのは、必ずしもヨガのポーズだけではありません。立つ、歩く、座るといった日常の動作を見直しながら、腰や首のこり、呼吸の浅さ、気の滞りをほぐしていきます。目を閉じて内側を感じながら動くことで、<strong>自分で自分の体をメンテナンスできる力</strong>を育てます。</p>
+      <div class="highlight">
+        ヨガ未経験・体が硬い方も大歓迎。講師になる予定がない方も、自分のため・日常生活・子育て・パートナーとの関係など、生活全般に役立てていただけます。
+      </div>
+    </div>
+  </section>
+
+  <!-- FOR WHOM -->
+  <section style="background:#fff;">
+    <div class="inner">
+      <p class="section-label">FOR WHOM</p>
+      <h2>こんな方におすすめです</h2>
+      <ul class="check-list">
+        <li>ヨガを深めたいけれど、「自分に合ったヨガ」を知りたい</li>
+        <li>腰や首、呼吸のしづらさを日常から整えていきたい</li>
+        <li>将来ヨガを教えることも視野に、まず自分の練習を確立したい</li>
+        <li>心や気の流れも含めて、自分を整えていきたい</li>
+        <li>子育て・パートナーシップ・キャリアにヨガの視点を活かしたい</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SCHEDULE -->
+  <section style="background:var(--sand);" id="schedule">
+    <div class="inner">
+      <p class="section-label">SCHEDULE</p>
+      <h2>開催日程</h2>
+
+      <!-- 養成講座との連携メッセージ -->
+      <div style="background:#EAF3DE;border-left:3px solid var(--green);border-radius:0 8px 8px 0;padding:14px 18px;margin-bottom:2rem;">
+        <p style="font-size:14px;color:#3B6D11;font-weight:600;margin:0;">※生活ヨガは、自己練習を深める養成講座の入り口です。</p>
+      </div>
+
+      <!-- 日程前CTAボタン -->
+      <div style="text-align:center;margin-bottom:2.5rem;">
+        <p style="font-size:13px;color:var(--text-mid);margin-bottom:12px;">受講ご希望・ご質問はお気軽にどうぞ！</p>
+        <a href="https://forms.gle/4f1bu7n1jF5iXugC8" target="_blank" class="cta-btn primary">お問い合わせ・お申し込み</a>
+      </div>
+
+      <!-- 平日クラス -->
+      <div id="fri" style="margin-bottom:3rem;">
+        <div class="class-divider">
+          <span class="class-divider-bar" style="background:var(--green);"></span>
+          <span class="class-divider-label" style="color:var(--green);">平日クラス（金曜）</span>
+        </div>
+        <div class="format-tags">
+          <span class="ftag">毎週金曜日</span>
+          <span class="ftag">13:15〜16:15（最終回のみ17:15まで）</span>
+        </div>
+        <table class="schedule-table">
+          <thead><tr style="background:var(--green-light);"><th style="color:var(--green);">回</th><th style="color:var(--green);">日程</th><th style="color:var(--green);">時間</th><th style="color:var(--green);">時間数</th></tr></thead>
+          <tbody>
+            <tr><td>第1回</td><td>2026年5月15日（金）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第2回</td><td>2026年5月22日（金）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第3回</td><td>2026年5月29日（金）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第4回</td><td>2026年6月5日（金）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第5回</td><td>2026年6月12日（金）<span class="badge-last">最終回</span></td><td>13:15〜17:15</td><td>4時間</td></tr>
+          </tbody>
+        </table>
+        <p class="note-small">対面16時間 ＋ 課題提出4時間 ＝ 合計20時間</p>
+        <div class="deadline-box" style="margin-top:1rem;">
+          <div class="deadline-row"><span class="deadline-key">早割締切</span><span class="deadline-val green">2026年4月24日（金）</span></div>
+          <div class="deadline-row"><span class="deadline-key">募集締切</span><span class="deadline-val">2026年5月8日（金）</span></div>
+        </div>
+      </div>
+
+      <!-- 日曜クラス -->
+      <div id="sun">
+        <div class="class-divider">
+          <span class="class-divider-bar" style="background:var(--teal);"></span>
+          <span class="class-divider-label" style="color:var(--teal);">日曜クラス</span>
+        </div>
+        <div class="format-tags">
+          <span class="ftag">毎週日曜日</span>
+          <span class="ftag">13:15〜16:15（最終回のみ17:15まで）</span>
+        </div>
+        <table class="schedule-table">
+          <thead><tr style="background:var(--teal-light);"><th style="color:var(--teal);">回</th><th style="color:var(--teal);">日程</th><th style="color:var(--teal);">時間</th><th style="color:var(--teal);">時間数</th></tr></thead>
+          <tbody>
+            <tr><td>第1回</td><td>2026年6月14日（日）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第2回</td><td>2026年6月21日（日）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第3回</td><td>2026年6月28日（日）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第4回</td><td>2026年7月5日（日）</td><td>13:15〜16:15</td><td>3時間</td></tr>
+            <tr><td>第5回</td><td>2026年7月12日（日）<span class="badge-last">最終回</span></td><td>13:15〜17:15</td><td>4時間</td></tr>
+          </tbody>
+        </table>
+        <p class="note-small">対面16時間 ＋ 課題提出4時間 ＝ 合計20時間</p>
+        <div class="deadline-box" style="margin-top:1rem;">
+          <div class="deadline-row"><span class="deadline-key">早割締切</span><span class="deadline-val teal">2026年5月31日（日）</span></div>
+          <div class="deadline-row"><span class="deadline-key">募集締切</span><span class="deadline-val">2026年6月7日（日）</span></div>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;padding:14px 18px;background:#fff;border-radius:10px;border:0.5px solid var(--border-mid);font-size:13px;color:var(--text-mid);line-height:1.9;">
+        実施場所：<strong style="color:var(--text);">自然の英語工房ヨガスタジオ</strong><br>
+        オンライン受講も可。テキストはPDFをメールにてお送りします。
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section style="background:#fff;">
+    <div class="inner">
+      <p class="section-label">CURRICULUM</p>
+      <h2>カリキュラム</h2>
+      <p class="body-text" style="text-align:center;margin-bottom:1.5rem;">座学と実技のクラスです。</p>
+      <div class="curriculum-grid">
+        <div class="curriculum-item">頼れる強い足腰のための解剖学</div>
+        <div class="curriculum-item">自分の体とつながるために（実技）</div>
+        <div class="curriculum-item">身体のメンテナンス・ヨガ技術（実技）</div>
+        <div class="curriculum-item">心のメンテナンス・ヨガ技術（実技）</div>
+        <div class="curriculum-item">意識ある選択</div>
+        <div class="curriculum-item">身体への意識を高めること（実技）</div>
+        <div class="curriculum-item">「最後まで生き活きと生きる」とは</div>
+        <div class="curriculum-item">心を穏やかに過ごすためには</div>
+        <div class="curriculum-item">明るい未来を受け取るための選択</div>
+        <div class="curriculum-item">頼ること（実技）</div>
+        <div class="curriculum-item">自分を信じる（実技）</div>
+        <div class="curriculum-item">受け入れること</div>
+        <div class="curriculum-item">自分のモノサシで生きる</div>
+      </div>
+      <p class="note-small" style="margin-top:0.8rem;">※ 4時間の課題提出が必須です</p>
+    </div>
+  </section>
+
+  <!-- PRICE -->
+  <section style="background:var(--sand);" id="price">
+    <div class="inner">
+      <p class="section-label">PRICE</p>
+      <h2>受講料</h2>
+      <div class="price-block">
+        <div class="price-row shaded"><span class="price-key">通常価格</span><span class="price-val">¥99,000（税・テキスト代込み）</span></div>
+        <div class="price-row"><span class="price-key">早割価格</span><span class="price-val blue">¥94,000（税・テキスト代込み）</span></div>
+      </div>
+      <p class="section-label" style="margin-top:1.5rem;">各種割引</p>
+      <div class="disc-box">
+        <div class="disc-row"><span>🌿 早割（①申し込み　②全額入金　締切日までに完了）</span><span class="disc-val">▲¥5,000</span></div>
+        <div class="disc-row"><span>🌿 当スクールいずれかの養成コース修了者</span><span class="disc-val">▲¥5,000</span></div>
+      </div>
+      <p class="note-small">※ 各種割引の併用はできません。有利な方を適用します。</p>
+      <div class="warning-box" style="margin-top:1rem;">
+        ⚠️ 早割について<br>
+        締切日までに、①申し込み完了　②全額入金完了　の両方を満たした方に適用。<br>
+        入金確認をもって早割適用となります。
+      </div>
+      <p class="note-small" style="margin-top:1rem;">全価格税込・テキスト（PDF）代込み　／　修了者には「自然のめぐみヨガ」独自の修了証を発行</p>
+      <p class="note-small">※実際の開催時に価格は変更になることもあります。</p>
+    </div>
+  </section>
+
+  <!-- NEXT STEP -->
+  <section style="background:#fff;">
+    <div class="inner">
+      <div style="border:0.5px solid var(--border-mid);border-radius:12px;padding:20px 22px;">
+        <p style="font-size:10px;letter-spacing:0.15em;color:var(--text-light);margin-bottom:6px;">このコースの先へ</p>
+        <p style="font-size:15px;font-weight:500;color:var(--text);margin-bottom:8px;">指導者養成コース（40時間）へのステップアップ</p>
+        <p style="font-size:13px;color:var(--text-mid);line-height:1.9;">生活ヨガで自己練習を深めたあと、本格的にヨガを教えたい方は40時間の指導者養成コースへ進むことができます。修了後すぐに指導できるレベルまで丁寧に養成。「自然のめぐみヨガ」独自の指導資格を付与します。</p>
+        <div style="margin-top:12px;"><a href="tt.html" style="font-size:13px;color:var(--blue);text-decoration:none;">養成講座の詳細を見る →</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="inner">
+      <p class="section-label">GET STARTED</p>
+      <h2>ご一緒しましょう！</h2>
+      <p style="font-size:14px;color:var(--text-mid);line-height:2;margin-bottom:2rem;">
+        ご質問・お申し込みはお気軽にどうぞ。<br>
+        希望クラス（平日／日曜）と受講形式（対面／オンライン）をお知らせください。
+      </p>
+      <a href="https://forms.gle/4f1bu7n1jF5iXugC8" target="_blank" class="cta-btn primary">お問い合わせ・お申し込み</a>
+      <a href="tt.html" class="cta-btn secondary">養成講座TOPに戻る</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 自然のめぐみ・セルフケア by 自然の英語工房　All rights reserved.</p>
+  </footer>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const drawer = document.getElementById('nav-drawer');
+    const overlay = document.getElementById('nav-overlay');
+    function toggleMenu() {
+      hamburger.classList.toggle('open');
+      drawer.classList.toggle('open');
+      overlay.classList.toggle('open');
+    }
+    hamburger.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', toggleMenu);
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        drawer.classList.remove('open');
+        overlay.classList.remove('open');
+      });
+    });
+  </script>
+</body>
+</html>

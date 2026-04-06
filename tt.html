@@ -66,7 +66,6 @@
       margin-top: 1px;
     }
 
-    /* ハンバーガーボタン */
     .hamburger {
       display: flex;
       flex-direction: column;
@@ -94,7 +93,6 @@
     .hamburger.open span:nth-child(2) { opacity: 0; }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* ドロワー */
     .nav-drawer {
       position: fixed;
       top: 0; right: -100%;
@@ -349,6 +347,13 @@
       border: 1.5px solid var(--green-mid);
     }
 
+    /* リンク付きカード */
+    a.course-card {
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+    }
+
     .card-left { flex: 1; }
 
     .card-tag {
@@ -363,6 +368,20 @@
     .tag-entry { background: var(--green-light); color: var(--green); }
     .tag-pro   { background: #E6F1FB; color: #185FA5; }
     .tag-spec  { background: #FAEEDA; color: #854F0B; }
+
+    /* 開催決定バッジ */
+    .tag-open {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      background: #3B6D11;
+      color: #fff;
+      font-weight: 500;
+      display: inline-block;
+      margin-left: 6px;
+      letter-spacing: 0.03em;
+      vertical-align: middle;
+    }
 
     .card-name {
       font-size: 14px;
@@ -390,6 +409,32 @@
       font-size: 16px;
       font-weight: 500;
       color: #185FA5;
+    }
+
+    /* 予約受付中テキスト */
+    .card-open-label {
+      font-size: 11px;
+      color: var(--green);
+      font-weight: 500;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .card-open-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: blink 1.4s ease-in-out infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     /* ── RIPPLE ── */
@@ -545,10 +590,9 @@
     <div class="hero-divider"></div>
   </div>
 
-
-<!-- BANNER -->
+  <!-- BANNER：生活ヨガ開催決定バナー（リンク付き） -->
   <div style="max-width:720px;margin:0 auto;padding:0 2rem 2rem;">
-    <div style="border-radius:12px;border:1.5px solid #3B6D11;background:#EAF3DE;padding:20px 28px;position:relative;overflow:hidden;">
+    <a href="seikatsu_yoga_2026.html" style="display:block;border-radius:12px;border:1.5px solid #3B6D11;background:#EAF3DE;padding:20px 28px;position:relative;overflow:hidden;text-decoration:none;transition:opacity 0.2s;" onmouseover="this.style.opacity='0.88'" onmouseout="this.style.opacity='1'">
       <div style="position:absolute;top:0;left:0;width:5px;height:100%;background:#3B6D11;border-radius:12px 0 0 12px;"></div>
       <div style="padding-left:10px;">
         <p style="font-size:10px;letter-spacing:0.25em;color:#3B6D11;margin:0 0 6px;font-family:'Noto Sans JP',sans-serif;">SCHEDULE CONFIRMED</p>
@@ -557,10 +601,11 @@
           <span style="font-size:13px;padding:4px 14px;border-radius:20px;background:#fff;border:1px solid #3B6D11;color:#27500A;">🌿 平日の部</span>
           <span style="font-size:13px;padding:4px 14px;border-radius:20px;background:#fff;border:1px solid #3B6D11;color:#27500A;">🌿 日曜の部</span>
         </div>
-        <p style="font-size:12px;color:#5F5E5A;margin:0;">※生活ヨガは、自己練習を深める養成講座の入り口です。</p>
+        <p style="font-size:12px;color:#5F5E5A;margin:0;">※生活ヨガは、自己練習を深める養成講座の入り口です。　詳細・お申し込みはこちら →</p>
       </div>
-    </div>
+    </a>
   </div>
+
 
   <!-- PHILOSOPHY -->
   <section class="philosophy" id="philosophy">
@@ -594,10 +639,7 @@
   <!-- WHAT -->
   <section class="what">
     <p class="section-label">WHAT WE TEACH</p>
-    <h2 class="section-title">
-      「インストラクター」ではなく、<br>
-      「ヨガ講師」を育てています。
-    </h2>
+    <h2 class="section-title">「インストラクター」ではなく、<br>「ヨガ講師」を育てています。</h2>
     <p class="what-body">
       なぜその動きをするのか。なぜヨガが心にも体にも効くのか。その本質を理解し、心から伝えられる人を育てることが、このコースの目的です。<br><br>
       ヨガを教える予定がない方も大歓迎。<br><br>
@@ -616,17 +658,22 @@
     <p style="font-size:11px;color:var(--text-light);margin-bottom:1.2rem;padding-left:4px;">※各種割引の併用はできません。有利な方を適用します。</p>
     <div class="courses-grid">
 
-      <div class="course-card">
+      <!-- 生活ヨガカード：リンク付き・開催決定バッジあり -->
+      <a href="seikatsu_yoga_2026.html" class="course-card" style="text-decoration:none;color:inherit;">
         <div class="card-left">
-          <span class="card-tag tag-entry">入口・自己練習深化</span>
+          <div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:6px;">
+            <span class="card-tag tag-entry">入口・自己練習深化</span>
+            <span class="tag-open">🌿 5・6月開催決定</span>
+          </div>
           <p class="card-name">生活ヨガ（20時間）</p>
           <p class="card-desc">「自分を知ること」から始める。40h指導者養成への登竜門。修了証を発行。</p>
+          <p class="card-open-label">予約受付中　詳細を見る →</p>
         </div>
         <div class="card-price">
           <p class="price-from">早割</p>
           <p class="price-amount">¥94,000〜</p>
         </div>
-      </div>
+      </a>
 
       <div class="course-card featured">
         <div class="card-left">
@@ -691,7 +738,7 @@
     </div>
   </section>
 
-    <!-- COURSE MAP -->
+  <!-- COURSE MAP -->
   <section style="background:#fff; padding:5rem 2rem;">
     <div style="max-width:720px; margin:0 auto;">
       <p style="font-size:10px;letter-spacing:0.22em;color:var(--text-light);text-align:center;margin-bottom:1.5rem;">COURSE MAP</p>
@@ -708,7 +755,6 @@
           .dh { font-family:'Noto Sans JP',sans-serif; font-size:13px; font-weight:500; }
         </style>
 
-        <!-- 生活ヨガ -->
         <rect x="40" y="30" width="210" height="70" rx="8" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
         <text class="dt" x="145" y="51" text-anchor="middle" dominant-baseline="central" fill="#27500A">生活ヨガ</text>
         <text class="ds" x="145" y="67" text-anchor="middle" dominant-baseline="central" fill="#3B6D11">20時間・修了証を発行</text>
@@ -724,13 +770,11 @@
         <line x1="85" y1="146" x2="65" y2="174" stroke="#185FA5" stroke-width="1.2" marker-end="url(#arrow2)"/>
         <line x1="205" y1="146" x2="225" y2="174" stroke="#185FA5" stroke-width="1.2" marker-end="url(#arrow2)"/>
 
-        <!-- リラックス -->
         <rect x="20" y="174" width="140" height="68" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
         <text class="dh" x="90" y="193" text-anchor="middle" dominant-baseline="central" fill="#0C447C">リラックスヨガ</text>
         <text class="ds" x="90" y="209" text-anchor="middle" dominant-baseline="central" fill="#185FA5">Level 1 &amp; 2</text>
         <text class="ds" x="90" y="225" text-anchor="middle" dominant-baseline="central" fill="#185FA5">各40時間</text>
 
-        <!-- フロー -->
         <rect x="170" y="174" width="140" height="68" rx="8" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
         <text class="dh" x="240" y="193" text-anchor="middle" dominant-baseline="central" fill="#0C447C">フローヨガ</text>
         <text class="ds" x="240" y="209" text-anchor="middle" dominant-baseline="central" fill="#185FA5">Level 1 &amp; 2</text>
@@ -743,10 +787,8 @@
         <rect x="50" y="272" width="210" height="28" rx="6" fill="#E1F5EE" stroke="#1D9E75" stroke-width="0.5"/>
         <text class="ds" x="155" y="286" text-anchor="middle" dominant-baseline="central" fill="#085041">指導資格を付与</text>
 
-        <!-- 縦区切り -->
         <line x1="340" y1="20" x2="340" y2="320" stroke-width="0.5" stroke-dasharray="4 4" stroke="#D3D1C7"/>
 
-        <!-- 専門特化ヘッダー -->
         <rect x="360" y="20" width="290" height="30" rx="6" fill="none" stroke="#BA7517" stroke-width="0.5" opacity="0.5"/>
         <text class="ds" x="505" y="35" text-anchor="middle" dominant-baseline="central" fill="#854F0B">専門特化コース（各20時間）― 誰でも参加OK</text>
 
@@ -769,12 +811,10 @@
         <rect x="365" y="286" width="260" height="28" rx="6" fill="none" stroke="#BA7517" stroke-width="0.5" opacity="0.4"/>
         <text class="ds" x="495" y="300" text-anchor="middle" dominant-baseline="central" fill="#854F0B">当スクール修了者は ▲¥5,000割引</text>
 
-        <!-- 横区切り -->
         <line x1="40" y1="334" x2="640" y2="334" stroke-width="0.5" stroke-dasharray="4 4" stroke="#D3D1C7"/>
 
         <text class="ds" x="340" y="356" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">どのコースからでも始められます</text>
 
-        <!-- 対象者 -->
         <rect x="40" y="372" width="175" height="56" rx="8" fill="#F1EFE8" stroke="#B4B2A9" stroke-width="0.5"/>
         <text class="dh" x="127" y="393" text-anchor="middle" dominant-baseline="central" fill="#444441">ヨガ初めての方</text>
         <text class="ds" x="127" y="411" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">経験・体の硬さ問わず</text>
@@ -787,11 +827,9 @@
         <text class="dh" x="551" y="393" text-anchor="middle" dominant-baseline="central" fill="#444441">指導者を目指す方</text>
         <text class="ds" x="551" y="411" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">資格取得・即戦力養成</text>
 
-        <!-- 開催形式 -->
         <rect x="40" y="450" width="600" height="28" rx="6" fill="none" stroke="#B4B2A9" stroke-width="0.5"/>
         <text class="ds" x="340" y="464" text-anchor="middle" dominant-baseline="central" fill="#5F5E5A">対面（佐賀）またはオンライン　／　少人数制（2〜6名）　／　日時リクエスト可</text>
 
-        <!-- 凡例 -->
         <rect x="40" y="506" width="12" height="12" rx="2" fill="#EAF3DE" stroke="#639922" stroke-width="0.5"/>
         <text class="ds" x="58" y="512" dominant-baseline="central" fill="#5F5E5A">入口・自己練習</text>
         <rect x="190" y="506" width="12" height="12" rx="2" fill="#E6F1FB" stroke="#185FA5" stroke-width="0.5"/>
@@ -835,7 +873,6 @@
     </p>
     <a href="https://forms.gle/PeXXUzWMtPKxffpdA" target="_blank" class="cta-btn primary">お問い合わせ</a>
     <a href="#courses" class="cta-btn">コース一覧を見る</a>
-
   </section>
 
   <!-- FOOTER -->
@@ -865,4 +902,5 @@
       });
     });
   </script>
+</body>
 </html>

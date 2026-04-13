@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>セルフケアのいろいろ｜自然のめぐみ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FDF9F4;
+    --wood: #8B5E3C;
+    --wood-light: #C4956A;
+    --green: #5A7A5E;
+    --green-light: #8FAF83;
+    --green-muted: #D4E6D0;
+    --text: #2C2416;
+    --text-light: #6B5A42;
+    --gold: #C9A84C;
+    --border: #E8DDD0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,247,242,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: 1.05rem;
+    color: var(--wood);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    line-height: 1.3;
+  }
+  .hamburger {
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 5px; width: 36px; height: 36px; cursor: pointer;
+    background: none; border: none; padding: 4px; z-index: 200;
+  }
+  .hamburger span {
+    display: block; width: 100%; height: 2px;
+    background: var(--wood); border-radius: 2px; transition: all 0.3s;
+  }
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav-drawer {
+    position: fixed; top: 0; right: -100%;
+    width: min(320px, 85vw); height: 100vh;
+    background: var(--cream); z-index: 150;
+    padding: 80px 40px 40px; transition: right 0.35s ease;
+    border-left: 1px solid var(--border);
+    box-shadow: -8px 0 32px rgba(0,0,0,0.08);
+  }
+  .nav-drawer.open { right: 0; }
+  .nav-drawer ul { list-style: none; display: flex; flex-direction: column; }
+  .nav-drawer ul li a {
+    display: block; padding: 16px 0;
+    font-family: 'Zen Antique Soft', serif; font-size: 1.05rem;
+    color: var(--text); text-decoration: none; letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border); transition: color 0.2s, padding-left 0.2s;
+  }
+  .nav-drawer ul li a:hover { color: var(--green); padding-left: 8px; }
+  .nav-drawer ul li:last-child a { border-bottom: none; }
+  .nav-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.3); z-index: 140;
+  }
+  .nav-overlay.open { display: block; }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 120px 8vw 56px;
+    border-bottom: 1px solid var(--border);
+  }
+  .page-hero .label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.82rem;
+    color: var(--green); letter-spacing: 0.25em;
+    text-transform: uppercase; display: block; margin-bottom: 14px;
+  }
+  .page-hero h1 {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    color: var(--text); line-height: 1.45; margin-bottom: 6px;
+  }
+  .page-hero .sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 1rem;
+    color: var(--wood-light); letter-spacing: 0.1em;
+    display: block; margin-bottom: 20px;
+  }
+  .page-hero p {
+    font-size: 0.88rem; color: var(--text-light);
+    max-width: 480px; line-height: 2.1;
+  }
+
+  /* ── TOC（目次） ── */
+  .toc {
+    padding: 28px 8vw;
+    background: var(--warm-white);
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  }
+  .toc span {
+    font-size: 0.72rem; color: var(--text-light);
+    letter-spacing: 0.08em; margin-right: 4px;
+  }
+  .toc a {
+    font-size: 0.78rem; color: var(--green);
+    text-decoration: none; padding: 4px 14px;
+    border: 1px solid var(--green-muted);
+    border-radius: 20px; background: white;
+    transition: all 0.2s;
+  }
+  .toc a:hover { background: var(--green-muted); }
+
+  /* ── SECTION ── */
+  section { padding: 64px 8vw; }
+  section:nth-child(odd) { background: var(--warm-white); }
+
+  .s-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.75rem;
+    color: var(--green); letter-spacing: 0.2em;
+    text-transform: uppercase; display: block; margin-bottom: 6px;
+  }
+  .s-title {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--text); margin-bottom: 4px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .s-desc {
+    font-size: 0.82rem; color: var(--text-light);
+    margin-bottom: 28px; line-height: 2;
+    max-width: 500px;
+  }
+  .divider {
+    width: 36px; height: 1px;
+    background: var(--wood-light); margin: 10px 0 24px;
+  }
+
+  /* ── レシピリスト ── */
+  .recipe-list { display: flex; flex-direction: column; gap: 2px; max-width: 600px; }
+  .recipe-row {
+    display: flex; align-items: center; gap: 16px;
+    background: white; border: 1px solid var(--border);
+    padding: 13px 18px; text-decoration: none; color: inherit; transition: all 0.22s;
+  }
+  .recipe-row:hover { background: var(--green-muted); border-color: var(--green); }
+  .recipe-row .emoji { font-size: 1.5rem; flex-shrink: 0; }
+  .recipe-row .info { flex: 1; min-width: 0; }
+  .recipe-row .no {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    font-size: 0.68rem; color: var(--green); letter-spacing: 0.1em;
+  }
+  .recipe-row .title {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: 0.9rem; color: var(--text); margin: 1px 0;
+  }
+  .recipe-row .desc { font-size: 0.73rem; color: var(--text-light); }
+  .recipe-row .arrow { font-size: 0.73rem; color: var(--green); flex-shrink: 0; white-space: nowrap; }
+  .coming-row {
+    display: flex; align-items: center; gap: 16px;
+    background: white; border: 1px dashed var(--border);
+    padding: 13px 18px; opacity: 0.5;
+  }
+
+  /* ── noteカードグリッド ── */
+  .note-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px; max-width: 860px;
+  }
+  .note-card {
+    background: white; border: 1px solid var(--border); border-radius: 4px;
+    overflow: hidden; text-decoration: none; color: inherit;
+    display: flex; flex-direction: column; transition: all 0.22s;
+  }
+  .note-card:hover { box-shadow: 0 6px 20px rgba(90,122,94,0.12); transform: translateY(-3px); }
+  .note-card-thumb {
+    width: 100%; aspect-ratio: 16/9;
+    object-fit: cover; display: block;
+    background: var(--green-muted);
+  }
+  .note-card-thumb-placeholder {
+    width: 100%; aspect-ratio: 16/9;
+    background: linear-gradient(135deg, var(--green-muted), #eaf3de);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.8rem; color: var(--green-light);
+  }
+  .note-card-body { padding: 14px 16px 18px; flex: 1; display: flex; flex-direction: column; }
+  .note-card-date { font-size: 0.68rem; color: var(--text-light); margin-bottom: 5px; }
+  .note-card-title {
+    font-size: 0.85rem; color: var(--text); line-height: 1.7; flex: 1;
+    display: -webkit-box; -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .note-card-arrow { display: block; margin-top: 10px; font-size: 0.7rem; color: var(--green); }
+
+  .loading {
+    font-size: 0.82rem; color: var(--text-light); padding: 12px 0;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  .mag-link {
+    display: inline-block; margin-top: 18px;
+    font-size: 0.75rem; color: var(--green);
+    text-decoration: none; border-bottom: 1px solid var(--green);
+    padding-bottom: 2px; transition: opacity 0.2s;
+  }
+  .mag-link:hover { opacity: 0.7; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text); color: rgba(255,255,255,0.6);
+    padding: 40px 8vw; display: flex;
+    justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 20px;
+  }
+  .footer-logo { font-family: 'Zen Antique Soft', serif; font-size: 1rem; color: white; }
+  footer p { font-size: 0.75rem; }
+
+  @media(max-width: 600px) {
+    .note-grid { grid-template-columns: 1fr; }
+    .recipe-row .desc { display: none; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">自然のめぐみ・セルフケア<span style="font-size:0.7em;display:block;opacity:0.7;letter-spacing:0.08em;">by 自然の英語工房</span></a>
+  <button class="hamburger" id="hamburger" aria-label="メニュー">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="nav-overlay" id="nav-overlay"></div>
+<div class="nav-drawer" id="nav-drawer">
+  <ul>
+    <li><a href="index.html">TOP</a></li>
+    <li><a href="about.html">About us</a></li>
+    <li><a href="yoga.html">ヨガ</a></li>
+    <li><a href="eigo.html">英語</a></li>
+    <li><a href="index.html#schedule">スケジュール</a></li>
+    <li><a href="tt.html">ヨガ講師養成</a></li>
+    <li><a href="index.html#access">アクセス</a></li>
+  </ul>
+</div>
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const drawer = document.getElementById('nav-drawer');
+  const overlay = document.getElementById('nav-overlay');
+  function toggle() {
+    hamburger.classList.toggle('open');
+    drawer.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+  hamburger.addEventListener('click', toggle);
+  overlay.addEventListener('click', toggle);
+  drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    drawer.classList.remove('open');
+    overlay.classList.remove('open');
+  }));
+</script>
+
+<!-- HERO -->
+<div class="page-hero">
+  <span class="label">Selfcare · いろいろ</span>
+  <h1>自然のめぐみ<br>セルフケアのいろいろ</h1>
+  <span class="sub">— food · mind · body —</span>
+  <p>体のこと、食のこと、心のこと。<br>ラクに、無理なく、自分を整えるヒントを集めました。</p>
+</div>
+
+<!-- 目次 -->
+<div class="toc">
+  <span>Jump to →</span>
+  <a href="#recipe">🍽 レシピ</a>
+  <a href="#mag1">🌿 40代からのセルフケア</a>
+  <a href="#mag2">☁️ ちょうどよく、ラクに。</a>
+  <a href="#mag3">🧘 心をほぐす・心のヨガ</a>
+</div>
+
+<!-- ── レシピ ── -->
+<section id="recipe">
+  <span class="s-label">Food & Body</span>
+  <h2 class="s-title">🍽 セルフケアレシピ</h2>
+  <div class="divider"></div>
+  <p class="s-desc">体に正直な食を、日々のセルフケアとして。</p>
+  <div class="recipe-list">
+    <a href="banana_cake.html" class="recipe-row">
+      <span class="emoji">🍌</span>
+      <div class="info">
+        <div class="no">No.01</div>
+        <div class="title">パワー・バナナケーキ</div>
+        <div class="desc">打ち身バナナ×オートミール。低GIで腹持ちよし。登山おやつにも。</div>
+      </div>
+      <span class="arrow">詳しく →</span>
+    </a>
+    <div class="coming-row">
+      <span class="emoji">🌿</span>
+      <div class="info"><div class="title" style="font-size:0.8rem;color:var(--text-light);">Coming Soon…</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 40代からのセルフケア ── -->
+<section id="mag1">
+  <span class="s-label">Health & Lifestyle</span>
+  <h2 class="s-title">🌿 40代からのセルフケア</h2>
+  <div class="divider"></div>
+  <p class="s-desc">体・心・食・暮らし——40代からを豊かに生きるためのヒント。</p>
+  <div class="note-grid" id="grid-mag1">
+    <p class="loading">読み込み中…</p>
+  </div>
+  <a href="https://note.com/eigokobo/m/m6bd6f19c0b2f" target="_blank" class="mag-link">すべて読む（note）→</a>
+</section>
+
+<!-- ── ちょうどよく、ラクに。 ── -->
+<section id="mag2">
+  <span class="s-label">Mind & Body</span>
+  <h2 class="s-title">☁️ ちょうどよく、ラクに。<span style="font-size:0.72rem;color:var(--text-light);font-family:'Noto Serif JP',serif;">｜心と体のメンテナンス</span></h2>
+  <div class="divider"></div>
+  <p class="s-desc">「ちゃんとしなきゃ」より、「ちょうどよくラクに」。そんな気持ちで、日常にやさしさをひとさじ。</p>
+  <div class="note-grid" id="grid-mag2">
+    <p class="loading">読み込み中…</p>
+  </div>
+  <a href="https://note.com/eigokobo/m/m5d023ec6b780" target="_blank" class="mag-link">すべて読む（note）→</a>
+</section>
+
+<!-- ── 心をほぐす・心のヨガ ── -->
+<section id="mag3">
+  <span class="s-label">Inner Yoga</span>
+  <h2 class="s-title">🧘 心をほぐす・心のヨガ</h2>
+  <div class="divider"></div>
+  <p class="s-desc">読むヨガ。内側からほぐれる視点やことばを、ゆっくりどうぞ。</p>
+  <div class="note-grid" id="grid-mag3">
+    <p class="loading">読み込み中…</p>
+  </div>
+  <a href="https://note.com/eigokobo/m/mff13ffbc4f69" target="_blank" class="mag-link">すべて読む（note）→</a>
+</section>
+
+<script>
+// RSS → カード表示（rss2json経由）
+function loadMag(rssUrl, gridId, icon) {
+  const url = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl);
+  const grid = document.getElementById(gridId);
+  fetch(url)
+    .then(r => r.json())
+    .then(data => {
+      if (!data.items || data.items.length === 0) {
+        grid.innerHTML = '<p style="font-size:0.82rem;color:var(--text-light);">記事がありません。</p>';
+        return;
+      }
+      grid.innerHTML = data.items.slice(0, 6).map(item => {
+        const date = new Date(item.pubDate).toLocaleDateString('ja-JP', { year:'numeric', month:'long', day:'numeric' });
+        const thumbHTML = item.thumbnail
+          ? `<img class="note-card-thumb" src="${item.thumbnail}" alt="" loading="lazy">`
+          : `<div class="note-card-thumb-placeholder">${icon}</div>`;
+        return `
+          <a href="${item.link}" target="_blank" class="note-card">
+            ${thumbHTML}
+            <div class="note-card-body">
+              <span class="note-card-date">${date}</span>
+              <div class="note-card-title">${item.title}</div>
+              <span class="note-card-arrow">読む →</span>
+            </div>
+          </a>`;
+      }).join('');
+    })
+    .catch(() => {
+      grid.innerHTML = '<p style="font-size:0.82rem;color:var(--text-light);">取得できませんでした。</p>';
+    });
+}
+
+loadMag('https://note.com/eigokobo/m/m6bd6f19c0b2f/rss',     'grid-mag1', '🌿');
+loadMag('https://note.com/eigokobo/m/m5d023ec6b780/rss',     'grid-mag2', '☁️');
+loadMag('https://note.com/eigokobo/m/mff13ffbc4f69/rss',     'grid-mag3', '🧘');
+</script>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-logo">自然のめぐみ・セルフケア<span style="font-size:0.75em;display:block;opacity:0.7;">by 自然の英語工房</span></div>
+    <p style="margin-top:6px;">佐賀市金立町｜ヨガ＆英会話教室</p>
+  </div>
+  <a href="index.html" style="color:rgba(255,255,255,0.6);text-decoration:none;font-size:0.78rem;">← TOPへ戻る</a>
+</footer>
+
+</body>
+</html>

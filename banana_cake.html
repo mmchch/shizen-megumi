@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>パワー・バナナケーキ｜セルフケアレシピ｜自然のめぐみ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --warm-white: #FDF9F4;
+    --wood: #8B5E3C;
+    --wood-light: #C4956A;
+    --green: #5A7A5E;
+    --green-light: #8FAF83;
+    --green-muted: #D4E6D0;
+    --text: #2C2416;
+    --text-light: #6B5A42;
+    --gold: #C9A84C;
+    --border: #E8DDD0;
+    --amber: #c8831a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Noto Serif JP', serif;
+    font-weight: 300;
+    line-height: 1.9;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 16px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(250,247,242,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: 1.05rem;
+    color: var(--wood);
+    letter-spacing: 0.08em;
+    text-decoration: none;
+    line-height: 1.3;
+  }
+
+  .nav-back {
+    font-size: 0.82rem;
+    color: var(--green);
+    text-decoration: none;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── ARTICLE ── */
+  .article-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 100px 24px 80px;
+  }
+
+  /* パンくず */
+  .breadcrumb {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 32px;
+  }
+  .breadcrumb a { color: var(--green); text-decoration: none; }
+
+  /* ヒーロー */
+  .recipe-hero {
+    text-align: center;
+    padding: 40px 0 32px;
+    border-bottom: 2px solid var(--gold);
+    margin-bottom: 40px;
+  }
+
+  .recipe-emoji {
+    font-size: 56px;
+    display: block;
+    margin-bottom: 16px;
+    animation: sway 3s ease-in-out infinite;
+  }
+  @keyframes sway { 0%,100%{transform:rotate(-3deg)} 50%{transform:rotate(3deg)} }
+
+  .recipe-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: var(--green);
+    letter-spacing: 0.2em;
+    display: block;
+    margin-bottom: 12px;
+  }
+
+  .recipe-title {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: clamp(1.4rem, 4vw, 2rem);
+    color: var(--text);
+    line-height: 1.5;
+    margin-bottom: 8px;
+  }
+
+  .recipe-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .recipe-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .tag {
+    font-size: 0.72rem;
+    padding: 3px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.06em;
+  }
+  .tag-green { background: #E8F0E8; color: var(--green); }
+  .tag-wood  { background: #F0E8DC; color: var(--wood); }
+
+  /* リード */
+  .lead {
+    background: linear-gradient(135deg, #fff8ee, #fff3e0);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 12px 12px 0;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-size: 0.9rem;
+    color: var(--wood);
+    line-height: 2;
+  }
+
+  /* セクションタイトル */
+  .s-title {
+    font-family: 'Zen Antique Soft', serif;
+    font-size: 1.05rem;
+    color: var(--wood);
+    padding: 10px 0 8px;
+    border-bottom: 1px solid var(--border);
+    margin: 36px 0 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* 材料ボックス */
+  .ingredients {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 32px;
+  }
+
+  .ing-item {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #e0cba8;
+    font-size: 0.85rem;
+  }
+  .ing-item:last-child { border-bottom: none; }
+  .ing-name { color: var(--text); min-width: 160px; }
+  .ing-amount { color: var(--text-light); }
+  .ing-note { font-size: 0.75rem; color: var(--amber); margin-left: auto; }
+
+  /* 手順 */
+  .step {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .step-num {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    background: var(--green);
+    color: white;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .step-content h4 {
+    font-weight: 400;
+    color: var(--wood);
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+  }
+
+  .step-content p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    line-height: 1.9;
+  }
+
+  .point-box {
+    background: linear-gradient(135deg, #fff9e6, #fff3cc);
+    border: 1px solid var(--gold);
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    color: var(--wood);
+  }
+
+  .point-box::before {
+    content: "💡 ここがポイント！";
+    font-weight: 600;
+    color: var(--amber);
+    display: block;
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+  }
+
+  /* 栄養コラム */
+  .nutrition-card {
+    background: var(--warm-white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .nutrition-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--green);
+  }
+
+  .nutrition-card h3 {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.95rem;
+    color: var(--wood);
+    margin-bottom: 10px;
+    padding-left: 8px;
+  }
+
+  .nutrition-card p {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.9;
+    padding-left: 8px;
+  }
+
+  /* 栄養テーブル */
+  .n-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.82rem;
+    margin: 20px 0;
+  }
+  .n-table th {
+    background: var(--wood);
+    color: white;
+    padding: 8px 14px;
+    text-align: left;
+    font-weight: 400;
+  }
+  .n-table td {
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-light);
+  }
+  .n-table tr:nth-child(even) td { background: #fdf0dc; }
+
+  /* つぶやき */
+  .author-note {
+    background: linear-gradient(135deg, #fdf6ec, #fdf0dc);
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 24px;
+    margin: 40px 0;
+    text-align: center;
+  }
+  .author-note p {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.88rem;
+    color: var(--wood);
+    line-height: 2;
+    font-style: italic;
+  }
+
+  /* タグ */
+  .hashtags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 36px 0 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+  }
+  .hashtag {
+    background: var(--warm-white);
+    border: 1px solid #c8b090;
+    color: var(--text-light);
+    font-size: 0.75rem;
+    padding: 4px 14px;
+    border-radius: 20px;
+  }
+
+  /* 戻るリンク */
+  .back-link {
+    display: inline-block;
+    margin-top: 24px;
+    padding: 12px 28px;
+    border: 1px solid var(--green);
+    color: var(--green);
+    text-decoration: none;
+    font-size: 0.82rem;
+    border-radius: 4px;
+    transition: all 0.3s;
+    letter-spacing: 0.1em;
+  }
+  .back-link:hover { background: var(--green-muted); }
+
+  /* footer */
+  footer {
+    background: var(--text);
+    color: rgba(255,255,255,0.6);
+    padding: 32px 8vw;
+    text-align: center;
+    font-size: 0.78rem;
+  }
+
+  @media(max-width:500px) {
+    .ing-name { min-width: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">自然のめぐみ・セルフケア<span style="font-size:0.7em;display:block;opacity:0.7;">by 自然の英語工房</span></a>
+  <a href="index.html#recipe" class="nav-back">← セルフケアレシピ一覧</a>
+</nav>
+
+<div class="article-wrap">
+
+  <!-- パンくず -->
+  <div class="breadcrumb">
+    <a href="index.html">TOP</a> &nbsp;/&nbsp;
+    <a href="index.html#recipe">セルフケアレシピ</a> &nbsp;/&nbsp;
+    パワー・バナナケーキ
+  </div>
+
+  <!-- ヒーロー -->
+  <div class="recipe-hero">
+    <span class="recipe-emoji">🍌</span>
+    <span class="recipe-label">Selfcare Recipe No.01</span>
+    <h1 class="recipe-title">完熟バナナとカシアシナモン香る<br>「パワー・バナナケーキ」</h1>
+    <p class="recipe-subtitle">〜 オートミール × 小麦粉のベストバランス 〜</p>
+    <div class="recipe-tags">
+      <span class="tag tag-green">低GI</span>
+      <span class="tag tag-wood">登山おやつ</span>
+      <span class="tag tag-green">フードロス削減</span>
+      <span class="tag tag-wood">血糖値ケア</span>
+      <span class="tag tag-green">ヘルシーおやつ</span>
+    </div>
+  </div>
+
+  <!-- リード -->
+  <div class="lead">
+    スーパーで割引になっている「打ち身バナナ」、実は甘みと栄養がちょうどピークを迎えた完熟のサイン。捨てるなんてもったいない！オートミールのじんわりとした腹持ちと、カシアシナモンのスパイシーな香りを活かした「体に嬉しいケーキ」です。登山の行動食にも、朝食にも、おやつにも。作り置きすると頼りになる一品です 🏔️
+  </div>
+
+  <!-- 材料 -->
+  <h2 class="s-title"><span>📋</span> 材料（作りやすい分量）</h2>
+  <div class="ingredients">
+    <div class="ing-item">
+      <span class="ing-name">🍌 完熟バナナ</span>
+      <span class="ing-amount">1〜2本</span>
+      <span class="ing-note">シュガースポット・打ち身推奨</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🥚 卵</span>
+      <span class="ing-amount">1個</span>
+      <span class="ing-note">良質たんぱく質・ビタミンD</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🌾 クイックオーツ</span>
+      <span class="ing-amount">50g</span>
+      <span class="ing-note">β-グルカン・食物繊維豊富</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🌾 薄力粉</span>
+      <span class="ing-amount">50g</span>
+      <span class="ing-note">膨らみのキモ</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🫙 ベーキングパウダー</span>
+      <span class="ing-amount">小さじ1</span>
+      <span class="ing-note">焼く直前に入れるのが裏技</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🍂 カシアシナモン</span>
+      <span class="ing-amount">小さじ1/2〜</span>
+      <span class="ing-note">代謝サポート・血行促進</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🍬 砂糖</span>
+      <span class="ing-amount">大さじ1〜2</span>
+      <span class="ing-note">バナナの熟し具合で調整</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🫒 植物油</span>
+      <span class="ing-amount">大さじ1</span>
+      <span class="ing-note">米油・菜種油など好みで</span>
+    </div>
+    <div class="ing-item">
+      <span class="ing-name">🧂 塩</span>
+      <span class="ing-amount">ひとつまみ</span>
+      <span class="ing-note">甘みを引き立て、ミネラル補給</span>
+    </div>
+  </div>
+
+  <!-- 手順 -->
+  <h2 class="s-title"><span>👩‍🍳</span> 裏技工程：しっとり＆ふっくら仕上げる手順</h2>
+
+  <div class="step">
+    <div class="step-num">1</div>
+    <div class="step-content">
+      <h4>【浸水】オートミールを先に戻す</h4>
+      <p>ボウルでバナナをフォークでしっかり潰し、卵・砂糖・油・塩を加えてよく混ぜます。ここに<strong>クイックオーツだけ</strong>を加え、そのまま<strong>10〜15分</strong>待ちます。</p>
+      <div class="point-box">先にオーツに水分を吸わせることで、焼き上がりのボソボソ感を防ぎ、しっとりもっちりした食感に。この待ち時間が味を決めます！</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">2</div>
+    <div class="step-content">
+      <h4>【予熱】オーブンを準備する</h4>
+      <p>待っている間にオーブンを<strong>180°C</strong>に予熱します（炊飯器を使う場合は不要）。</p>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">3</div>
+    <div class="step-content">
+      <h4>【仕上げ】粉類は焼く直前に！</h4>
+      <p>15分経ったら、薄力粉・ベーキングパウダー・カシアシナモンをふるい入れ、さっくりと混ぜ合わせます。混ぜすぎ注意。</p>
+      <div class="point-box">ベーキングパウダーは水分に触れた瞬間から反応が始まります。粉類を直前に入れることで、膨らむ力を最大限にキープ！</div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="step-num">4</div>
+    <div class="step-content">
+      <h4>【焼成】お好みの方法で</h4>
+      <p>
+        🔸 <strong>オーブン</strong>：耐熱容器に入れ、180°Cで25〜30分。竹串を刺して何もついてこなければOK。<br>
+        🔸 <strong>炊飯器</strong>：通常炊飯モードで1回。手軽で失敗しにくい方法です。
+      </p>
+    </div>
+  </div>
+
+  <!-- 栄養コラム -->
+  <h2 class="s-title"><span>💚</span> このレシピが「体」に嬉しい5つの理由</h2>
+
+  <div class="nutrition-card">
+    <h3>1️⃣ 血糖値スパイクを防ぐ「低GI」の力</h3>
+    <p>オートミールに豊富な<strong>β-グルカン（水溶性食物繊維）</strong>が糖の吸収を穏やかにします。食後の急激な眠気や「偽の空腹感」を抑えられるため、集中したい作業前のエネルギー補給にもぴったりです。</p>
+  </div>
+
+  <div class="nutrition-card">
+    <h3>2️⃣ 登山にも日常にも効く「持続エネルギー」</h3>
+    <p>オートミールは消化がゆっくりで、「じわじわ燃える燃料」として機能します。バナナのカリウムも加わり、筋肉の働きをサポート。登山やトレッキングの行動食として、エネルギー切れを防ぎます。</p>
+  </div>
+
+  <div class="nutrition-card">
+    <h3>3️⃣ 朝のスイッチを入れる「塩」の力</h3>
+    <p>隠し味の塩ひとつまみが、朝の低血圧気味な体を緩やかにサポートします。甘みを引き立てる効果もあり、砂糖を減らしても満足感が得やすくなります。</p>
+  </div>
+
+  <div class="nutrition-card">
+    <h3>4️⃣ カシアシナモンで代謝をブースト</h3>
+    <p>カシア特有の成分<strong>シンナムアルデヒド</strong>が、インスリンの感受性を高め、糖質の代謝をサポートすることが研究で示されています。また血行促進効果もあり、体を内側から温めます。（過剰摂取は避け、1日小さじ1/2〜1程度が目安）</p>
+  </div>
+
+  <div class="nutrition-card">
+    <h3>5️⃣ 完熟バナナは「最高の自然の甘味料」</h3>
+    <p>シュガースポットが出たバナナは、でんぷんが果糖・ブドウ糖に変化してエネルギーになりやすい状態。<strong>トリプトファン・ビタミンB6・マグネシウム</strong>が豊富で、気分を安定させ、骨の健康にも貢献します。</p>
+  </div>
+
+  <!-- 栄養テーブル -->
+  <h3 style="font-family:'Noto Serif JP',serif;color:var(--wood);margin:28px 0 10px;font-size:0.9rem;">🔬 主要成分サマリー</h3>
+  <table class="n-table">
+    <tr><th>食材</th><th>主な栄養・機能</th></tr>
+    <tr><td>完熟バナナ</td><td>カリウム・B6・トリプトファン・マグネシウム</td></tr>
+    <tr><td>クイックオーツ</td><td>β-グルカン・鉄・亜鉛・低GI・たんぱく質</td></tr>
+    <tr><td>卵</td><td>完全たんぱく質・ビタミンD・コリン・ルテイン</td></tr>
+    <tr><td>カシアシナモン</td><td>シンナムアルデヒド・抗酸化・血糖サポート</td></tr>
+    <tr><td>塩（天然塩推奨）</td><td>ナトリウム・微量ミネラル・体液バランス</td></tr>
+    <tr><td>植物油</td><td>ビタミンE・不飽和脂肪酸（油の種類による）</td></tr>
+  </table>
+
+  <!-- 執筆者のつぶやき -->
+  <div class="author-note">
+    <p style="font-size:1.5rem;margin-bottom:12px;">🌱 ✨ 🍌</p>
+    <p>
+      「打ち身バナナ」は傷んでいるのではなく、<br>
+      甘さと栄養がピークに達した証。<br><br>
+      捨てるのではなく、価値ある一品に生まれ変わらせる。<br>
+      そんなサステナブルで、体に正直な食卓のヒントになれば嬉しいです。
+    </p>
+  </div>
+
+  <!-- ハッシュタグ -->
+  <div class="hashtags">
+    <span class="hashtag">#バナナケーキ</span>
+    <span class="hashtag">#オートミールレシピ</span>
+    <span class="hashtag">#低GI食</span>
+    <span class="hashtag">#カシアシナモン</span>
+    <span class="hashtag">#完熟バナナ活用</span>
+    <span class="hashtag">#登山おやつ</span>
+    <span class="hashtag">#フードロス削減</span>
+    <span class="hashtag">#体に優しいスイーツ</span>
+    <span class="hashtag">#血糖値ケア</span>
+    <span class="hashtag">#ヘルシーおやつ</span>
+  </div>
+
+  <!-- 戻る -->
+  <a href="index.html" class="back-link">← TOPページへ戻る</a>
+
+</div>
+
+<footer>
+  <p>自然のめぐみ・セルフケア by 自然の英語工房　｜　佐賀市金立町</p>
+</footer>
+
+</body>
+</html>

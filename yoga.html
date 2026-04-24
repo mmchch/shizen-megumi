@@ -36,60 +36,6 @@
     overflow-x: hidden;
   }
 
-  /* ── TT BANNER ── */
-  .tt-banner {
-    display: block;
-    text-decoration: none;
-    background: #f0f7ec;
-    border: 2px solid var(--green);
-    border-radius: 12px;
-    padding: 24px 28px;
-    margin-bottom: 28px;
-    max-width: 680px;
-    transition: box-shadow 0.2s, transform 0.2s;
-  }
-  .tt-banner:hover {
-    box-shadow: 0 4px 20px rgba(90,122,94,0.18);
-    transform: translateY(-2px);
-  }
-  .tt-banner-label {
-    font-size: 0.72rem;
-    letter-spacing: 0.18em;
-    color: var(--green);
-    font-family: 'Cormorant Garamond', serif;
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 8px;
-  }
-  .tt-banner-title {
-    font-family: 'Noto Serif JP', serif;
-    font-size: 1.3rem;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 14px;
-    line-height: 1.5;
-  }
-  .tt-banner-tags {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    margin-bottom: 16px;
-  }
-  .tt-banner-tag {
-    border: 1px solid var(--green);
-    border-radius: 20px;
-    padding: 4px 16px;
-    font-size: 0.85rem;
-    color: var(--green);
-    background: white;
-  }
-  .tt-banner-note {
-    font-size: 0.82rem;
-    color: var(--text-light);
-    line-height: 1.8;
-    margin: 0;
-  }
-
   /* ── NAVIGATION ── */
   nav {
     position: fixed;
@@ -986,7 +932,7 @@
     <li><a href="yoga.html">ヨガ</a></li>
     <li><a href="eigo.html">英語</a></li>
     <li><a href="index.html#schedule">スケジュール</a></li>
-    <li><a href="tt.html">ヨガ講師養成</a></li>
+    <li><a href="TT_top.html">ヨガ講師養成</a></li>
     <li><a href="index.html#access">アクセス</a></li>
   </ul>
 </div>
@@ -1033,8 +979,20 @@
   </div>
 </div>
 
+<!-- ページ内ナビ -->
+<div style="background:white;border-bottom:1px solid var(--border);padding:16px 8vw;position:sticky;top:60px;z-index:90;overflow-x:auto;">
+  <div style="display:flex;gap:8px;min-width:max-content;">
+    <a href="#fee" style="display:inline-block;padding:8px 18px;background:var(--green);color:white;text-decoration:none;border-radius:20px;font-size:0.78rem;letter-spacing:0.08em;white-space:nowrap;">💴 受講料</a>
+    <a href="#schedule" style="display:inline-block;padding:8px 18px;background:white;color:var(--text);text-decoration:none;border-radius:20px;font-size:0.78rem;letter-spacing:0.08em;border:1px solid var(--border);white-space:nowrap;">📅 スケジュール</a>
+    <a href="#welcome" style="display:inline-block;padding:8px 18px;background:white;color:var(--text);text-decoration:none;border-radius:20px;font-size:0.78rem;letter-spacing:0.08em;border:1px solid var(--border);white-space:nowrap;">🔰 初心者の方へ</a>
+    <a href="#benefits" style="display:inline-block;padding:8px 18px;background:white;color:var(--text);text-decoration:none;border-radius:20px;font-size:0.78rem;letter-spacing:0.08em;border:1px solid var(--border);white-space:nowrap;">✨ ヨガの効果</a>
+    <a href="#philosophy" style="display:inline-block;padding:8px 18px;background:white;color:var(--text);text-decoration:none;border-radius:20px;font-size:0.78rem;letter-spacing:0.08em;border:1px solid var(--border);white-space:nowrap;">🌀 ヨガとは</a>
+    <a href="#notes" style="display:inline-block;padding:8px 18px;background:white;color:var(--text);text-decoration:none;border-radius:20px;font-size:0.78rem;letter-spacing:0.08em;border:1px solid var(--border);white-space:nowrap;">📝 参加の注意</a>
+  </div>
+</div>
+
 <!-- 初心者歓迎 -->
-<section class="content-section">
+<section id="welcome" class="content-section">
   <span class="section-label">Welcome</span>
   <h2 class="section-title">初心者さん・体が硬い方、大歓迎！</h2>
   <div class="divider"></div>
@@ -1055,21 +1013,10 @@
 </section>
 
 <!-- スケジュール -->
-<section class="content-section alt">
+<section id="schedule" class="content-section alt">
   <span class="section-label">Schedule</span>
   <h2 class="section-title">ヨガ・スケジュール</h2>
   <div class="divider"></div>
-
-  <!-- TT BANNER -->
-  <a href="https://shizen-megumi.pages.dev/seikatsu_yoga_2026" class="tt-banner">
-    <span class="tt-banner-label">SCHEDULE CONFIRMED</span>
-    <div class="tt-banner-title">生活ヨガ養成コース　2026年5月〜開催決定</div>
-    <div class="tt-banner-tags">
-      <span class="tt-banner-tag">🌿 平日の部</span>
-      <span class="tt-banner-tag">🌿 日曜の部</span>
-    </div>
-    <p class="tt-banner-note">※生活ヨガは、自己練習を深める養成講座の入り口です。　詳細・お申し込みはこちら →</p>
-  </a>
 
   <div style="margin-bottom:28px;padding:18px 24px;background:white;border:1px solid var(--border);border-radius:4px;font-size:0.85rem;color:var(--text-light);line-height:2.1;max-width:680px;">
     <strong style="color:var(--text);">会員様のヨガ予約は不要ですが…</strong><br>
@@ -1139,7 +1086,7 @@
 </section>
 
 <!-- ヨガの効果 -->
-<section class="content-section">
+<section id="benefits" class="content-section">
   <span class="section-label">Benefits</span>
   <h2 class="section-title">ヨガの効果</h2>
   <div class="divider"></div>
@@ -1169,7 +1116,7 @@
 </section>
 
 <!-- ヨガの哲学（折りたたみ） -->
-<section class="content-section alt">
+<section id="philosophy" class="content-section alt">
   <span class="section-label">Philosophy</span>
   <h2 class="section-title">ヨガって、どんなもの？</h2>
   <div class="divider"></div>
@@ -1257,14 +1204,24 @@
 </style>
 
 <!-- 受講料 -->
-<section class="content-section alt">
+<section id="fee" class="content-section alt">
   <span class="section-label">Fee</span>
   <h2 class="section-title">ヨガクラス受講料</h2>
   <div class="divider"></div>
 
-  <p style="font-size:0.85rem;color:var(--text-light);margin-bottom:16px;">
-    ◇ 入会金：¥1,000（税込）　／　◇ 貸マット：無料　／　◇ ドロップイン都度払い：¥2,200<br>
-    ※表示価格はすべて税込　※特別クラス（浮きヨガ・集中講座等）は別料金
+  <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:24px;max-width:680px;">
+    <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:14px 20px;font-size:0.85rem;color:var(--text);">
+      🏷️ 入会金：<strong>¥1,000</strong>（税込）
+    </div>
+    <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:14px 20px;font-size:0.85rem;color:var(--text);">
+      🧘 貸マット：<strong>無料</strong>
+    </div>
+    <div style="background:white;border:1px solid var(--border);border-radius:4px;padding:14px 20px;font-size:0.85rem;color:var(--text);">
+      💴 都度払い：<strong>¥2,200</strong>／回
+    </div>
+  </div>
+  <p style="font-size:0.78rem;color:var(--text-light);margin-bottom:28px;">
+    ※表示価格はすべて税込　／　※特別クラス（浮きヨガ・集中講座等）は別料金
   </p>
 
   <div style="background:linear-gradient(135deg,var(--wood) 0%,var(--wood-light) 100%);color:white;padding:16px 24px;border-radius:4px;max-width:560px;margin-bottom:32px;font-size:0.88rem;line-height:1.9;">
@@ -1302,7 +1259,7 @@
 </section>
 
 <!-- 参加時の注意 -->
-<section class="content-section">
+<section id="notes" class="content-section">
   <span class="section-label">Notes</span>
   <h2 class="section-title">レッスン参加時の注意</h2>
   <div class="divider"></div>

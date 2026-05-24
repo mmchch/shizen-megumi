@@ -6,20 +6,23 @@
 <title>自然のめぐみ・セルフケア｜ヨガ＆英会話教室</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@200;300;400&family=Noto+Sans+JP:wght@300;400;500&family=Zen+Antique+Soft&display=swap" rel="stylesheet">
 <style>
   :root {
-    --cream: #FAF7F2;
-    --warm-white: #FDF9F4;
-    --wood: #8B5E3C;
-    --wood-light: #C4956A;
-    --green: #5A7A5E;
-    --green-light: #8FAF83;
-    --green-muted: #D4E6D0;
-    --text: #2C2416;
-    --text-light: #6B5A42;
-    --gold: #C9A84C;
-    --border: #E8DDD0;
+    --green:       #3B6D11;
+    --green-light: #EAF3DE;
+    --green-mid:   #639922;
+    --sand:        #F7F4EE;
+    --sand-dark:   #EDE8DF;
+    --text:        #2C2C2A;
+    --text-mid:    #5F5E5A;
+    --text-light:  #888780;
+    --wood:        #8B5E3C;
+    --wood-light:  #A0714F;
+    --border:      rgba(44,44,42,0.12);
+    --border-mid:  rgba(44,44,42,0.22);
+    --serif:       'Noto Serif JP', serif;
+    --sans:        'Noto Sans JP', sans-serif;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,9 +30,9 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--cream);
+    background: #fff;
     color: var(--text);
-    font-family: 'Noto Serif JP', serif;
+    font-family: var(--sans);
     font-weight: 300;
     line-height: 1.9;
     overflow-x: hidden;
@@ -55,7 +58,7 @@
     font-size: 0.72rem;
     letter-spacing: 0.18em;
     color: var(--green);
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--serif);
     text-transform: uppercase;
     display: block;
     margin-bottom: 8px;
@@ -106,7 +109,7 @@
   .nav-logo {
     font-family: 'Zen Antique Soft', serif;
     font-size: 1.05rem;
-    color: var(--wood);
+    color: var(--text-mid);
     letter-spacing: 0.08em;
     text-decoration: none;
     line-height: 1.3;
@@ -131,7 +134,7 @@
     display: block;
     width: 100%;
     height: 2px;
-    background: var(--wood);
+    background: var(--sand-dark);
     border-radius: 2px;
     transition: all 0.3s;
   }
@@ -152,7 +155,7 @@
     top: 0; right: -100%;
     width: min(320px, 85vw);
     height: 100vh;
-    background: var(--cream);
+    background: #fff;
     z-index: 150;
     padding: 80px 40px 40px;
     transition: right 0.35s ease;
@@ -226,23 +229,16 @@
     to { transform: scale(1); }
   }
 
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      225deg,
-      rgba(250,247,242,0.88) 0%,
-      rgba(250,247,242,0.55) 45%,
-      rgba(250,247,242,0.05) 100%
-    );
-  }
+  /* .hero-overlay removed */
 
   .hero-content {
-    position: relative;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
     z-index: 2;
-    padding: 120px 6vw 0;
-    margin-left: auto;
-    width: 46%;
+    padding: 52vh 6vw 0;
+    width: 55%;
     text-align: right;
     animation: fadeUp 1.2s ease-out both;
     animation-delay: 0.3s;
@@ -254,8 +250,8 @@
   }
 
   .hero-sub {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    font-family: var(--serif);
+    font-style: normal;
     font-size: 1rem;
     color: var(--green);
     letter-spacing: 0.2em;
@@ -272,15 +268,15 @@
   }
 
   .hero-title span {
-    color: var(--wood);
+    color: var(--text-mid);
   }
 
   .hero-tagline {
     font-size: 0.95rem;
     color: var(--text-light);
     margin: 24px 0 16px;
-    max-width: 380px;
     line-height: 2;
+    text-align: right;
   }
 
   .title-line1,
@@ -315,8 +311,14 @@
     border-radius: 0;
     padding: 18px 12px;
     font-size: 0.85rem;
+    font-family: 'Noto Serif JP', serif;
     margin-right: 0;
-    border-right: 1px solid rgba(255,255,255,0.2);
+    border-right: 1px solid rgba(0,0,0,0.15);
+    background: rgba(255,255,255,0.55);
+    color: var(--text);
+    border-top: none;
+    border-bottom: none;
+    border-left: none;
   }
 
   .hero-btns .btn-primary:last-child {
@@ -324,30 +326,30 @@
   }
 
   .hero-years {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--serif);
     font-size: 0.85rem;
-    color: var(--wood-light);
+    color: var(--text-light);
     letter-spacing: 0.15em;
     margin-bottom: 36px;
   }
 
   .btn-primary {
     display: inline-block;
-    padding: 14px 36px;
-    background: var(--green);
-    color: white;
+    border: 1px solid var(--text);
+    border-radius: 8px;
+    padding: 13px 28px;
+    font-size: 13px;
+    font-family: var(--sans);
+    color: var(--text);
     text-decoration: none;
-    font-size: 0.82rem;
-    letter-spacing: 0.15em;
-    border-radius: 2px;
-    transition: all 0.3s;
-    margin-right: 16px;
+    background: transparent;
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.05em;
   }
 
   .btn-primary:hover {
-    background: var(--wood);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(139,94,60,0.2);
+    background: var(--text);
+    color: #fff;
   }
 
   .btn-outline {
@@ -363,13 +365,13 @@
   }
 
   .btn-outline:hover {
-    background: var(--green-muted);
+    background: var(--green-light);
   }
 
   /* ── CAMPAIGN BANNER ── */
   .campaign {
-    background: linear-gradient(135deg, var(--wood) 0%, var(--wood-light) 100%);
-    color: white;
+    background: var(--sand-dark);
+    color: var(--text);
     text-align: center;
     padding: 28px 40px;
   }
@@ -394,16 +396,37 @@
     flex-wrap: wrap;
   }
 
-  .campaign a {
-    color: white;
+  .campaign .trial-links a {
+    color: #7c3d12;
     text-decoration: none;
-    font-size: 0.82rem;
-    border-bottom: 1px solid rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+    font-weight: 700;
+    border-bottom: 2px solid rgba(124,61,18,0.5);
     padding-bottom: 2px;
     transition: border-color 0.3s;
   }
 
-  .campaign a:hover { border-color: white; }
+  .campaign .trial-links a:hover { border-color: #7c3d12; }
+
+  .campaign .reservation-link {
+    display: inline-block;
+    margin-top: 14px;
+    color: #7c3d12;
+    background: rgba(255,255,255,0.85);
+    border: 2px solid rgba(124,61,18,0.5);
+    border-radius: 6px;
+    padding: 8px 24px;
+    font-weight: 700;
+    font-size: 0.92rem;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: background 0.3s, border-color 0.3s;
+  }
+
+  .campaign .reservation-link:hover {
+    background: rgba(255,255,255,0.35);
+    border-color: #fff;
+  }
 
   /* ── SECTION BASE ── */
   section {
@@ -411,14 +434,12 @@
   }
 
   .section-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
-    font-size: 0.82rem;
-    color: var(--green);
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    color: var(--text-light);
+    text-align: center;
+    margin-bottom: 1.5rem;
     display: block;
-    margin-bottom: 12px;
   }
 
   .section-title {
@@ -432,7 +453,7 @@
   .divider {
     width: 48px;
     height: 1px;
-    background: var(--wood-light);
+    background: var(--sand);
     margin: 20px 0 48px;
   }
 
@@ -445,7 +466,7 @@
   }
 
   .service-card {
-    background: var(--warm-white);
+    background: var(--sand);
     padding: 48px 36px;
     border: 1px solid var(--border);
     position: relative;
@@ -477,22 +498,18 @@
     transform: scaleX(1);
   }
 
-  .service-icon {
-    font-size: 2rem;
-    margin-bottom: 20px;
-    display: block;
-  }
 
   .service-name {
     font-family: 'Zen Antique Soft', serif;
     font-size: 1.15rem;
-    color: var(--wood);
+    font-weight: 700;
+    color: var(--text-mid);
     margin-bottom: 12px;
   }
 
   .service-en {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    font-family: var(--serif);
+    font-style: normal;
     font-size: 0.82rem;
     color: var(--green);
     letter-spacing: 0.1em;
@@ -516,7 +533,7 @@
 
   /* ── NEW CLASS HIGHLIGHT ── */
   .new-class {
-    background: var(--green-muted);
+    background: var(--green-light);
     border-left: 4px solid var(--green);
     padding: 40px 48px;
     margin-bottom: 64px;
@@ -560,7 +577,7 @@
 
   /* ── SCHEDULE ── */
   .schedule-bg {
-    background: var(--warm-white);
+    background: var(--sand);
   }
 
   .schedule-table {
@@ -591,7 +608,7 @@
   }
 
   .schedule-table tr:hover td {
-    background: var(--green-muted);
+    background: var(--green-light);
   }
 
   .tag {
@@ -603,7 +620,7 @@
   }
 
   .tag-yoga { background: #E8F0E8; color: var(--green); }
-  .tag-eigo { background: #F0E8DC; color: var(--wood); }
+  .tag-eigo { background: #F0E8DC; color: var(--text-mid); }
   .tag-new { background: var(--green); color: white; }
 
   /* ── ABOUT ── */
@@ -622,7 +639,7 @@
   }
 
   .about-visual {
-    background: var(--green-muted);
+    background: var(--green-light);
     aspect-ratio: 4/5;
     display: flex;
     align-items: center;
@@ -649,9 +666,9 @@
   }
 
   .stat-num {
-    font-family: 'Cormorant Garamond', serif;
+    font-family: var(--serif);
     font-size: 2.8rem;
-    color: var(--wood);
+    color: var(--text-mid);
     line-height: 1;
     display: block;
   }
@@ -664,7 +681,7 @@
 
   /* ── NOTE ── */
   .note-section {
-    background: linear-gradient(160deg, var(--cream) 60%, var(--green-muted) 100%);
+    background: linear-gradient(160deg, #fff 60%, var(--green-light) 100%);
   }
 
   .note-card {
@@ -685,8 +702,8 @@
   }
 
   .note-card-label {
-    font-family: 'Cormorant Garamond', serif;
-    font-style: italic;
+    font-family: var(--serif);
+    font-style: normal;
     font-size: 0.82rem;
     color: var(--green);
     letter-spacing: 0.15em;
@@ -739,7 +756,7 @@
     align-items: center;
     gap: 12px;
     padding: 16px 24px;
-    background: var(--warm-white);
+    background: var(--sand);
     border: 1px solid var(--border);
     border-radius: 4px;
     text-decoration: none;
@@ -751,27 +768,26 @@
 
   .contact-btn:hover {
     border-color: var(--green);
-    background: var(--green-muted);
+    background: var(--green-light);
   }
 
   .contact-btn .icon { font-size: 1.1rem; }
 
   /* ── FOOTER ── */
   footer {
-    background: var(--text);
-    color: rgba(255,255,255,0.6);
-    padding: 48px 8vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 24px;
+    padding: 2rem 2rem;
+    border-top: 0.5px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    background: #fff;
   }
 
   .footer-logo {
     font-family: 'Zen Antique Soft', serif;
     font-size: 1.1rem;
-    color: white;
+    color: var(--text-mid);
   }
 
   footer p {
@@ -787,11 +803,23 @@
     .about-grid, .access-grid { grid-template-columns: 1fr; gap: 40px; }
     .about-visual { display: none; }
     .services-grid { grid-template-columns: 1fr; }
-    footer { flex-direction: column; text-align: center; }
+    footer {
+    padding: 2rem 2rem;
+    border-top: 0.5px solid var(--border);
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    background: #fff;
+  }
     .hero-content {
-      padding: 100px 5vw 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
       width: 100%;
-      max-width: 100%;
+      padding: 100px 5vw 0;
+      text-align: right;
     }
   }
 
@@ -809,7 +837,7 @@
     padding: 9px 16px;
     border: 1px solid var(--border);
     border-radius: 24px;
-    background: var(--warm-white);
+    background: var(--sand);
     text-decoration: none;
     color: var(--text);
     font-size: 0.82rem;
@@ -895,7 +923,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-img"></div>
-  <div class="hero-overlay"></div>
+
   <div class="hero-content">
     <span class="hero-sub">Shizen no Megumi · Self Care</span>
     <h1 class="hero-title">
@@ -910,33 +938,34 @@
     <p class="hero-years">佐賀・金立町｜26年の歩み</p>
   </div>
   <div class="hero-btns">
-    <a href="yoga.html" class="btn-primary">🧘 ヨガ教室</a>
-    <a href="eigo.html" class="btn-primary">💬 英語教室</a>
-    <a href="tt.html" class="btn-primary">📚 ヨガ講師養成</a>
+    <a href="yoga.html" class="btn-primary">ヨガ教室</a>
+    <a href="eigo.html" class="btn-primary">英語教室</a>
+    <a href="tt.html" class="btn-primary">ヨガ講師養成</a>
   </div>
   <div style="margin-top:22px;text-align:center;">
     <p style="color:rgba(255,255,255,0.8);font-size:0.78rem;margin:0 0 12px;letter-spacing:0.1em;">
-      ▼ はじめての方はお試しから
+      ▼ はじめての方は体験から
     </p>
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:14px;">
     <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;
-              background:#fff;color:#5a8a5a;
+              background:#fff;color:var(--green);
               font-size:0.9rem;font-weight:700;padding:12px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.8);
               box-shadow:0 3px 14px rgba(0,0,0,0.12);">
-      🧘 ヨガの体験予約
+      ヨガクラスの体験予約
     </a>
     <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;
-              background:#fff;color:#4a6fa5;
+              background:#fff;color:var(--green);
               font-size:0.9rem;font-weight:700;padding:12px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.8);
               box-shadow:0 3px 14px rgba(0,0,0,0.12);">
-      💬 英語グループクラスの体験予約
+      英語グループクラスの体験予約
     </a>
+    
     </div>
     <div style="margin-top:6px;">
     <a href="https://x.gd/xvxW4" target="_blank" rel="noopener"
@@ -945,7 +974,7 @@
               font-size:0.88rem;font-weight:600;padding:11px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.6);">
-      📋 クラスの予約（会員）
+      クラスの予約（会員）
     </a>
     </div>
   </div>
@@ -954,16 +983,17 @@
 
 <!-- CAMPAIGN -->
 <div class="campaign">
-  <strong>🌸 入会金無料 ＋ ワンコイン¥500 お試し受講キャンペーン実施中</strong>
-  <p>2026年5月末まで｜対象：英語グループクラス・ヨガクラス｜お試し当日のみ限定 3回券¥3,000</p>
+  <strong>🌸 入会金¥1,000 ＋ ¥1,000 体験受講キャンペーン実施中</strong>
+  <p>2026年5月末まで｜対象：英語グループクラス・ヨガクラス｜体験当日のみ限定 3回券¥3,000</p>
   <div class="trial-links">
-    <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank">▶ ヨガお試しフォーム</a>
-    <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank">▶ 英会話グループクラスお試しフォーム</a>
+    <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank">▶ ヨガ体験フォーム</a>
+    <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank">▶ 英語グループクラス体験フォーム</a>
   </div>
+  <a href="https://x.gd/xvxW4" target="_blank" class="reservation-link">クラスの予約（会員）</a>
 </div>
 
 <!-- お知らせ -->
-<section id="info" style="background:var(--warm-white);padding:72px 8vw;">
+<section id="info" style="background:var(--sand);padding:72px 8vw;">
   <span class="section-label">Information</span>
   <h2 class="section-title">お知らせ</h2>
   <div class="divider"></div>
@@ -977,8 +1007,8 @@
 
       <!-- 500円 -->
       <div>
-        <p style="font-weight:600;color:var(--green);margin-bottom:2px;">500円体験クラス・5月末まで延長</p>
-        <p>入会金無料。ヨガも英語も対象です。気になっていた方、ぜひこの機会に。</p>
+        <p style="font-weight:600;color:var(--green);margin-bottom:2px;">体験受講¥1,000</p>
+        <p>体験受講¥1,000・入会金¥1,000。ヨガも英語も対象です。</p>
       </div>
 
       <div style="border-top:1px solid var(--border);"></div>
@@ -1043,14 +1073,14 @@
     <!-- ③ 養成講座お知らせ -->
     <div style="background:white;border:1px solid var(--border);border-radius:4px;overflow:hidden;">
       <div style="background:var(--wood-light);color:white;padding:12px 20px;font-size:0.82rem;letter-spacing:0.1em;">
-        📚 ヨガ講師養成講座
+        ヨガ講師養成講座
       </div>
       <div style="padding:20px;">
         <p style="font-size:0.85rem;color:var(--text);font-family:'Zen Antique Soft',serif;margin-bottom:8px;">次回開講情報</p>
         <a href="seikatsu_yoga_2026.html" style="display:block;background:linear-gradient(135deg,#EAF3DE,#F7F4EE);border:1.5px solid var(--green);border-radius:8px;padding:12px 16px;margin-bottom:10px;text-decoration:none;">
           <p style="font-size:0.78rem;letter-spacing:0.12em;color:var(--green);margin:0 0 4px;font-weight:600;">✨ 開催決定</p>
           <p style="font-family:'Zen Antique Soft',serif;font-size:1rem;color:#2C2C2A;margin:0 0 2px;font-weight:400;">「生活ヨガ 20時間」</p>
-          <p style="font-size:0.85rem;color:var(--green);font-weight:600;margin:0 0 4px;">2026年5月〜 スタート🌿</p>
+          <p style="font-size:0.85rem;color:var(--green);font-weight:600;margin:0 0 4px;">2026年6月スタート　受講受付中</p>
           <p style="font-size:0.78rem;color:var(--text-light);margin:0;">詳細・お申し込みはこちら →</p>
         </a>
         <p style="font-size:0.78rem;color:var(--text-light);line-height:1.8;margin-bottom:8px;">※生活ヨガは、自己練習を深める養成講座の入り口です。</p>
@@ -1102,32 +1132,28 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
 
   <div class="services-grid">
     <a id="yoga" href="yoga.html" class="service-card">
-      <span class="service-icon">🧘</span>
-      <div class="service-name">ヨガクラス</div>
+            <div class="service-name">ヨガクラス</div>
       <span class="service-en">Yoga Classes</span>
       <p class="service-desc">初心者・体が硬い方も安心。ゆったりと呼吸しながら、心と体をじんわりほぐしていきます。好きなタイミングで、気軽に参加OK。</p>
       <span class="service-arrow">詳しく見る →</span>
     </a>
 
     <a id="eigo" href="eigo.html" class="service-card">
-      <span class="service-icon">💬</span>
-      <div class="service-name">英会話クラス</div>
+            <div class="service-name">英会話クラス</div>
       <span class="service-en">Tsutawaru Eigo</span>
       <p class="service-desc">少人数制でアットホームな雰囲気。本当に使える「聞いて話す力」を育てます。英会話指導25年の日本人講師メグミが、初心者に寄り添います。</p>
       <span class="service-arrow">詳しく見る →</span>
     </a>
 
     <a id="teacher" href="TT_top.html" class="service-card">
-      <span class="service-icon">📚</span>
-      <div class="service-name">ヨガ講師養成コース</div>
+            <div class="service-name">ヨガ講師養成コース</div>
       <span class="service-en">Yoga Teacher Training</span>
       <p class="service-desc">ヨガをもっと深く知りたい方、指導者を目指す方へ。これからの日程や詳細はリンク先でご確認ください。</p>
       <span class="service-arrow">日程を確認する →</span>
     </a>
 
     <a href="https://note.com/eigokobo" target="_blank" class="service-card">
-      <span class="service-icon">✍️</span>
-      <div class="service-name">講師メグミのnote</div>
+            <div class="service-name">講師メグミのnote</div>
       <span class="service-en">Essays & Wellness</span>
       <p class="service-desc">英語・異文化・暮らしにまつわる「ちょっとイイ話」をことばと文化の視点から、ほぼ毎日ゆるりと綴っています。</p>
       <span class="service-arrow">noteを読む →</span>
@@ -1137,32 +1163,33 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
 
 
 <!-- ★ 予約バナー (中間) ★ -->
-<div style="background:linear-gradient(135deg,#e07b54 0%,#c9a96e 100%);
+<div style="background:linear-gradient(135deg,#3B6D11 0%,#639922 100%);
             padding:40px 24px 32px;text-align:center;margin:0;">
   <p style="color:rgba(255,255,255,0.85);font-size:0.78rem;letter-spacing:0.14em;
              margin:0 0 6px;text-transform:uppercase;">ご予約はこちら</p>
   <h3 style="color:#fff;font-size:1.25rem;font-weight:700;margin:0 0 6px;line-height:1.5;">
-    はじめての方はお試しから
+    はじめての方は体験から
   </h3>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:20px;">
     <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;
-              background:#fff;color:#5a8a5a;
+              background:#fff;color:var(--green);
               font-size:0.9rem;font-weight:700;padding:12px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.8);
               box-shadow:0 3px 14px rgba(0,0,0,0.12);">
-      🧘 ヨガの体験予約
+      ヨガクラスの体験予約
     </a>
     <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;
-              background:#fff;color:#4a6fa5;
+              background:#fff;color:var(--green);
               font-size:0.9rem;font-weight:700;padding:12px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.8);
               box-shadow:0 3px 14px rgba(0,0,0,0.12);">
-      💬 英語グループクラスの体験予約
+      英語グループクラスの体験予約
     </a>
+    
   </div>
   <div style="border-top:1px solid rgba(255,255,255,0.3);padding-top:18px;margin-top:4px;">
     <p style="color:rgba(255,255,255,0.7);font-size:0.75rem;margin:0 0 10px;letter-spacing:0.08em;">
@@ -1174,7 +1201,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
               font-size:0.88rem;font-weight:600;padding:11px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.6);">
-      📋 クラスの予約（会員）
+      クラスの予約（会員）
     </a>
   </div>
 </div>
@@ -1185,7 +1212,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
   <h2 class="section-title">週間スケジュール</h2>
   <div class="divider"></div>
 
-  <div style="margin-bottom:28px;padding:18px 24px;background:var(--warm-white);border:1px solid var(--border);border-radius:4px;font-size:0.85rem;color:var(--text-light);line-height:2.1;max-width:680px;">
+  <div style="margin-bottom:28px;padding:18px 24px;background:var(--sand);border:1px solid var(--border);border-radius:4px;font-size:0.85rem;color:var(--text-light);line-height:2.1;max-width:680px;">
     <strong style="color:var(--text);">会員様のヨガ予約は不要ですが…</strong><br>
     📝 必ず、クラス開催を各自で確認後にご来校くださいませ。<br>
     ⚠️ 悪天候・諸事情により急遽中止する場合があります。最新情報は
@@ -1251,10 +1278,10 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
   </table>
   <p style="font-size:0.82rem;color:var(--text-light);margin-top:16px;line-height:2;">
     ※ クラスの長さ：75分（参加者お一人の際は45分間）　／　＊以外は初心者OK<br>
-    🌸 <strong>全クラス共通：初回お試し受講¥500（キャンペーン〜2026年5月末）</strong>
+    🌸 <strong>全クラス共通：初回体験受講¥1,000　／　入会金¥1,000</strong>
   </p>
 
-  <div style="margin-top:28px;padding:24px 28px;background:var(--green-muted);border-radius:4px;max-width:480px;">
+  <div style="margin-top:28px;padding:24px 28px;background:var(--green-light);border-radius:4px;max-width:480px;">
     <p style="font-size:0.9rem;color:var(--text);margin-bottom:12px;">
       📅 <strong>Googleカレンダーで最新スケジュールを確認</strong>
     </p>
@@ -1282,7 +1309,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
 </section>
 
   <!-- ── SELFCARE RECIPES ── -->
-  <section id="recipe" style="background:var(--warm-white);">
+  <section id="recipe" style="background:var(--sand);">
     <span class="section-label">Selfcare</span>
     <h2 class="section-title">セルフケアのいろいろ</h2>
     <div class="divider"></div>
@@ -1297,11 +1324,11 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
 
       <a href="banana_cake.html"
          style="display:flex;align-items:center;gap:16px;background:white;border:1px solid var(--border);padding:13px 18px;text-decoration:none;color:inherit;transition:all 0.22s;"
-         onmouseover="this.style.background='var(--green-muted)';this.style.borderColor='var(--green)'"
+         onmouseover="this.style.background='var(--green-light)';this.style.borderColor='var(--green)'"
          onmouseout="this.style.background='white';this.style.borderColor='var(--border)'">
         <span style="font-size:1.5rem;flex-shrink:0;">🍌</span>
         <div style="flex:1;min-width:0;">
-          <div style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:0.68rem;color:var(--green);letter-spacing:0.1em;">No.01</div>
+          <div style="font-family:'Noto Serif JP',serif;font-size:0.68rem;color:var(--green);letter-spacing:0.1em;">No.01</div>
           <div style="font-family:'Zen Antique Soft',serif;font-size:0.9rem;color:var(--text);margin:1px 0;">パワー・バナナケーキ</div>
           <div style="font-size:0.73rem;color:var(--text-light);">打ち身バナナ×オートミール。低GIで腹持ちよし。登山おやつにも。</div>
         </div>
@@ -1318,7 +1345,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
     <!-- selfcareページへのリンク -->
     <a href="selfcare.html"
        style="display:inline-flex;align-items:center;gap:10px;padding:12px 24px;border:1px solid var(--green);color:var(--green);text-decoration:none;font-size:0.82rem;letter-spacing:0.1em;border-radius:2px;transition:all 0.25s;background:white;"
-       onmouseover="this.style.background='var(--green-muted)'"
+       onmouseover="this.style.background='var(--green-light)'"
        onmouseout="this.style.background='white'">
       <span>🌿</span>
       レシピ・note記事など　セルフケアのいろいろを見る →
@@ -1334,7 +1361,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
   <div class="access-info">
     <p><strong>住所</strong><br>佐賀市金立町</p>
     <p><strong>電話</strong><br>080-3985-5412</p>
-    <p style="margin-top:24px;font-size:0.82rem;line-height:1.9;background:var(--green-muted);padding:16px 20px;border-radius:4px;max-width:480px;">
+    <p style="margin-top:24px;font-size:0.82rem;line-height:1.9;background:var(--green-light);padding:16px 20px;border-radius:4px;max-width:480px;">
       ※詳しいアクセス方法は体験予約の確定後にご案内します。<br><br>
       小さなスクールのため、受付係がおりません。<br>
       <strong>予約なしでの訪問はご遠慮ください。</strong><br>
@@ -1348,10 +1375,10 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
         <span class="icon">💬</span> LINE で友達追加
       </a>
       <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank" class="contact-btn">
-        <span class="icon">🧘</span> ヨガ お試しフォーム
+        <span class="icon">🧘</span> ヨガ 体験フォーム
       </a>
       <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank" class="contact-btn">
-        <span class="icon">💬</span> 英会話 お試しフォーム
+        <span class="icon">💬</span> 英会話 体験フォーム
       </a>
     </div>
 
@@ -1387,32 +1414,33 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
 
 
 <!-- ★ 予約バナー (末尾) ★ -->
-<div style="background:linear-gradient(135deg,#e07b54 0%,#c9a96e 100%);
+<div style="background:linear-gradient(135deg,#3B6D11 0%,#639922 100%);
             padding:40px 24px 32px;text-align:center;margin:0;">
   <p style="color:rgba(255,255,255,0.85);font-size:0.78rem;letter-spacing:0.14em;
              margin:0 0 6px;text-transform:uppercase;">ご予約はこちら</p>
   <h3 style="color:#fff;font-size:1.25rem;font-weight:700;margin:0 0 6px;line-height:1.5;">
-    はじめての方はお試しから
+    はじめての方は体験から
   </h3>
   <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:20px;">
     <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;
-              background:#fff;color:#5a8a5a;
+              background:#fff;color:var(--green);
               font-size:0.9rem;font-weight:700;padding:12px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.8);
               box-shadow:0 3px 14px rgba(0,0,0,0.12);">
-      🧘 ヨガの体験予約
+      ヨガクラスの体験予約
     </a>
     <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank" rel="noopener"
        style="display:inline-flex;align-items:center;gap:8px;
-              background:#fff;color:#4a6fa5;
+              background:#fff;color:var(--green);
               font-size:0.9rem;font-weight:700;padding:12px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.8);
               box-shadow:0 3px 14px rgba(0,0,0,0.12);">
-      💬 英語グループクラスの体験予約
+      英語グループクラスの体験予約
     </a>
+    
   </div>
   <div style="border-top:1px solid rgba(255,255,255,0.3);padding-top:18px;margin-top:4px;">
     <p style="color:rgba(255,255,255,0.7);font-size:0.75rem;margin:0 0 10px;letter-spacing:0.08em;">
@@ -1424,7 +1452,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
               font-size:0.88rem;font-weight:600;padding:11px 28px;
               border-radius:40px;letter-spacing:0.06em;text-decoration:none;
               border:2px solid rgba(255,255,255,0.6);">
-      📋 クラスの予約（会員）
+      クラスの予約（会員）
     </a>
   </div>
 </div>

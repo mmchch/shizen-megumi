@@ -229,7 +229,12 @@
     to { transform: scale(1); }
   }
 
-  /* .hero-overlay removed */
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.35);
+    z-index: 1;
+  }
 
   .hero-content {
     position: absolute;
@@ -311,7 +316,7 @@
     text-align: center;
     border-radius: 0;
     padding: 18px 12px;
-    font-size: 0.85rem;
+    font-size: 1.275rem;
     font-family: 'Noto Serif JP', serif;
     margin-right: 0;
     border-right: 1px solid rgba(0,0,0,0.15);
@@ -924,6 +929,7 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-img"></div>
+  <div class="hero-overlay"></div>
 
   <div class="hero-content">
     <span class="hero-sub">Shizen no Megumi · Self Care</span>
@@ -980,9 +986,7 @@
 
 <!-- MEMBERSHIP INFO -->
 <div class="campaign">
-  <strong>🧘 体験・入会のご案内</strong>
-  <p>体験料が500円になります ／ インスタフォローまたはLINE公式登録で半額に</p>
-  <p style="font-size:0.82rem;margin-top:6px;opacity:0.85;">事前・当日その場での登録どちらもOK ／ フォロー・登録画面を提示ください</p>
+  <strong>体験料金：¥1,000（税込）　ヨガ・英語</strong>
   <div class="trial-links">
     <a href="https://forms.gle/THQRLdnqoWtncXidA" target="_blank">▶ ヨガ体験フォーム</a>
     <a href="https://forms.gle/kBEeiS4mCz6DwyDq8" target="_blank">▶ 英語グループクラス体験フォーム</a>
@@ -1086,7 +1090,7 @@
           <p style="font-size:0.78rem;letter-spacing:0.12em;color:var(--green);margin:0 0 4px;font-weight:600;">✨ 開催決定</p>
           <p style="font-family:'Zen Antique Soft',serif;font-size:1rem;color:#2C2C2A;margin:0 0 2px;font-weight:400;">「生活ヨガ 20時間」</p>
           <p style="font-size:0.85rem;color:var(--green);font-weight:600;margin:0 0 4px;">2026年6月スタート　受講受付中</p>
-          <p style="font-size:0.78rem;color:var(--text-light);margin:0;">詳細・お申し込みはこちら →</p>
+          <p style="font-size:0.78rem;color:var(--text-light);margin:0;">募集締切：6月7日　／　詳細・お申し込みはこちら →</p>
         </a>
         <p style="font-size:0.78rem;color:var(--text-light);line-height:1.8;margin-bottom:8px;">※生活ヨガは、自己練習を深める養成講座の入り口です。</p>
         <a href="tt.html" style="display:inline-block;margin-top:4px;font-size:0.78rem;color:var(--green);text-decoration:none;">養成講座ページへ →</a>
@@ -1275,7 +1279,7 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
   </table>
   <p style="font-size:0.82rem;color:var(--text-light);margin-top:16px;line-height:2;">
     ※ クラスの長さ：75分（参加者お一人の際は45分間）　／　＊以外は初心者OK<br>
-    🌸 <strong>全クラス共通：初回体験受講¥1,000　／　入会金¥1,000</strong>
+    🌸 <strong>全クラス共通：体験料金¥1,000（税込）　／　入会金¥1,000（税込）</strong>
   </p>
 
   <div style="margin-top:28px;padding:24px 28px;background:var(--green-light);border-radius:4px;max-width:480px;">

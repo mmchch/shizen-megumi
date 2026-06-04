@@ -23,10 +23,10 @@
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: var(--surface2); color: var(--ink); min-height: 100vh; }
 
-.app { max-width: 640px; margin: 0 auto; padding: 0 0 5rem; }
+.app { max-width: 100%; margin: 0 auto; padding: 0 0 2rem; }
 
 /* Header */
-.header { background: var(--surface); border-bottom: 0.5px solid var(--border); padding: 1rem 1.25rem 0.75rem; position: sticky; top: 0; z-index: 100; }
+.header { background: var(--surface); border-bottom: 0.5px solid var(--border); padding: 0.75rem 1.5rem 0; position: sticky; top: 0; z-index: 100; }
 .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
 .logo { font-size: 15px; font-weight: 600; color: var(--sage); letter-spacing: -0.01em; }
 .sync-status { font-size: 12px; color: var(--hint); display: flex; align-items: center; gap: 5px; }
@@ -144,6 +144,17 @@ body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: var(
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 .toast.err { background: rgba(162,45,45,0.92); }
 
+/* iPad横向き2カラムレイアウト */
+@media (min-width: 768px) {
+  .panel { padding: 1rem 1.5rem 0; }
+  .expense-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; align-items: start; }
+  .expense-left { display: flex; flex-direction: column; gap: 0; }
+  .expense-right { display: flex; flex-direction: column; gap: 0; }
+  .expense-layout .card { margin-bottom: 0; }
+  .metric-grid { grid-template-columns: repeat(3, 1fr); }
+  .report-table-wrap { padding: 0 0 1rem; }
+}
+
 /* Annual report */
 .annual-header { padding: 1rem 1rem 0; }
 .year-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.875rem; }
@@ -257,68 +268,74 @@ body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: var(
 
   <!-- 経費 -->
   <div id="panel-expense" class="panel active">
-<div class="card">
-      <div class="card-label">手入力</div>
-      <div class="field">
-        <label>日付</label>
-        <div style="display:flex;gap:6px;">
-          <select id="exp-date-y" style="flex:2;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
-          <select id="exp-date-m" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
-          <select id="exp-date-d" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
-          <input type="hidden" id="exp-date">
-        </div>
-      </div>
-      <div class="field">
-        <label>備考 <span style="font-size:11px;color:var(--hint)">（任意）</span></label>
-        <input type="text" id="exp-desc" placeholder="">
-      </div>
-      <div class="field">
-        <label>金額（円）</label>
-        <div class="numpad-wrap">
-          <div class="numpad-display placeholder" id="numpad-display">0</div>
-          <input type="hidden" id="exp-amount">
-          <div class="numpad-grid">
-            <button class="nk" onclick="nkPress('7')">7</button>
-            <button class="nk" onclick="nkPress('8')">8</button>
-            <button class="nk" onclick="nkPress('9')">9</button>
-            <button class="nk" onclick="nkPress('4')">4</button>
-            <button class="nk" onclick="nkPress('5')">5</button>
-            <button class="nk" onclick="nkPress('6')">6</button>
-            <button class="nk" onclick="nkPress('1')">1</button>
-            <button class="nk" onclick="nkPress('2')">2</button>
-            <button class="nk" onclick="nkPress('3')">3</button>
-            <button class="nk nk-00" onclick="nkPress('00')">00</button>
-            <button class="nk" onclick="nkPress('0')">0</button>
-            <button class="nk nk-del" onclick="nkPress('del')">⌫</button>
+    <div class="expense-layout">
+      <div class="expense-left">
+        <div class="card">
+          <div class="card-label">手入力</div>
+          <div class="field">
+            <label>日付</label>
+            <div style="display:flex;gap:6px;">
+              <select id="exp-date-y" style="flex:2;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+              <select id="exp-date-m" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+              <select id="exp-date-d" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+              <input type="hidden" id="exp-date">
+            </div>
+          </div>
+          <div class="field">
+            <label>備考 <span style="font-size:11px;color:var(--hint)">（任意）</span></label>
+            <input type="text" id="exp-desc" placeholder="">
+          </div>
+          <div class="field">
+            <label>科目</label>
+            <div class="tags" id="cat-tags">
+              <button class="tag sel" onclick="pickTag(this)">消耗品費</button>
+              <button class="tag" onclick="pickTag(this)">交際費</button>
+              <button class="tag" onclick="pickTag(this)">旅費交通費</button>
+              <button class="tag" onclick="pickTag(this)">水道光熱費</button>
+              <button class="tag" onclick="pickTag(this)">通信費</button>
+              <button class="tag" onclick="pickTag(this)">研修費</button>
+              <button class="tag" onclick="pickTag(this)">図書費</button>
+              <button class="tag" onclick="pickTag(this)">教材費</button>
+              <button class="tag" onclick="pickTag(this)">租税公課</button>
+              <button class="tag" onclick="pickTag(this)">支払手数料</button>
+              <button class="tag" onclick="pickTag(this)">車両費</button>
+              <button class="tag" onclick="pickTag(this)">修繕費</button>
+              <button class="tag" onclick="pickTag(this)">保険料</button>
+              <button class="tag" onclick="pickTag(this)">仕入高</button>
+              <button class="tag" onclick="pickTag(this)">雑費</button>
+            </div>
+          </div>
+          <div class="field" id="item-field">
+            <label>品目 <span style="font-size:11px;color:var(--hint)">（任意）</span></label>
+            <div class="tags" id="item-tags" style="margin-bottom:8px"></div>
+            <input type="text" id="exp-item" placeholder="その他・直接入力">
           </div>
         </div>
       </div>
-      <div class="field">
-        <label>科目</label>
-        <div class="tags" id="cat-tags">
-          <button class="tag sel" onclick="pickTag(this)">消耗品費</button>
-          <button class="tag" onclick="pickTag(this)">交際費</button>
-          <button class="tag" onclick="pickTag(this)">旅費交通費</button>
-          <button class="tag" onclick="pickTag(this)">水道光熱費</button>
-          <button class="tag" onclick="pickTag(this)">通信費</button>
-          <button class="tag" onclick="pickTag(this)">研修費</button>
-          <button class="tag" onclick="pickTag(this)">図書費</button>
-          <button class="tag" onclick="pickTag(this)">教材費</button>
-          <button class="tag" onclick="pickTag(this)">租税公課</button>
-          <button class="tag" onclick="pickTag(this)">支払手数料</button>
-          <button class="tag" onclick="pickTag(this)">車両費</button>
-          <button class="tag" onclick="pickTag(this)">修繕費</button>
-          <button class="tag" onclick="pickTag(this)">保険料</button>
-          <button class="tag" onclick="pickTag(this)">仕入高</button>
-          <button class="tag" onclick="pickTag(this)">雑費</button>
+      <div class="expense-right">
+        <div class="card">
+          <div class="card-label">金額（円）</div>
+          <div class="numpad-wrap">
+            <div class="numpad-display placeholder" id="numpad-display">0</div>
+            <input type="hidden" id="exp-amount">
+            <div class="numpad-grid">
+              <button class="nk" onclick="nkPress('7')">7</button>
+              <button class="nk" onclick="nkPress('8')">8</button>
+              <button class="nk" onclick="nkPress('9')">9</button>
+              <button class="nk" onclick="nkPress('4')">4</button>
+              <button class="nk" onclick="nkPress('5')">5</button>
+              <button class="nk" onclick="nkPress('6')">6</button>
+              <button class="nk" onclick="nkPress('1')">1</button>
+              <button class="nk" onclick="nkPress('2')">2</button>
+              <button class="nk" onclick="nkPress('3')">3</button>
+              <button class="nk nk-00" onclick="nkPress('00')">00</button>
+              <button class="nk" onclick="nkPress('0')">0</button>
+              <button class="nk nk-del" onclick="nkPress('del')">⌫</button>
+            </div>
+          </div>
+          <button class="btn-submit" id="exp-btn" onclick="submitExpense()" style="margin-top:0.75rem">スプレッドシートに記録</button>
         </div>
       </div>
-      <div class="field" id="item-field">
-        <label>品目 <span style="font-size:11px;color:var(--hint)">（任意）</span></label>
-        <div class="tags" id="item-tags" style="margin-bottom:8px"></div>
-        <input type="text" id="exp-item" placeholder="その他・直接入力">
-      </div>
-      <button class="btn-submit" id="exp-btn" onclick="submitExpense()">スプレッドシートに記録</button>
     </div>
 
     <div class="card">

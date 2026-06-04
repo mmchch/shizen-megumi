@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>経理 — 自然のめぐみ</title>
+<style>
+:root {
+  --sage: #4a7c59;
+  --sage-light: #e8f0eb;
+  --sage-mid: #6fa882;
+  --amber: #c8891a;
+  --amber-light: #fdf3e3;
+  --ink: #1a1a18;
+  --muted: #6b6b67;
+  --hint: #9b9b96;
+  --surface: #ffffff;
+  --surface2: #f6f5f0;
+  --border: rgba(0,0,0,0.10);
+  --rad: 14px;
+  --rad-sm: 8px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: var(--surface2); color: var(--ink); min-height: 100vh; }
+
+.app { max-width: 640px; margin: 0 auto; padding: 0 0 5rem; }
+
+/* Header */
+.header { background: var(--surface); border-bottom: 0.5px solid var(--border); padding: 1rem 1.25rem 0.75rem; position: sticky; top: 0; z-index: 100; }
+.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem; }
+.logo { font-size: 15px; font-weight: 600; color: var(--sage); letter-spacing: -0.01em; }
+.sync-status { font-size: 12px; color: var(--hint); display: flex; align-items: center; gap: 5px; }
+.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--sage); }
+.dot.err { background: #e24b4a; }
+
+/* Tab nav */
+.nav { display: flex; gap: 0; }
+.nav-btn { flex: 1; padding: 8px 4px; border: none; background: none; font-size: 13px; font-weight: 500; color: var(--hint); cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; }
+.nav-btn.active { color: var(--sage); border-bottom-color: var(--sage); }
+
+/* Panels */
+.panel { display: none; padding: 1rem 1rem 0; }
+.panel.active { display: block; }
+
+/* Cards */
+.card { background: var(--surface); border-radius: var(--rad); border: 0.5px solid var(--border); padding: 1.25rem; margin-bottom: 0.875rem; }
+.card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.07em; color: var(--muted); text-transform: uppercase; margin-bottom: 1rem; }
+
+/* Fields */
+.field { margin-bottom: 0.875rem; }
+.field:last-of-type { margin-bottom: 0; }
+.field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 5px; }
+.field input, .field select { width: 100%; height: 42px; padding: 0 12px; border: 0.5px solid var(--border); border-radius: var(--rad-sm); background: var(--surface2); font-size: 15px; color: var(--ink); appearance: none; -webkit-appearance: none; outline: none; font-family: inherit; }
+.field input:focus, .field select:focus { border-color: var(--sage); background: var(--surface); }
+
+/* Tag selector */
+.tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag { padding: 6px 13px; border: 0.5px solid var(--border); border-radius: 20px; font-size: 13px; cursor: pointer; color: var(--muted); background: var(--surface2); transition: all 0.15s; font-family: inherit; }
+.tag.sel { background: var(--sage-light); border-color: var(--sage); color: var(--sage); font-weight: 500; }
+
+/* Receipt zone */
+.receipt-zone { border: 1.5px dashed var(--border); border-radius: var(--rad); padding: 1.75rem 1rem; text-align: center; cursor: pointer; transition: all 0.15s; background: none; width: 100%; font-family: inherit; }
+.receipt-zone:hover, .receipt-zone.over { border-color: var(--sage); background: var(--sage-light); }
+.rz-icon { font-size: 26px; margin-bottom: 6px; }
+.rz-text { font-size: 13px; color: var(--muted); }
+.rz-sub { font-size: 11px; color: var(--hint); margin-top: 3px; }
+
+/* AI result */
+.ai-box { background: var(--sage-light); border: 0.5px solid var(--sage-mid); border-radius: var(--rad-sm); padding: 0.875rem 1rem; margin-top: 0.875rem; }
+.ai-box-label { font-size: 11px; font-weight: 600; color: var(--sage); letter-spacing: 0.06em; margin-bottom: 8px; }
+.ai-row { display: flex; justify-content: space-between; align-items: center; padding: 3px 0; font-size: 13px; }
+.ai-row span:first-child { color: var(--muted); }
+.ai-row span:last-child { font-weight: 500; }
+
+/* Submit button */
+.btn-submit { width: 100%; height: 46px; background: var(--sage); color: #fff; border: none; border-radius: var(--rad-sm); font-size: 15px; font-weight: 600; cursor: pointer; transition: opacity 0.15s; font-family: inherit; margin-top: 1rem; }
+.btn-submit:hover { opacity: 0.88; }
+.btn-submit:disabled { opacity: 0.4; cursor: default; }
+.btn-submit:active { transform: scale(0.99); }
+
+/* Spinner */
+.spinner { display: inline-block; width: 15px; height: 15px; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; border-radius: 50%; animation: spin 0.65s linear infinite; vertical-align: middle; margin-right: 6px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Metrics */
+.month-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+.month-nav button { background: none; border: 0.5px solid var(--border); border-radius: var(--rad-sm); padding: 5px 14px; font-size: 13px; cursor: pointer; color: var(--ink); font-family: inherit; }
+.month-label { font-size: 16px; font-weight: 600; color: var(--ink); }
+
+.metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 0.875rem; }
+.metric { background: var(--surface); border-radius: var(--rad-sm); border: 0.5px solid var(--border); padding: 0.875rem; }
+.metric-lbl { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.metric-val { font-size: 20px; font-weight: 600; color: var(--ink); }
+.metric-val.profit { color: var(--sage); }
+.metric-val.negative { color: #a32d2d; }
+
+/* Bar chart */
+.bar-section { margin-bottom: 0; }
+.bar-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.bar-lbl { font-size: 12px; color: var(--muted); width: 56px; text-align: right; flex-shrink: 0; }
+.bar-track { flex: 1; height: 7px; background: var(--surface2); border-radius: 4px; overflow: hidden; }
+.bar-fill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.bar-val { font-size: 12px; color: var(--muted); width: 66px; text-align: right; flex-shrink: 0; }
+
+/* Income breakdown */
+.breakdown { display: flex; gap: 6px; margin-top: 6px; }
+.bk-item { flex: 1; background: var(--surface2); border-radius: var(--rad-sm); padding: 8px 10px; }
+.bk-lbl { font-size: 11px; color: var(--muted); margin-bottom: 2px; }
+.bk-val { font-size: 14px; font-weight: 600; color: var(--ink); }
+
+/* Ledger */
+.ledger-filter { display: flex; gap: 6px; margin-bottom: 0.875rem; }
+.filter-btn { padding: 5px 14px; border: 0.5px solid var(--border); border-radius: 20px; font-size: 12px; cursor: pointer; background: var(--surface); color: var(--muted); font-family: inherit; }
+.filter-btn.active { background: var(--sage-light); border-color: var(--sage); color: var(--sage); font-weight: 500; }
+
+.entry-list { display: flex; flex-direction: column; gap: 1px; }
+.entry { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 0.5px solid var(--border); }
+.entry:last-child { border-bottom: none; }
+.entry-date { font-size: 12px; color: var(--hint); width: 38px; flex-shrink: 0; }
+.entry-info { flex: 1; min-width: 0; }
+.entry-desc { font-size: 14px; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.entry-sub { font-size: 11px; color: var(--hint); margin-top: 1px; }
+.entry-amount { font-size: 14px; font-weight: 600; flex-shrink: 0; }
+.entry-amount.income { color: var(--sage); }
+.entry-amount.expense { color: var(--muted); }
+
+/* Export */
+.btn-export { width: 100%; height: 42px; background: none; border: 0.5px solid var(--border); border-radius: var(--rad-sm); font-size: 14px; color: var(--ink); cursor: pointer; font-family: inherit; transition: background 0.15s; }
+.btn-export:hover { background: var(--surface2); }
+
+/* GAS URL modal */
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: flex-end; justify-content: center; z-index: 200; padding: 0; }
+.modal { background: var(--surface); border-radius: var(--rad) var(--rad) 0 0; padding: 1.5rem 1.25rem 2rem; width: 100%; max-width: 640px; }
+.modal h2 { font-size: 16px; font-weight: 600; margin-bottom: 0.5rem; }
+.modal p { font-size: 13px; color: var(--muted); margin-bottom: 1rem; line-height: 1.6; }
+.modal input { width: 100%; height: 42px; padding: 0 12px; border: 0.5px solid var(--border); border-radius: var(--rad-sm); font-size: 13px; color: var(--ink); background: var(--surface2); outline: none; font-family: inherit; }
+.modal input:focus { border-color: var(--sage); }
+.modal-btns { display: flex; gap: 8px; margin-top: 1rem; }
+.btn-cancel { flex: 1; height: 42px; background: var(--surface2); border: none; border-radius: var(--rad-sm); font-size: 14px; cursor: pointer; font-family: inherit; }
+.btn-save { flex: 2; height: 42px; background: var(--sage); color: #fff; border: none; border-radius: var(--rad-sm); font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+
+/* Toast */
+.toast { position: fixed; bottom: 5.5rem; left: 50%; transform: translateX(-50%) translateY(8px); background: rgba(26,26,24,0.9); color: #fff; padding: 9px 18px; border-radius: 20px; font-size: 13px; white-space: nowrap; opacity: 0; transition: all 0.2s; pointer-events: none; z-index: 300; }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.err { background: rgba(162,45,45,0.92); }
+
+/* Annual report */
+.annual-header { padding: 1rem 1rem 0; }
+.year-nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.875rem; }
+.section-tabs { display: flex; gap: 0; background: var(--surface2); border-radius: var(--border-radius-md, 8px); padding: 3px; margin-bottom: 1rem; }
+.s-tab { flex: 1; padding: 7px 4px; border: none; background: none; border-radius: 6px; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.s-tab.active { background: var(--surface); color: var(--ink); }
+
+.report-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 1rem 1rem; }
+.report-table { width: 100%; border-collapse: collapse; font-size: 12px; min-width: 600px; }
+.report-table th { text-align: right; padding: 6px 8px; font-size: 11px; font-weight: 500; color: var(--muted); border-bottom: 0.5px solid var(--border); white-space: nowrap; }
+.report-table th:first-child { text-align: left; min-width: 100px; }
+.report-table td { text-align: right; padding: 8px 8px; border-bottom: 0.5px solid var(--border); color: var(--ink); white-space: nowrap; }
+.report-table td:first-child { text-align: left; color: var(--muted); font-size: 12px; }
+.report-table tr.total-row td { font-weight: 600; color: var(--ink); background: var(--surface2); border-top: 0.5px solid var(--border); }
+.report-table td.zero { color: var(--hint); }
+.report-table td.has-val { color: var(--ink); }
+
+/* 日付入力 */
+.date-input-wrap { position: relative; }
+.date-input-wrap input[type="date"] { 
+  width: 100%; height: 42px; padding: 0 12px;
+  border: 0.5px solid var(--border); border-radius: var(--rad-sm);
+  background: var(--surface2); font-size: 15px; color: var(--ink);
+  -webkit-appearance: none; appearance: none; outline: none;
+  font-family: inherit;
+}
+.date-input-wrap input[type="date"]::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+/* テンキー */
+.numpad-wrap { margin-top: 6px; }
+.numpad-display { 
+  width: 100%; height: 48px; padding: 0 12px; 
+  border: 0.5px solid var(--border); border-radius: var(--rad-sm); 
+  background: var(--surface2); font-size: 22px; font-weight: 500;
+  color: var(--ink); text-align: right; display: flex; align-items: center; 
+  justify-content: flex-end; margin-bottom: 8px; letter-spacing: 0.02em;
+  min-height: 48px; box-sizing: border-box;
+}
+.numpad-display.placeholder { color: var(--hint); font-size: 15px; font-weight: 400; }
+.numpad-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.nk { 
+  height: 52px; border: 0.5px solid var(--border); border-radius: var(--rad-sm); 
+  background: var(--surface); font-size: 18px; font-weight: 500; color: var(--ink);
+  cursor: pointer; font-family: inherit; transition: background 0.1s;
+}
+.nk:active { background: var(--surface2); }
+.nk.nk-del { font-size: 16px; background: var(--surface2); }
+.nk.nk-clear { font-size: 13px; background: var(--surface2); color: var(--muted); }
+.nk.nk-00 { font-size: 16px; }
+
+/* No gas */
+.no-gas { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.no-gas button { margin-top: 1rem; padding: 10px 20px; background: var(--sage); color: #fff; border: none; border-radius: var(--rad-sm); font-size: 14px; cursor: pointer; font-family: inherit; }
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="header">
+    <div class="header-top">
+      <div class="logo">自然のめぐみ 経理</div>
+      <div class="sync-status">
+        <div class="dot" id="sync-dot"></div>
+        <span id="sync-label">スプレッドシート連携中</span>
+      </div>
+    </div>
+    <div class="nav">
+      <button class="nav-btn" onclick="showPanel('english',this)">英語売上</button>
+      <button class="nav-btn active" onclick="showPanel('expense',this)">経費</button>
+      <button class="nav-btn" onclick="showPanel('dash',this)">集計</button>
+      <button class="nav-btn" onclick="showPanel('ledger',this)">帳簿</button>
+      <button class="nav-btn" onclick="showPanel('annual',this)">年間</button>
+    </div>
+  </div>
+
+  <!-- 英語売上 -->
+  <div id="panel-english" class="panel">
+    <div class="card">
+      <div class="card-label">英語レッスン売上</div>
+      <div class="field">
+        <label>日付</label>
+        <div style="display:flex;gap:6px;">
+          <select id="eng-date-y" style="flex:2;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+          <select id="eng-date-m" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+          <select id="eng-date-d" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+          <input type="hidden" id="eng-date">
+        </div>
+      </div>
+      <div class="field">
+        <label>内容</label>
+        <input type="text" id="eng-desc" placeholder="グループ、プライベート、教材費など">
+      </div>
+      <div class="field">
+        <label>金額（円）</label>
+        <input type="number" id="eng-amount" inputmode="numeric" placeholder="6800">
+      </div>
+      <div class="field">
+        <label>受取方法</label>
+        <div class="tags" id="payment-tags">
+          <button class="tag sel" onclick="pickTag(this)">現金</button>
+          <button class="tag" onclick="pickTag(this)">PayPay</button>
+          <button class="tag" onclick="pickTag(this)">振込</button>
+          <button class="tag" onclick="pickTag(this)">その他</button>
+        </div>
+      </div>
+      <button class="btn-submit" id="eng-btn" onclick="submitEnglish()">スプレッドシートに記録</button>
+    </div>
+  </div>
+
+  <!-- 経費 -->
+  <div id="panel-expense" class="panel active">
+    <div class="card">
+      <div class="card-label">Amazon CSV 取り込み</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0.875rem;line-height:1.6">個人用の商品カテゴリーを空欄にしておくとスキップされます。</p>
+      <label class="receipt-zone" id="amazon-zone" onclick="document.getElementById('amazon-csv-in').click()">
+        <input type="file" id="amazon-csv-in" accept=".csv" style="display:none" onchange="importAmazonCSV(this)">
+        <div class="rz-icon">📦</div>
+        <div class="rz-text">Amazon注文履歴CSVを選択</div>
+        <div class="rz-sub">カテゴリーが空欄の行は個人用としてスキップします</div>
+      </label>
+      <div id="amazon-result" style="display:none"></div>
+    </div>
+
+<div class="card">
+      <div class="card-label">手入力</div>
+      <div class="field">
+        <label>日付</label>
+        <div style="display:flex;gap:6px;">
+          <select id="exp-date-y" style="flex:2;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+          <select id="exp-date-m" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+          <select id="exp-date-d" style="flex:1;height:42px;padding:0 8px;border:0.5px solid var(--border);border-radius:var(--rad-sm);background:var(--surface2);font-size:15px;color:var(--ink);font-family:inherit;"></select>
+          <input type="hidden" id="exp-date">
+        </div>
+      </div>
+      <div class="field">
+        <label>店名・内容</label>
+        <input type="text" id="exp-desc" placeholder="ヤマダ電機、Amazon など">
+      </div>
+      <div class="field">
+        <label>金額（円）</label>
+        <div class="numpad-wrap">
+          <div class="numpad-display placeholder" id="numpad-display">0</div>
+          <input type="hidden" id="exp-amount">
+          <div class="numpad-grid">
+            <button class="nk" onclick="nkPress('7')">7</button>
+            <button class="nk" onclick="nkPress('8')">8</button>
+            <button class="nk" onclick="nkPress('9')">9</button>
+            <button class="nk" onclick="nkPress('4')">4</button>
+            <button class="nk" onclick="nkPress('5')">5</button>
+            <button class="nk" onclick="nkPress('6')">6</button>
+            <button class="nk" onclick="nkPress('1')">1</button>
+            <button class="nk" onclick="nkPress('2')">2</button>
+            <button class="nk" onclick="nkPress('3')">3</button>
+            <button class="nk nk-00" onclick="nkPress('00')">00</button>
+            <button class="nk" onclick="nkPress('0')">0</button>
+            <button class="nk nk-del" onclick="nkPress('del')">⌫</button>
+          </div>
+        </div>
+      </div>
+      <div class="field">
+        <label>科目</label>
+        <div class="tags" id="cat-tags">
+          <button class="tag sel" onclick="pickTag(this)">消耗品費</button>
+          <button class="tag" onclick="pickTag(this)">交際費</button>
+          <button class="tag" onclick="pickTag(this)">旅費交通費</button>
+          <button class="tag" onclick="pickTag(this)">水道光熱費</button>
+          <button class="tag" onclick="pickTag(this)">通信費</button>
+          <button class="tag" onclick="pickTag(this)">研修費</button>
+          <button class="tag" onclick="pickTag(this)">図書費</button>
+          <button class="tag" onclick="pickTag(this)">教材費</button>
+          <button class="tag" onclick="pickTag(this)">租税公課</button>
+          <button class="tag" onclick="pickTag(this)">支払手数料</button>
+          <button class="tag" onclick="pickTag(this)">車両費</button>
+          <button class="tag" onclick="pickTag(this)">修繕費</button>
+          <button class="tag" onclick="pickTag(this)">保険料</button>
+          <button class="tag" onclick="pickTag(this)">仕入高</button>
+          <button class="tag" onclick="pickTag(this)">雑費</button>
+        </div>
+      </div>
+      <div class="field" id="item-field">
+        <label>品目 <span style="font-size:11px;color:var(--hint)">（任意）</span></label>
+        <div class="tags" id="item-tags" style="margin-bottom:8px"></div>
+        <input type="text" id="exp-item" placeholder="その他・直接入力">
+      </div>
+      <button class="btn-submit" id="exp-btn" onclick="submitExpense()">スプレッドシートに記録</button>
+    </div>
+  </div>
+
+  <!-- 集計 -->
+  <div id="panel-dash" class="panel">
+    <div id="dash-content">
+      <div style="text-align:center;padding:3rem 1rem;color:var(--muted);font-size:14px">
+        <span class="spinner" style="border-color:rgba(0,0,0,0.15);border-top-color:var(--sage)"></span> 読み込み中...
+      </div>
+    </div>
+  </div>
+
+  <!-- 帳簿 -->
+  <div id="panel-ledger" class="panel">
+    <div class="ledger-filter">
+      <button class="filter-btn active" onclick="setFilter('all',this)">すべて</button>
+      <button class="filter-btn" onclick="setFilter('english',this)">英語売上</button>
+      <button class="filter-btn" onclick="setFilter('expense',this)">経費</button>
+    </div>
+    <div class="card">
+      <div id="entry-list" class="entry-list">
+        <div style="text-align:center;padding:2rem;color:var(--hint);font-size:13px">読み込み中...</div>
+      </div>
+    </div>
+    <div class="card">
+      <button class="btn-export" onclick="exportCSV()">📊 税理士用 CSV を出力</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAS URL設定モーダル -->
+<div class="overlay" id="gas-modal" style="display:none">
+  <div class="modal">
+    <h2>GAS URLを設定してください</h2>
+    <p>keicho-gas.js をデプロイして取得した URL を貼り付けてください。</p>
+    <input type="url" id="gas-url-input" placeholder="https://script.google.com/macros/s/...">
+    <div class="modal-btns">
+      <button class="btn-cancel" onclick="closeModal()">キャンセル</button>
+      <button class="btn-save" onclick="saveGasUrl()">保存</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── 設定 ────────────────────────────────────────────────────
+let GAS_URL = localStorage.getItem('keicho_gas_url') || '';
+let entries = { english: [], expense: [] };
+let dashMonth = new Date();
+dashMonth.setDate(1);
+let ledgerFilter = 'all';
+
+// ─── 初期化 ──────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  initDateSelect('eng-date');
+  initDateSelect('exp-date');
+  updateItemTags('消耗品費');
+  updateSyncStatus();
+  if (!GAS_URL) showModal();
+});
+
+function today() {
+  return new Date().toISOString().slice(0, 10);
+}
+
+function initDateSelect(prefix) {
+  const now = new Date();
+  const yEl = document.getElementById(prefix + '-y');
+  const mEl = document.getElementById(prefix + '-m');
+  const dEl = document.getElementById(prefix + '-d');
+  if (!yEl) return;
+
+  // 年（2024〜2030）
+  for (let y = 2024; y <= 2030; y++) {
+    const o = document.createElement('option');
+    o.value = y; o.textContent = y + '年';
+    if (y === now.getFullYear()) o.selected = true;
+    yEl.appendChild(o);
+  }
+  // 月
+  for (let m = 1; m <= 12; m++) {
+    const o = document.createElement('option');
+    o.value = String(m).padStart(2,'0'); o.textContent = m + '月';
+    if (m === now.getMonth()+1) o.selected = true;
+    mEl.appendChild(o);
+  }
+  // 日
+  function updateDays() {
+    const y = parseInt(yEl.value);
+    const m = parseInt(mEl.value);
+    const days = new Date(y, m, 0).getDate();
+    const curD = dEl.value ? parseInt(dEl.value) : now.getDate();
+    dEl.innerHTML = '';
+    for (let d = 1; d <= days; d++) {
+      const o = document.createElement('option');
+      o.value = String(d).padStart(2,'0'); o.textContent = d + '日';
+      if (d === Math.min(curD, days)) o.selected = true;
+      dEl.appendChild(o);
+    }
+    syncDate(prefix);
+  }
+  yEl.addEventListener('change', updateDays);
+  mEl.addEventListener('change', updateDays);
+  dEl.addEventListener('change', () => syncDate(prefix));
+  updateDays();
+}
+
+function syncDate(prefix) {
+  const y = document.getElementById(prefix + '-y').value;
+  const m = document.getElementById(prefix + '-m').value;
+  const d = document.getElementById(prefix + '-d').value;
+  document.getElementById(prefix).value = y + '-' + m + '-' + d;
+}
+
+function getDateValue(prefix) {
+  return document.getElementById(prefix).value || today();
+}
+
+function updateSyncStatus() {
+  const dot = document.getElementById('sync-dot');
+  const lbl = document.getElementById('sync-label');
+  if (GAS_URL) {
+    dot.className = 'dot';
+    lbl.textContent = 'スプレッドシート連携中';
+  } else {
+    dot.className = 'dot err';
+    lbl.textContent = 'GAS未設定';
+  }
+}
+
+// ─── パネル切替 ──────────────────────────────────────────────
+function showPanel(name, btn) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('panel-' + name).classList.add('active');
+  btn.classList.add('active');
+  if (name === 'dash') loadDash();
+  if (name === 'ledger') loadLedger();
+  if (name === 'annual') loadAnnual();
+}
+
+// ─── タグ選択 ────────────────────────────────────────────────
+// 科目ごとの品目リスト
+const ITEMS_BY_CAT = {
+  '消耗品費':   ['ヨガウェア','教室日用品','清掃用品','生花','タネ苗','文具','印刷用紙','トイレ用品','その他'],
+  '交際費':     ['打ち合わせ飲食','お土産','差し入れ','その他'],
+  '旅費交通費': ['電車代','バス代','駐車場代','タクシー代','高速代','ETC','その他'],
+  '車両費':     ['ガソリン代','車検費用','自動車保険','駐車場代','洗車','その他'],
+  '水道光熱費': ['電気代','水道代','ガス代','その他'],
+  '通信費':     ['携帯電話','インターネット','郵便・送料','その他'],
+  '研修費':     ['セミナー参加費','書籍','オンライン講座','その他'],
+  '租税公課':   ['印紙代','固定資産税','その他'],
+  '支払手数料': ['振込手数料','決済手数料','その他'],
+  '修繕費':     ['備品修理','施設修繕','その他'],
+  '図書費':      ['書籍','電子書籍（Kindle）','その他'],
+  '教材費':      ['英語教材','ヨガ教材','テキスト','その他'],
+  '保険料':      ['自動車保険','火災保険','地震保険','その他'],
+  '仕入高':      ['英語教材仕入','ヨガ用品仕入','その他'],
+  '雑費':       ['その他'],
+};
+
+function pickTag(el) {
+  el.closest('.tags').querySelectorAll('.tag').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
+  // 科目タグが変わったら品目タグを更新
+  if (el.closest('#cat-tags')) updateItemTags(el.textContent.trim());
+}
+
+function updateItemTags(category) {
+  const items = ITEMS_BY_CAT[category] || [];
+  const container = document.getElementById('item-tags');
+  if (!container) return;
+  container.innerHTML = items.map(it =>
+    `<button class="tag" onclick="pickItemTag(this)">${it}</button>`
+  ).join('');
+  document.getElementById('exp-item').value = '';
+}
+
+function pickItemTag(el) {
+  document.querySelectorAll('#item-tags .tag').forEach(t => t.classList.remove('sel'));
+  el.classList.add('sel');
+  document.getElementById('exp-item').value = el.textContent.trim() === 'その他' ? '' : el.textContent.trim();
+}
+
+function selectedTag(groupId) {
+  const sel = document.querySelector('#' + groupId + ' .tag.sel');
+  return sel ? sel.textContent.trim() : '';
+}
+
+// ─── GAS通信 ─────────────────────────────────────────────────
+async function gasPost(action, data) {
+  if (!GAS_URL) { showModal(); throw new Error('GAS未設定'); }
+  const res = await fetch(GAS_URL, {
+    method: 'POST',
+    body: JSON.stringify({ action, ...data }),
+    headers: { 'Content-Type': 'text/plain' }
+  });
+  return res.json();
+}
+
+async function gasGet(params) {
+  if (!GAS_URL) { showModal(); throw new Error('GAS未設定'); }
+  const qs = new URLSearchParams(params).toString();
+  const res = await fetch(GAS_URL + '?' + qs);
+  return res.json();
+}
+
+// ─── 英語売上 ────────────────────────────────────────────────
+async function submitEnglish() {
+  const date = getDateValue('eng-date');
+  const desc = document.getElementById('eng-desc').value.trim();
+  const amount = parseInt(document.getElementById('eng-amount').value);
+  const payment = selectedTag('payment-tags');
+  if (!date || !desc || !amount) { toast('日付・内容・金額を入力してください', 'err'); return; }
+
+  const btn = document.getElementById('eng-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>送信中...';
+  try {
+    await gasPost('addEnglish', { date, desc, amount, payment });
+    document.getElementById('eng-desc').value = '';
+    document.getElementById('eng-amount').value = '';
+    toast('英語売上を記録しました ✓');
+  } catch(e) {
+    toast('通信エラー。再試行してください', 'err');
+  }
+  btn.disabled = false;
+  btn.textContent = 'スプレッドシートに記録';
+}
+
+// ─── 経費 ────────────────────────────────────────────────────
+async function submitExpense() {
+  const date = getDateValue('exp-date');
+  const desc = document.getElementById('exp-desc').value.trim();
+  const amount = parseInt(document.getElementById('exp-amount').value);
+  const category = selectedTag('cat-tags');
+  const item = document.getElementById('exp-item').value.trim();
+  if (!date || !desc || !amount) { toast('日付・内容・金額を入力してください', 'err'); return; }
+
+  const btn = document.getElementById('exp-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>送信中...';
+  try {
+    await gasPost('addExpense', { date, desc, amount, category, item });
+    document.getElementById('exp-desc').value = '';
+    document.getElementById('exp-item').value = '';
+    resetNumpad();
+    const aiBox = document.getElementById('ai-box');
+    aiBox.style.display = 'none';
+    toast('経費を記録しました ✓');
+  } catch(e) {
+    toast('通信エラー。再試行してください', 'err');
+  }
+  btn.disabled = false;
+  btn.textContent = 'スプレッドシートに記録';
+}
+
+// ─── 帳簿 ────────────────────────────────────────────────────
+async function loadLedger() {
+  const list = document.getElementById('entry-list');
+  list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--hint);font-size:13px">読み込み中...</div>';
+  try {
+    const d = await gasGet({ action: 'getEntries' });
+    if (!d.ok) throw new Error(d.error);
+    entries = d;
+    renderLedger();
+  } catch(e) {
+    list.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--hint);font-size:13px">読み込みに失敗しました</div>`;
+  }
+}
+
+function setFilter(f, btn) {
+  ledgerFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderLedger();
+}
+
+function renderLedger() {
+  const list = document.getElementById('entry-list');
+  let items = [];
+  if (ledgerFilter !== 'expense') {
+    entries.english.forEach(e => items.push({ ...e, type: 'english' }));
+  }
+  if (ledgerFilter !== 'english') {
+    entries.expense.forEach(e => items.push({ ...e, type: 'expense' }));
+  }
+  items.sort((a, b) => b.date.localeCompare(a.date));
+  if (!items.length) {
+    list.innerHTML = '<div style="text-align:center;padding:2rem;color:var(--hint);font-size:13px">記録がありません</div>';
+    return;
+  }
+  list.innerHTML = items.map(e => `
+    <div class="entry">
+      <div class="entry-date">${e.date.slice(5)}</div>
+      <div class="entry-info">
+        <div class="entry-desc">${e.desc}</div>
+        <div class="entry-sub">${e.type === 'english' ? '英語 / ' + (e.payment || '') : (e.category || '経費') + (e.item ? ' / ' + e.item : '')}</div>
+      </div>
+      <div class="entry-amount ${e.type === 'english' ? 'income' : 'expense'}">
+        ${e.type === 'english' ? '+' : '-'}¥${Number(e.amount).toLocaleString()}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ─── CSV出力 ─────────────────────────────────────────────────
+function exportCSV() {
+  const rows = [['日付', '内容', '区分', '金額', '科目/支払方法', '品目']];
+  const all = [
+    ...entries.english.map(e => [e.date, e.desc, '英語売上', e.amount, e.payment || '', '']),
+    ...entries.expense.map(e => [e.date, e.desc, '経費', e.amount, e.category || '', e.item || ''])
+  ].sort((a, b) => a[0].localeCompare(b[0]));
+  all.forEach(r => rows.push(r));
+  const csv = rows.map(r => r.join(',')).join('\n');
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'keicho_' + new Date().toISOString().slice(0, 7) + '.csv';
+  a.click();
+  toast('CSVを出力しました');
+}
+
+// ─── GAS URL モーダル ────────────────────────────────────────
+function showModal() {
+  document.getElementById('gas-modal').style.display = 'flex';
+  document.getElementById('gas-url-input').value = GAS_URL;
+}
+function closeModal() {
+  document.getElementById('gas-modal').style.display = 'none';
+}
+function saveGasUrl() {
+  const url = document.getElementById('gas-url-input').value.trim();
+  if (!url.startsWith('https://script.google.com')) {
+    toast('正しいGAS URLを入力してください', 'err'); return;
+  }
+  GAS_URL = url;
+  localStorage.setItem('keicho_gas_url', url);
+  closeModal();
+  updateSyncStatus();
+  toast('GAS URLを保存しました ✓');
+}
+
+// ─── 年間レポート ────────────────────────────────────────────
+let annualYear = new Date().getFullYear();
+let annualData = null;
+let annualSection = 'yoga';
+
+function changeYear(dir) {
+  annualYear += dir;
+  loadAnnual();
+}
+
+function switchSection(sec, btn) {
+  annualSection = sec;
+  document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  if (annualData) renderAnnual(annualData);
+}
+
+async function loadAnnual() {
+  document.getElementById('annual-year-label').textContent = annualYear + '年';
+  const content = document.getElementById('annual-content');
+  content.innerHTML = '<div style="text-align:center;padding:3rem;color:var(--muted);font-size:14px"><span class="spinner" style="border-color:rgba(0,0,0,0.15);border-top-color:var(--sage)"></span> 読み込み中...</div>';
+  try {
+    const d = await gasGet({ action: 'getAnnualReport', year: annualYear });
+    if (!d.ok) throw new Error(d.error);
+    annualData = d;
+    renderAnnual(d);
+  } catch(e) {
+    content.innerHTML = `<div class="no-gas">データを取得できませんでした<br><small>${e.message}</small></div>`;
+  }
+}
+
+function renderAnnual(d) {
+  document.getElementById('annual-year-label').textContent = annualYear + '年';
+  const months = ['01','02','03','04','05','06','07','08','09','10','11','12'];
+  const mLabels = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+
+  let rowMap = {};
+  if (annualSection === 'yoga')    rowMap = d.yogaByClass || {};
+  if (annualSection === 'english') rowMap = d.engByDesc || {};
+  if (annualSection === 'expense') rowMap = d.expByCat || {};
+
+  const rowKeys = Object.keys(rowMap);
+
+  // 月合計行
+  const monthTotals = months.map(mm =>
+    rowKeys.reduce((s, k) => s + (rowMap[k][mm] || 0), 0)
+  );
+  const grandTotal = monthTotals.reduce((s, v) => s + v, 0);
+
+  // ヘッダー
+  let html = '<div class="report-table-wrap"><table class="report-table"><thead><tr>';
+  html += '<th>項目</th>';
+  mLabels.forEach(m => html += `<th>${m}</th>`);
+  html += '<th>合計</th></tr></thead><tbody>';
+
+  if (rowKeys.length === 0) {
+    html += `<tr><td colspan="${months.length + 2}" style="text-align:center;padding:2rem;color:var(--hint)">データなし</td></tr>`;
+  } else {
+    rowKeys.forEach(key => {
+      const rowTotal = months.reduce((s, mm) => s + (rowMap[key][mm] || 0), 0);
+      if (rowTotal === 0) return;
+      html += '<tr>';
+      html += `<td>${key}</td>`;
+      months.forEach(mm => {
+        const v = rowMap[key][mm] || 0;
+        html += v > 0
+          ? `<td class="has-val">¥${v.toLocaleString()}</td>`
+          : `<td class="zero">—</td>`;
+      });
+      html += `<td style="font-weight:600">¥${rowTotal.toLocaleString()}</td>`;
+      html += '</tr>';
+    });
+    // 合計行
+    html += '<tr class="total-row"><td>合計</td>';
+    monthTotals.forEach(v => html += `<td>¥${v.toLocaleString()}</td>`);
+    html += `<td>¥${grandTotal.toLocaleString()}</td></tr>`;
+  }
+
+  html += '</tbody></table></div>';
+  document.getElementById('annual-content').innerHTML = html;
+}
+
+// ─── テンキー ─────────────────────────────────────────────────
+let numpadVal = '';
+
+function nkPress(key) {
+  if (key === 'del') {
+    numpadVal = numpadVal.slice(0, -1);
+  } else if (key === '00') {
+    if (numpadVal === '' || numpadVal === '0') return;
+    numpadVal += '00';
+  } else {
+    if (numpadVal === '0') numpadVal = '';
+    numpadVal += key;
+  }
+  // 最大8桁
+  if (numpadVal.length > 8) numpadVal = numpadVal.slice(0, 8);
+  
+  const display = document.getElementById('numpad-display');
+  const input = document.getElementById('exp-amount');
+  if (!numpadVal) {
+    display.textContent = '0';
+    display.classList.add('placeholder');
+    input.value = '';
+  } else {
+    display.textContent = '¥' + parseInt(numpadVal).toLocaleString();
+    display.classList.remove('placeholder');
+    input.value = numpadVal;
+  }
+}
+
+function resetNumpad() {
+  numpadVal = '';
+  const display = document.getElementById('numpad-display');
+  if (display) {
+    display.textContent = '0';
+    display.classList.add('placeholder');
+  }
+  const input = document.getElementById('exp-amount');
+  if (input) input.value = '';
+}
+
+// ─── Amazon CSV取り込み ──────────────────────────────────────
+const AMAZON_CAT_MAP = {
+  'grocery':         '消耗品費',
+  'beauty':          '消耗品費',
+  'home':            '消耗品費',
+  'kitchen':         '消耗品費',
+  'home improvement':'消耗品費',
+  'tools':           '消耗品費',
+  'office products': '消耗品費',
+  'pet supplies':    '消耗品費',
+  'sports':          '消耗品費',
+  'apparel':         '消耗品費',
+  'ce':              '消耗品費',
+  'electronics':     '消耗品費',
+  'garden':          '消耗品費',
+  'automotive':      '車両費',
+  'books':           '図書費',
+  'kindle':          '図書費',
+  'digital_ebook_purchase': '図書費',
+  'prime':           '支払手数料',
+};
+
+async function importAmazonCSV(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const zone = document.getElementById('amazon-zone');
+  zone.innerHTML = '<span class="spinner" style="border-color:rgba(0,0,0,0.15);border-top-color:var(--sage)"></span> <span style="font-size:13px;color:var(--muted)">読み込み中...</span>';
+
+  const text = await file.text();
+  const lines = text.split('\n');
+  const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, '').replace(/^\uFEFF/, ''));
+
+  // 必要な列のインデックスを取得
+  const idxDate     = headers.indexOf('注文日');
+  const idxName     = headers.indexOf('商品名');
+  const idxAmount   = headers.indexOf('商品の小計（税込）');
+  const idxCat      = headers.indexOf('商品カテゴリー');
+  const idxOrderNo  = headers.indexOf('注文番号');
+
+  if (idxDate < 0 || idxName < 0 || idxAmount < 0) {
+    toast('CSVの形式が正しくありません', 'err');
+    resetAmazonZone();
+    return;
+  }
+
+  // CSVパース（カンマ区切り、ダブルクォート対応）
+  function parseCSVLine(line) {
+    const result = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const c = line[i];
+      if (c === '"') { inQ = !inQ; }
+      else if (c === ',' && !inQ) { result.push(cur.trim()); cur = ''; }
+      else { cur += c; }
+    }
+    result.push(cur.trim());
+    return result;
+  }
+
+  // 重複除去用（同じ注文番号+商品名は1回だけ）
+  const seen = new Set();
+  const items = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+    if (!line) continue;
+    const cols = parseCSVLine(line);
+    const rawCat = (cols[idxCat] || '').replace(/^="|"$/g, '').trim();
+    if (!rawCat) continue; // 空欄=個人用→スキップ
+
+    const orderNo = cols[idxOrderNo] || '';
+    const name = cols[idxName] || '';
+    const key = orderNo + '|' + name;
+    if (seen.has(key)) continue; // 重複スキップ
+    seen.add(key);
+
+    const date = (cols[idxDate] || '').replace(/\//g, '-');
+    const amountRaw = (cols[idxAmount] || '0').replace(/[",]/g, '');
+    const amount = parseInt(amountRaw) || 0;
+    if (amount <= 0) continue;
+
+    const catKey = rawCat.toLowerCase();
+    const category = AMAZON_CAT_MAP[catKey] || '消耗品費';
+    // 商品名は長いので先頭40文字
+    const desc = 'Amazon: ' + name.slice(0, 40);
+
+    items.push({ date, desc, amount, category, item: name.slice(0, 40) });
+  }
+
+  if (items.length === 0) {
+    toast('取り込める事業用データがありませんでした', 'err');
+    resetAmazonZone();
+    input.value = '';
+    return;
+  }
+
+  // プレビュー表示
+  const resultDiv = document.getElementById('amazon-result');
+  resultDiv.innerHTML = `
+    <div class="ai-box" style="margin-top:0.875rem">
+      <div class="ai-box-label">${items.length}件を取り込みます</div>
+      ${items.slice(0, 5).map(it => `
+        <div class="ai-row"><span>${it.date}</span><span style="font-size:11px;max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${it.desc}</span><span>¥${it.amount.toLocaleString()}</span></div>
+      `).join('')}
+      ${items.length > 5 ? `<div style="font-size:11px;color:var(--hint);text-align:center;margin-top:4px">他${items.length - 5}件...</div>` : ''}
+    </div>
+    <button class="btn-submit" id="amazon-import-btn" onclick="executeAmazonImport()" style="margin-top:0.75rem">スプレッドシートに記録</button>
+  `;
+  resultDiv.style.display = 'block';
+  resultDiv._items = items;
+  resetAmazonZone();
+  input.value = '';
+}
+
+async function executeAmazonImport() {
+  const resultDiv = document.getElementById('amazon-result');
+  const items = resultDiv._items;
+  const btn = document.getElementById('amazon-import-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>記録中...';
+
+  let success = 0, fail = 0;
+  for (const item of items) {
+    try {
+      await gasPost('addExpense', item);
+      success++;
+    } catch(e) {
+      fail++;
+    }
+  }
+  resultDiv.style.display = 'none';
+  if (fail === 0) {
+    toast(`${success}件をスプレッドシートに記録しました ✓`);
+  } else {
+    toast(`${success}件成功、${fail}件失敗`, 'err');
+  }
+}
+
+function resetAmazonZone() {
+  const zone = document.getElementById('amazon-zone');
+  zone.innerHTML = '<input type="file" id="amazon-csv-in" accept=".csv" style="display:none" onchange="importAmazonCSV(this)"><div class="rz-icon">📦</div><div class="rz-text">Amazon注文履歴CSVを選択</div><div class="rz-sub">カテゴリーが空欄の行は個人用としてスキップします</div>';
+  zone.onclick = () => document.getElementById('amazon-csv-in').click();
+}
+
+// ─── 集計シート書き出し ──────────────────────────────────────
+async function writeAnnualSheets() {
+  const btn = document.getElementById('write-annual-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner" style="border-color:rgba(74,124,89,0.3);border-top-color:var(--sage)"></span> 作成中...';
+  try {
+    const d = await gasGet({ action: 'writeAnnualSheets', year: annualYear });
+    if (!d.ok) throw new Error(d.error);
+    toast(`${annualYear}年の集計シートをスプレッドシートに作成しました ✓`);
+  } catch(e) {
+    toast('作成に失敗しました: ' + e.message, 'err');
+  }
+  btn.disabled = false;
+  btn.innerHTML = '📊 スプレッドシートに集計シートを作成';
+}
+
+// ─── Toast ───────────────────────────────────────────────────
+function toast(msg, type = '') {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast ' + type + ' show';
+  clearTimeout(t._tid);
+  t._tid = setTimeout(() => t.classList.remove('show'), 2400);
+}
+</script>
+</body>
+</html>

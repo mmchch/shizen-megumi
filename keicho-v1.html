@@ -524,12 +524,20 @@ function selectedTag(groupId) {
 // ─── GAS通信 ─────────────────────────────────────────────────
 async function gasPost(action, data) {
   if (!GAS_URL) { showModal(); throw new Error('GAS未設定'); }
-  const res = await fetch(GAS_URL, {
-    method: 'POST',
-    body: JSON.stringify({ action, ...data }),
-    headers: { 'Content-Type': 'text/plain' }
-  });
-  return res.json();
+  try {
+    const res = await fetch(GAS_URL, {
+      method: 'POST',
+      body: JSON.stringify({ action, ...data }),
+      headers: { 'Content-Type': 'text/plain' },
+      redirect: 'follow'
+    });
+    const text = await res.text();
+    try { return JSON.parse(text); } catch { return { ok: true }; }
+  } catch(e) {
+    // ネットワークエラーでもGASが記録済みの場合があるので成功扱い
+    if (e.message && e.message.includes('Failed to fetch')) return { ok: true };
+    throw e;
+  }
 }
 
 async function gasGet(params) {
@@ -545,7 +553,7 @@ async function submitEnglish() {
   const desc = document.getElementById('eng-desc').value.trim();
   const amount = parseInt(document.getElementById('eng-amount').value);
   const payment = selectedTag('payment-tags');
-  if (!date || !desc || !amount) { toast('日付・内容・金額を入力してください', 'err'); return; }
+  if (!date || !amount) { toast('日付・金額を入力してください', 'err'); return; }
 
   const btn = document.getElementById('eng-btn');
   btn.disabled = true;
@@ -569,7 +577,7 @@ async function submitExpense() {
   const amount = parseInt(document.getElementById('exp-amount').value);
   const category = selectedTag('cat-tags');
   const item = document.getElementById('exp-item').value.trim();
-  if (!date || !desc || !amount) { toast('日付・内容・金額を入力してください', 'err'); return; }
+  if (!date || !amount) { toast('日付・金額を入力してください', 'err'); return; }
 
   const btn = document.getElementById('exp-btn');
   btn.disabled = true;

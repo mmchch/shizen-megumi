@@ -257,18 +257,6 @@ body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: var(
 
   <!-- 経費 -->
   <div id="panel-expense" class="panel active">
-    <div class="card">
-      <div class="card-label">Amazon CSV 取り込み</div>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:0.875rem;line-height:1.6">個人用の商品カテゴリーを空欄にしておくとスキップされます。</p>
-      <label class="receipt-zone" id="amazon-zone" onclick="document.getElementById('amazon-csv-in').click()">
-        <input type="file" id="amazon-csv-in" accept=".csv" style="display:none" onchange="importAmazonCSV(this)">
-        <div class="rz-icon">📦</div>
-        <div class="rz-text">Amazon注文履歴CSVを選択</div>
-        <div class="rz-sub">カテゴリーが空欄の行は個人用としてスキップします</div>
-      </label>
-      <div id="amazon-result" style="display:none"></div>
-    </div>
-
 <div class="card">
       <div class="card-label">手入力</div>
       <div class="field">
@@ -331,6 +319,18 @@ body { font-family: -apple-system, 'Hiragino Sans', sans-serif; background: var(
         <input type="text" id="exp-item" placeholder="その他・直接入力">
       </div>
       <button class="btn-submit" id="exp-btn" onclick="submitExpense()">スプレッドシートに記録</button>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Amazon CSV 取り込み</div>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:0.875rem;line-height:1.6">個人用の商品カテゴリーを空欄にしておくとスキップされます。</p>
+      <label class="receipt-zone" id="amazon-zone" onclick="document.getElementById('amazon-csv-in').click()">
+        <input type="file" id="amazon-csv-in" accept=".csv" style="display:none" onchange="importAmazonCSV(this)">
+        <div class="rz-icon">📦</div>
+        <div class="rz-text">Amazon注文履歴CSVを選択</div>
+        <div class="rz-sub">カテゴリーが空欄の行は個人用としてスキップします</div>
+      </label>
+      <div id="amazon-result" style="display:none"></div>
     </div>
   </div>
 

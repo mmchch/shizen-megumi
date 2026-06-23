@@ -905,6 +905,47 @@
     transform: translateY(-2px);
     box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
+
+/* ── LIGHTBOX ── */
+#lightbox-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.88);
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+  padding: 20px;
+}
+#lightbox-overlay.active { display: flex; }
+#lightbox-overlay img {
+  max-width: 96vw;
+  max-height: 92vh;
+  border-radius: 8px;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+  object-fit: contain;
+  cursor: zoom-out;
+}
+#lightbox-close {
+  position: fixed;
+  top: 16px; right: 20px;
+  color: white;
+  font-size: 2rem;
+  line-height: 1;
+  cursor: pointer;
+  background: rgba(0,0,0,0.4);
+  border: none;
+  border-radius: 50%;
+  width: 40px; height: 40px;
+  display: flex; align-items: center; justify-content: center;
+}
+.lightbox-trigger {
+  cursor: zoom-in;
+  transition: opacity 0.2s;
+}
+.lightbox-trigger:hover { opacity: 0.9; }
+
 </style>
 </head>
 <body>
@@ -1034,6 +1075,17 @@
     📖 ブログ：体が硬いからこそヨガ！
   </a>
 
+
+<!-- ピンクお知らせ＋入会プラン -->
+<section class="content-section" style="padding-bottom:0;">
+  <!-- ピンクの予約が必要になりましたの画像 -->
+  <img class="lightbox-trigger" src="data:image/png;base64,7月から予約が必要になります" alt="7月から予約が必要になります"
+       style="width:100%;max-width:680px;display:block;margin:0 auto 28px;border-radius:16px;box-shadow:0 4px 16px rgba(0,0,0,0.10);">
+
+  <!-- 入会プラン画像 -->
+  <img class="lightbox-trigger" src="data:image/png;base64,あなたにぴったりの入会プランは？" alt="あなたにぴったりの入会プランは？"
+       style="width:100%;max-width:780px;display:block;margin:0 auto;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.08);">
+</section>
 
 <!-- スケジュール -->
 <section id="schedule" class="content-section alt">
@@ -1401,6 +1453,34 @@
     <p style="margin-top:4px;">© 2026 自然のめぐみ・セルフケア</p>
   </div>
 </footer>
+
+
+<!-- LIGHTBOX -->
+<div id="lightbox-overlay" onclick="closeLightbox()">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+<script>
+function openLightbox(src, alt) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-img').alt = alt || '';
+  document.getElementById('lightbox-overlay').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  document.getElementById('lightbox-overlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeLightbox();
+});
+// クリックで開く画像にイベントを自動付与
+document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
+  img.addEventListener('click', function() {
+    openLightbox(this.src, this.alt);
+  });
+});
+</script>
 
 </body>
 </html>

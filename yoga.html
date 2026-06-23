@@ -1449,10 +1449,13 @@ function closeLightbox() {
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeLightbox();
 });
-// クリックで開く画像にイベントを自動付与
-document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
-  img.addEventListener('click', function() {
-    openLightbox(this.src, this.alt);
+// DOMContentLoaded後にイベント付与
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.lightbox-trigger').forEach(function(img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function() {
+      openLightbox(this.src, this.alt);
+    });
   });
 });
 </script>

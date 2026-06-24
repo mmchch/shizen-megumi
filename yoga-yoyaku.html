@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クラス予約 | 自然のめぐみ・セルフケア</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --green-deep: #2d4a3e;
+    --green-mid: #4a7c6f;
+    --green-light: #8db5a7;
+    --cream: #f7f3ee;
+    --warm: #e8dfd4;
+    --accent: #c4956a;
+    --text: #2a2a2a;
+    --text-light: #6b7168;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ヘッダー */
+  header {
+    background: var(--green-deep);
+    color: white;
+    padding: 2rem 1.5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(138,186,166,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(196,149,106,0.1) 0%, transparent 50%);
+  }
+
+  .header-en {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.2em;
+    color: var(--green-light);
+    margin-bottom: 0.5rem;
+  }
+
+  header h1 {
+    font-size: 1.4rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    position: relative;
+  }
+
+  header p {
+    font-size: 0.78rem;
+    color: var(--green-light);
+    margin-top: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.05em;
+  }
+
+  /* LINE案内バナー */
+  .line-banner {
+    background: #06c755;
+    color: white;
+    text-align: center;
+    padding: 0.7rem 1rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+  }
+
+  .line-banner a {
+    color: white;
+    font-weight: 700;
+    text-decoration: underline;
+  }
+
+  /* メインコンテンツ */
+  main {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 1.5rem 1rem 3rem;
+  }
+
+  /* ステップ表示 */
+  .step-indicator {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.72rem;
+    color: var(--text-light);
+  }
+
+  .step-num {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--warm);
+    border: 1.5px solid var(--green-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--green-mid);
+    transition: all 0.3s;
+  }
+
+  .step.active .step-num {
+    background: var(--green-deep);
+    border-color: var(--green-deep);
+    color: white;
+  }
+
+  .step-line {
+    width: 30px;
+    height: 1px;
+    background: var(--green-light);
+    opacity: 0.4;
+  }
+
+  /* セクションタイトル */
+  .section-title {
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--green-mid);
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--green-light);
+    opacity: 0.3;
+  }
+
+  /* クラスカード */
+  .classes-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    margin-bottom: 2rem;
+  }
+
+  .class-card {
+    background: white;
+    border: 1.5px solid var(--warm);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .class-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--green-light);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .class-card:hover {
+    border-color: var(--green-light);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(45,74,62,0.08);
+  }
+
+  .class-card:hover::before { opacity: 1; }
+
+  .class-card.selected {
+    border-color: var(--green-deep);
+    background: #f0f5f3;
+    box-shadow: 0 4px 20px rgba(45,74,62,0.12);
+  }
+
+  .class-card.selected::before { opacity: 1; background: var(--green-deep); }
+
+  /* 英会話クラス：テラコッタ */
+  .class-card.eigo::before { background: var(--accent); }
+  .class-card.eigo:hover { border-color: var(--accent); }
+  .class-card.eigo.selected { border-color: var(--accent); background: #fdf5ef; }
+  .class-card.eigo.selected::before { background: var(--accent); }
+
+  .class-card.full {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .class-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.3rem;
+  }
+
+  .class-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--green-deep);
+  }
+
+  .class-badge {
+    font-size: 0.65rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+
+  .badge-ok { background: #e8f4ef; color: var(--green-mid); }
+  .badge-few { background: #fef3e2; color: #c47a1a; }
+  .badge-full { background: #fde8e8; color: #c44a4a; }
+
+  .class-datetime {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--warm);
+    letter-spacing: 0.03em;
+  }
+
+  .class-capacity-bar {
+    height: 3px;
+    background: var(--warm);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 0.6rem;
+  }
+
+  .capacity-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  .fill-ok { background: var(--green-mid); }
+  .fill-few { background: #e0a030; }
+  .fill-full { background: #c44a4a; }
+
+  .capacity-text {
+    font-size: 0.68rem;
+    color: var(--text-light);
+    margin-top: 0.3rem;
+  }
+
+  /* フォーム */
+  .form-section {
+    background: white;
+    border: 1.5px solid var(--warm);
+    border-radius: 16px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    display: none;
+  }
+
+  .form-section.visible { display: block; }
+
+  .selected-class-info {
+    background: #f0f5f3;
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    margin-bottom: 1.2rem;
+    border-left: 3px solid var(--green-deep);
+  }
+
+  .selected-class-info .label {
+    font-size: 0.65rem;
+    color: var(--text-light);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2rem;
+  }
+
+  .selected-class-info .value {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--green-deep);
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.4rem;
+  }
+
+  .form-group label span {
+    color: var(--accent);
+    margin-left: 0.2rem;
+  }
+
+  .form-group input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid var(--warm);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    color: var(--text);
+    background: var(--cream);
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--green-mid);
+    background: white;
+  }
+
+  /* LINE IDフィールド */
+  .line-id-note {
+    font-size: 0.68rem;
+    color: var(--text-light);
+    margin-top: 0.4rem;
+    line-height: 1.5;
+  }
+
+  /* 送信ボタン */
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--green-deep);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: all 0.25s;
+    margin-top: 0.5rem;
+  }
+
+  .submit-btn:hover {
+    background: var(--green-mid);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(45,74,62,0.2);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
+
+  /* 完了画面 */
+  .success-screen {
+    text-align: center;
+    padding: 2rem 1rem;
+    display: none;
+  }
+
+  .success-screen.visible { display: block; }
+
+  .success-icon {
+    width: 64px;
+    height: 64px;
+    background: var(--green-deep);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.2rem;
+    font-size: 1.8rem;
+  }
+
+  .success-screen h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--green-deep);
+    margin-bottom: 0.6rem;
+  }
+
+  .success-screen p {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .back-btn {
+    display: inline-block;
+    padding: 0.7rem 2rem;
+    border: 1.5px solid var(--green-deep);
+    border-radius: 8px;
+    color: var(--green-deep);
+    font-size: 0.82rem;
+    font-family: 'Zen Kaku Gothic New', sans-serif;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+  }
+
+  .back-btn:hover {
+    background: var(--green-deep);
+    color: white;
+  }
+
+  /* ローディング */
+  .loading {
+    text-align: center;
+    padding: 2rem;
+    color: var(--text-light);
+    font-size: 0.82rem;
+  }
+
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border: 2.5px solid var(--warm);
+    border-top-color: var(--green-mid);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin: 0 auto 0.8rem;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* エラー */
+  .error-msg {
+    background: #fde8e8;
+    color: #c44a4a;
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    font-size: 0.78rem;
+    margin-top: 0.8rem;
+    display: none;
+  }
+
+  .error-msg.visible { display: block; }
+
+  /* フッター */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.7rem;
+    color: var(--text-light);
+    letter-spacing: 0.05em;
+  }
+
+  /* アニメーション */
+  .fade-in {
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img src="logo.png" alt="自然のめぐみロゴ" style="width:72px; height:72px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,0.3); margin-bottom:0.6rem;">
+  <p class="header-en">自然のめぐみ・セルフケア</p>
+  <h1>クラス予約</h1>
+  <p>会員専用 · ご予約はLINE友だち追加後にご利用ください</p>
+</header>
+
+<div class="line-banner">
+  📲 予約の前に <a href="https://lin.ee/VMsTeFw" target="_blank">LINE公式アカウントを友だち追加</a> してください（キャンセル連絡もLINEで）
+</div>
+
+<div style="background:#f0f5f3; text-align:center; padding:0.7rem 1rem; display:flex; align-items:center; justify-content:center; gap:0.8rem; flex-wrap:wrap;">
+  <span style="font-size:0.78rem; color:#4a7c6f;">キャンセルのご連絡は</span>
+  <a href="https://lin.ee/VMsTeFw" target="_blank" style="display:inline-flex; align-items:center; gap:0.4rem; background:#06c755; color:white; border-radius:8px; padding:0.4rem 1rem; font-size:0.78rem; font-weight:700; text-decoration:none;">
+    💬 LINEで連絡する
+  </a>
+</div>
+
+<main>
+
+  <!-- ステップ -->
+  <div class="step-indicator" id="stepIndicator">
+    <div class="step active" id="step1">
+      <div class="step-num">1</div>
+      <span>クラス選択</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step" id="step2">
+      <div class="step-num">2</div>
+      <span>お名前入力</span>
+    </div>
+    <div class="step-line"></div>
+    <div class="step" id="step3">
+      <div class="step-num">3</div>
+      <span>完了</span>
+    </div>
+  </div>
+
+  <!-- クラス一覧 -->
+  <div id="classSection">
+    <p class="section-title">クラスを選ぶ</p>
+    <div class="classes-grid" id="classesGrid">
+      <div class="loading">
+        <div class="spinner"></div>
+        クラス情報を読み込み中…
+      </div>
+    </div>
+  </div>
+
+  <!-- 予約フォーム -->
+  <div class="form-section" id="formSection">
+    <div class="selected-class-info">
+      <div class="label">選択中のクラス</div>
+      <div class="value" id="selectedClassName">—</div>
+      <div style="font-size:0.75rem; color: var(--text-light); margin-top:0.2rem;" id="selectedClassDatetime">—</div>
+    </div>
+
+    <div class="form-group">
+      <label>お名前<span>*</span></label>
+      <input type="text" id="nameInput" placeholder="例：山田 花子" autocomplete="name">
+    </div>
+
+    <div class="error-msg" id="errorMsg">入力内容を確認してください。</div>
+
+    <button class="submit-btn" id="submitBtn" onclick="submitReservation()">
+      予約を確定する
+    </button>
+
+    <button class="back-btn" style="width:100%; margin-top:0.6rem;" onclick="backToClasses()">
+      ← クラス選択に戻る
+    </button>
+  </div>
+
+  <!-- 完了画面 -->
+  <div class="success-screen" id="successScreen">
+    <div class="success-icon">🌿</div>
+    <h2>予約が完了しました</h2>
+    <p>
+      ご予約を受け付けました。<br>
+      当日お会いできることを楽しみにしています。🌿<br><br>
+      キャンセルの場合はLINEでご連絡ください。
+    </p>
+    <p style="margin-top:1.2rem;padding:0.8rem 1.2rem;background:#fff3cd;border-left:4px solid #e6a817;border-radius:4px;font-weight:700;color:#7a5200;font-size:1rem;">
+      ⚠️ 予約完了のメール返信はありません。
+    </p>
+    <button class="back-btn" onclick="resetAll()">別のクラスを予約する</button>
+  </div>
+
+</main>
+
+<footer>
+  自然のめぐみ・セルフケア🌱ヨガ教室 · 佐賀市金立町
+</footer>
+
+<script>
+  const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_hCWNYkN9Hctsi12yq3T0fVT3SdfgutiWW-QhYUMhyG-E304ZLxYPjUZet_wTnDJf/exec';
+
+  let selectedClass = null;
+
+  // クラス一覧読み込み
+  async function loadClasses() {
+    try {
+      const res = await fetch(GAS_URL);
+      const data = await res.json();
+      renderClasses(data.classes);
+    } catch (e) {
+      document.getElementById('classesGrid').innerHTML =
+        '<p style="color:#c44a4a; font-size:0.82rem; text-align:center;">クラス情報の読み込みに失敗しました。ページを更新してください。</p>';
+    }
+  }
+
+  function renderClasses(classes) {
+    const grid = document.getElementById('classesGrid');
+    grid.innerHTML = '';
+
+    classes.forEach(cls => {
+      const ratio = cls.reserved / cls.capacity;
+      const isFull = cls.available <= 0;
+      const isFew = !isFull && cls.available <= 2;
+
+      const isEigo = cls.name.includes('英会話');
+      const card = document.createElement('div');
+      card.className = `class-card${isFull ? ' full' : ''}${isEigo ? ' eigo' : ''}`;
+      card.innerHTML = `
+        <div class="class-header">
+          <div class="class-name">${cls.name}</div>
+          ${isFull ? '<span class="class-badge badge-full">満員</span>' : ''}
+        </div>
+        <div class="class-datetime"><span style="font-size:0.7rem;font-weight:400;color:var(--text-light);display:block;margin-bottom:0.15rem;letter-spacing:0.08em;">📅 日時</span>${cls.datetime}</div>
+        ${cls.deadline ? `<div style="font-size:0.7rem; color:var(--text-light); margin-top:0.3rem;">締め切り：${cls.deadline}まで</div>` : ''}
+      `;
+
+      if (!isFull) {
+        card.onclick = () => selectClass(cls, card);
+      }
+
+      grid.appendChild(card);
+    });
+  }
+
+  function selectClass(cls, cardEl) {
+    document.querySelectorAll('.class-card').forEach(c => c.classList.remove('selected'));
+    cardEl.classList.add('selected');
+    selectedClass = cls;
+
+    // フォームに反映
+    document.getElementById('selectedClassName').textContent = cls.name;
+    document.getElementById('selectedClassDatetime').textContent = cls.datetime;
+
+    // フォームへ遷移
+    setTimeout(() => {
+      document.getElementById('classSection').style.display = 'none';
+      document.getElementById('formSection').classList.add('visible', 'fade-in');
+      document.getElementById('step1').classList.remove('active');
+      document.getElementById('step2').classList.add('active');
+      document.getElementById('nameInput').focus();
+    }, 200);
+  }
+
+  function backToClasses() {
+    document.getElementById('formSection').classList.remove('visible');
+    document.getElementById('classSection').style.display = 'block';
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('step2').classList.remove('active');
+    document.getElementById('errorMsg').classList.remove('visible');
+  }
+
+  async function submitReservation() {
+    const name = document.getElementById('nameInput').value.trim();
+    const errorMsg = document.getElementById('errorMsg');
+
+    if (!name) {
+      errorMsg.textContent = 'お名前を入力してください。';
+      errorMsg.classList.add('visible');
+      return;
+    }
+
+    errorMsg.classList.remove('visible');
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.textContent = '送信中…';
+
+    try {
+      const res = await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify({
+          className: selectedClass.name,
+          datetime: selectedClass.datetime,
+          name,
+          rawDate: selectedClass.rawDate
+        })
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('formSection').classList.remove('visible');
+        document.getElementById('stepIndicator').style.display = 'none';
+        document.getElementById('successScreen').classList.add('visible', 'fade-in');
+      } else {
+        errorMsg.textContent = data.message || 'エラーが発生しました。もう一度お試しください。';
+        errorMsg.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = '予約を確定する';
+      }
+    } catch (e) {
+      errorMsg.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
+      errorMsg.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = '予約を確定する';
+    }
+  }
+
+  function resetAll() {
+    selectedClass = null;
+    document.getElementById('nameInput').value = '';
+    document.getElementById('successScreen').classList.remove('visible');
+    document.getElementById('stepIndicator').style.display = 'flex';
+    document.getElementById('formSection').classList.remove('visible');
+    document.getElementById('classSection').style.display = 'block';
+    document.getElementById('step1').classList.add('active');
+    document.getElementById('step2').classList.remove('active');
+    loadClasses();
+  }
+
+  // 初期ロード
+  loadClasses();
+</script>
+</body>
+</html>

@@ -209,6 +209,32 @@
   .class-card.eigo.selected { border-color: var(--accent); background: #fdf5ef; }
   .class-card.eigo.selected::before { background: var(--accent); }
 
+  /* ダンスクラス：オレンジ太枠 */
+  .class-card.dance { border: 3px solid #f07800; }
+  .class-card.dance::before { background: #f07800; }
+  .class-card.dance:hover { border-color: #f07800; box-shadow: 0 4px 16px rgba(240,120,0,0.15); }
+  .class-card.dance.selected { border-color: #f07800; background: #fff8f0; }
+  .class-card.dance.selected::before { background: #f07800; }
+  .class-tag-dance { display:inline-block;font-size:0.72rem;background:#f07800;color:white;padding:0.15rem 0.6rem;border-radius:20px;font-weight:700;margin-bottom:0.3rem; }
+
+  /* ジャンベイベント：オレンジ太枠（ダンスと同じ） */
+  .class-card.jambe { border: 3px solid #f07800; }
+  .class-card.jambe::before { background: #f07800; }
+  .class-card.jambe:hover { border-color: #f07800; box-shadow: 0 4px 16px rgba(240,120,0,0.15); }
+  .class-card.jambe.selected { border-color: #f07800; background: #fff8f0; }
+  .class-card.jambe.selected::before { background: #f07800; }
+  .class-tag-jambe { display:inline-block;font-size:0.72rem;background:#f07800;color:white;padding:0.15rem 0.6rem;border-radius:20px;font-weight:700;margin-bottom:0.3rem; }
+
+  /* つくる、ゆるむ：緑太枠 */
+  .class-card.tsukuru { border: 3px solid var(--green-deep); }
+  .class-card.tsukuru::before { background: var(--green-deep); }
+  .class-card.tsukuru:hover { border-color: var(--green-deep); box-shadow: 0 4px 16px rgba(44,85,48,0.15); }
+  .class-card.tsukuru.selected { border-color: var(--green-deep); background: #f0f5f0; }
+  .class-card.tsukuru.selected::before { background: var(--green-deep); }
+  .class-tag-tsukuru { display:inline-block;font-size:0.72rem;background:var(--green-deep);color:white;padding:0.15rem 0.6rem;border-radius:20px;font-weight:700;margin-bottom:0.3rem; }
+
+  .class-fee { font-size:0.82rem;font-weight:700;color:#666;margin-top:0.3rem; }
+
   .class-card.full {
     opacity: 0.5;
     cursor: not-allowed;
@@ -505,10 +531,20 @@
 
   <!-- お知らせ枠 -->
   <div id="noticeBox" style="background:#fff8f0;border:2px solid var(--accent);border-radius:8px;padding:1rem 1.2rem;margin-bottom:1.5rem;">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.5rem;flex-wrap:wrap;"><span style="font-weight:700;color:var(--accent);">📢 お知らせ</span><span style="font-size:0.78rem;background:var(--accent);color:white;padding:0.2rem 0.6rem;border-radius:20px;font-weight:700;">急なお休みもここに表示されます</span></div>
+    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:0.5rem;flex-wrap:wrap;">
+      <span style="font-weight:700;color:var(--accent);">📢 お知らせ</span>
+      <span style="font-size:0.78rem;background:var(--accent);color:white;padding:0.2rem 0.6rem;border-radius:20px;font-weight:700;">急なお休みもここに表示されます</span>
+    </div>
     <ul style="margin:0;padding-left:1.2rem;color:var(--text);line-height:1.8;">
       <li>7/29（水）全クラス休みです。</li>
-      <li>7/24（金）14:00 ヒップホップ／ダンスクラス with Makoto 開催！</li>
+      <li>7/17（金）13:00〜「ゆるっと集まろう♪〜ジャンベ×ヨガ×お茶〜」開催！参加費はドネーション　<a href="https://note.com/eigokobo/n/n2a0d00ac0264" target="_blank" style="color:var(--accent);font-weight:700;">▶ 詳細はこちら</a></li>
+      <li style="position:relative;">
+        <span>7/24（金）14:00 ヒップホップ／ダンスクラス with Makoto 開催！　<a href="https://note.com/eigokobo/n/n01242eebaefc" target="_blank" style="color:var(--accent);font-weight:700;">▶ 詳細はこちら</a></span>
+
+      </li>
+      <li>つくる、ゆるむ。〜季節を楽しむ小さなお茶会〜 vol.1「Tシャツヘッドバンドをつくろう」<br>
+        　① 8/2（日）14:00〜15:00頃　② 8/7（金）14:00〜15:00頃　<a href="https://note.com/eigokobo/n/nbff25d6e94f2" target="_blank" style="color:var(--accent);font-weight:700;">▶ 詳細はこちら</a>
+      </li>
     </ul>
   </div>
 
@@ -575,7 +611,7 @@
       キャンセルの場合はLINEでご連絡ください。
     </p>
     <p style="margin-top:1.2rem;padding:0.8rem 1.2rem;background:#fff3cd;border-left:4px solid #e6a817;border-radius:4px;font-weight:700;color:#7a5200;font-size:1rem;">
-      ⚠️ 予約完了のメール返信はありません。
+      ⚠️ 予約完了のメール返信はありません。<br>当日そのままお越しください。
     </p>
     <button class="back-btn" onclick="resetAll()">別のクラスを予約する</button>
   </div>
@@ -613,15 +649,45 @@
       const isFew = !isFull && cls.available <= 2;
 
       const isEigo = cls.name.includes('英会話');
+      const isDance = cls.name.includes('ダンス');
+      const isJambe = cls.name.includes('ジャンベ');
+      const isTsukuru = cls.name.includes('つくる');
+      let cardClass = `class-card${isFull ? ' full' : ''}`;
+      if (isEigo) cardClass += ' eigo';
+      if (isDance) cardClass += ' dance';
+      if (isJambe) cardClass += ' jambe';
+      if (isTsukuru) cardClass += ' tsukuru';
       const card = document.createElement('div');
-      card.className = `class-card${isFull ? ' full' : ''}${isEigo ? ' eigo' : ''}`;
+      card.className = cardClass;
+
+      let tagHtml = '';
+      if (isDance) tagHtml = '<span class="class-tag-dance">🎵 イベント</span>';
+      if (isJambe) tagHtml = '<span class="class-tag-jambe">🥁 イベント</span>';
+      if (isTsukuru) tagHtml = '<span class="class-tag-tsukuru">🌿 イベント</span>';
+
+      let feeHtml = '';
+      if (isDance || isTsukuru) feeHtml = '<div class="class-fee">💴 参加費：1,000円（税込）</div>';
+      if (isJambe) feeHtml = '<div class="class-fee">💴 参加費：ドネーション／お気持ちで</div>';
+      if (isJambe) detailLinkHtml = '<div style="margin-top:0.4rem;"><a href="https://note.com/eigokobo/n/n2a0d00ac0264" target="_blank" style="font-size:0.82rem;color:#f07800;font-weight:700;">▶ 詳細はこちら</a></div>';
+
+      let subtitleHtml = '';
+      if (isTsukuru) subtitleHtml = '<div style="font-size:0.78rem;color:var(--text-light);margin-bottom:0.2rem;">〜季節を楽しむ小さなお茶会〜</div>';
+
+      let detailLinkHtml = '';
+      if (isDance) detailLinkHtml = '<div style="margin-top:0.4rem;"><a href="https://note.com/eigokobo/n/n01242eebaefc" target="_blank" style="font-size:0.82rem;color:var(--accent);font-weight:700;">▶ 詳細・持ち物はこちら</a></div>';
+      if (isTsukuru) detailLinkHtml = '<div style="margin-top:0.4rem;"><a href="https://note.com/eigokobo/n/nbff25d6e94f2" target="_blank" style="font-size:0.82rem;color:var(--green-deep);font-weight:700;">▶ 詳細・持ち物はこちら</a></div>';
+
       card.innerHTML = `
+        ${tagHtml}
+        ${subtitleHtml}
         <div class="class-header">
           <div class="class-name">${cls.name}</div>
           ${isFull ? '<span class="class-badge badge-full">満員</span>' : ''}
         </div>
         <div class="class-datetime"><span style="font-size:0.7rem;font-weight:400;color:var(--text-light);display:block;margin-bottom:0.15rem;letter-spacing:0.08em;">📅 日時</span>${cls.datetime}</div>
         ${cls.deadline ? `<div style="font-size:0.7rem; color:var(--text-light); margin-top:0.3rem;">締め切り：${cls.deadline}まで</div>` : ''}
+        ${feeHtml}
+        ${detailLinkHtml}
       `;
 
       if (!isFull) {

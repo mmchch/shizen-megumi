@@ -248,6 +248,38 @@
     font-weight: 600;
     letter-spacing: 0.02em;
   }
+  .price-methods {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 6px;
+  }
+  .price-method {
+    text-align: center;
+  }
+  .price-method .label {
+    display: block;
+    font-size: 0.72rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .price-method .amount {
+    font-family: var(--serif);
+    font-size: 1.9rem;
+    color: var(--text);
+    font-weight: 600;
+  }
+  .price-method .unit {
+    font-size: 0.8rem;
+    color: var(--text-mid);
+  }
+  .price-divider {
+    width: 1px;
+    background: var(--border-mid);
+    align-self: stretch;
+  }
   .price-unit { font-size: 1rem; color: var(--text-mid); margin-left: 4px; }
   .price-note {
     margin-top: 14px;
@@ -398,8 +430,19 @@
   <h2 class="section-title">ご利用料金</h2>
   <div class="divider"></div>
   <div class="pricing-box">
-    <span class="price-main">¥1,200</span><span class="price-unit">／ 時間（税込・冷暖房光熱費込み）</span>
+    <div class="price-methods">
+      <div class="price-method">
+        <span class="label">銀行振込</span>
+        <span class="amount">¥1,200</span><span class="unit">／時間</span>
+      </div>
+      <div class="price-divider"></div>
+      <div class="price-method">
+        <span class="label">現金払い</span>
+        <span class="amount">¥1,500</span><span class="unit">／時間</span>
+      </div>
+    </div>
     <p class="price-note">
+      税込・冷暖房光熱費込み<br>
       無料駐車場10台込み<br>
       最低利用時間 2時間〜<br>
       ヨガ備品オプション ¥500〜 ／ ギャラリー・展示は要相談

@@ -1158,20 +1158,20 @@
     </div><!-- /６月のご案内ラップ -->
   </div><!-- /横並びレイアウト -->
 
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:8px;">
-
-    <!-- ① 休講カレンダー -->
-    <div style="background:white;border:1px solid var(--border);border-radius:4px;overflow:hidden;">
-      <div style="background:var(--green);color:white;padding:12px 20px;font-size:0.82rem;letter-spacing:0.1em;">
-        📅 休講・開催カレンダー
-      </div>
-      <iframe
-        src="https://calendar.google.com/calendar/embed?showPrint=0&showTabs=0&showCalendars=0&showTz=0&showTitle=0&mode=AGENDA&height=300&wkst=1&bgcolor=%23ffffff&src=8qshucmpctme3g7qejoep2kqs4%40group.calendar.google.com&color=%238D6F47&ctz=Asia%2FTokyo"
-        style="border:0;width:100%;height:300px;display:block;"
-        frameborder="0"
-        scrolling="no">
-      </iframe>
+  <!-- ① 休講カレンダー（月表示・全幅） -->
+  <div style="background:white;border:1px solid var(--border);border-radius:4px;overflow:hidden;margin-top:8px;">
+    <div style="background:var(--green);color:white;padding:12px 20px;font-size:0.82rem;letter-spacing:0.1em;">
+      📅 休講・開催カレンダー
     </div>
+    <iframe
+      src="https://calendar.google.com/calendar/embed?showPrint=0&showTabs=0&showCalendars=0&showTz=0&showTitle=0&mode=MONTH&wkst=1&bgcolor=%23ffffff&src=8qshucmpctme3g7qejoep2kqs4%40group.calendar.google.com&color=%238D6F47&ctz=Asia%2FTokyo"
+      style="border:0;width:100%;height:560px;display:block;"
+      frameborder="0"
+      scrolling="no">
+    </iframe>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:24px;margin-top:24px;">
 
     <!-- ② 最新note記事 -->
     <div style="background:white;border:1px solid var(--border);border-radius:4px;overflow:hidden;">

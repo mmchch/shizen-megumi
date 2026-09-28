@@ -1057,9 +1057,18 @@
   <a href="https://mmchch.github.io/Yoga/yoga-yoyaku.html" target="_blank" class="reservation-link">クラスの予約（会員）</a>
 </div>
 
-<!-- お知らせ -->
+<!-- お知らせセクション -->
+<section id="oshirase" style="padding:48px 8vw 0;">
+  <span class="section-label">Notice</span>
+  <h2 class="section-title">お知らせ</h2>
+  <div class="divider"></div>
+  <div id="hp-notice-area" style="margin-bottom:40px;">
+    <p style="color:var(--text-light);font-size:0.85rem;">読み込み中...</p>
+  </div>
+</section>
+
 <!-- EVENTS -->
-<section id="events" style="padding:72px 8vw 48px;">
+<section id="events" style="padding:32px 8vw 48px;">
   <span class="section-label">Events</span>
   <h2 class="section-title">不定期開催のクラスとイベント</h2>
   <div class="divider"></div>
@@ -1598,6 +1607,65 @@ fetch('https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent('http
     <p style="margin-top:8px;">&copy; 自然のめぐみ・セルフケア by 自然の英語工房</p>
   </div>
 </footer>
+
+
+<script>
+// ========== HPお知らせ読み込み ==========
+const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_hCWNYkN9Hctsi12yq3T0fVT3SdfgutiWW-QhYUMhyG-E304ZLxYPjUZet_wTnDJf/exec';
+
+async function loadHpNotices() {
+  const area = document.getElementById('hp-notice-area');
+  if (!area) return;
+  try {
+    const res = await fetch(GAS_URL + '?action=notices');
+    const data = await res.json();
+    const notices = data.notices || [];
+
+    if (notices.length === 0) {
+      area.innerHTML = '<p style="color:var(--text-light);font-size:0.85rem;">現在お知らせはありません。</p>';
+      return;
+    }
+
+    // カテゴリ別にグループ化
+    const grouped = {};
+    notices.forEach(n => {
+      const cat = n.category || 'お知らせ';
+      if (!grouped[cat]) grouped[cat] = [];
+      grouped[cat].push(n);
+    });
+
+    let html = '';
+    // カテゴリの表示順（お知らせ→イベント→その他）
+    const categoryOrder = ['お知らせ', 'イベント'];
+    const allCats = [...new Set([...categoryOrder, ...Object.keys(grouped)])].filter(c => grouped[c]);
+
+    allCats.forEach(cat => {
+      const items = grouped[cat];
+      html += `<div style="margin-bottom:28px;">`;
+      html += `<h3 style="font-family:var(--serif);font-size:1rem;font-weight:400;color:var(--green-deep);letter-spacing:0.1em;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid var(--border-mid);">${cat}</h3>`;
+      html += `<ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:10px;">`;
+      items.forEach(n => {
+        let inner = '';
+        if (n.imageUrl) {
+          inner += `<img src="${n.imageUrl}" alt="" style="width:100%;max-width:480px;border-radius:6px;display:block;margin-bottom:8px;">`;
+        }
+        inner += `<span style="color:var(--text);font-size:0.9rem;line-height:1.8;">${n.text}</span>`;
+        if (n.url && n.linkText) {
+          inner += `　<a href="${n.url}" target="_blank" style="color:var(--green);font-weight:600;font-size:0.85rem;text-decoration:none;border-bottom:1px solid var(--green);">${n.linkText}</a>`;
+        }
+        html += `<li style="padding:0;">${inner}</li>`;
+      });
+      html += `</ul></div>`;
+    });
+
+    area.innerHTML = html;
+  } catch (e) {
+    area.innerHTML = '<p style="color:var(--text-light);font-size:0.85rem;">お知らせの読み込みに失敗しました。</p>';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadHpNotices);
+</script>
 
 </body>
 </html>

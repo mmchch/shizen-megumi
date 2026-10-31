@@ -1088,8 +1088,9 @@
         <span style="align-self:flex-start;display:inline-flex;align-items:center;gap:6px;background:var(--green);color:white;font-size:0.68rem;font-weight:600;letter-spacing:0.05em;padding:3px 12px;border-radius:20px;margin-bottom:12px;">🌿 不定期開催</span>
         <p style="font-family:'Zen Antique Soft',serif;font-size:1.05rem;color:#2C2C2A;font-weight:600;margin:0 0 10px;line-height:1.5;">大人のダンス時間<br>with Makoto</p>
         <p style="display:inline-block;background:var(--wood);color:white;font-size:0.78rem;font-weight:600;padding:5px 14px;border-radius:6px;margin:0 0 12px;line-height:1.5;">⭐ マイケルジャクソンのバックダンサー孫弟子</p>
+        <p id="dance-notice-text" style="font-size:0.85rem;color:var(--text);margin:0 0 10px;line-height:1.8;"></p>
         <p style="font-size:0.85rem;color:var(--text);margin:0 0 4px;">💰 1,000円＋お気持ち</p>
-        <a href="https://note.com/eigokobo/n/n01242eebaefc" target="_blank" style="margin-top:auto;padding-top:10px;font-size:0.82rem;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green);align-self:flex-start;">次回開催情報はこちら→</a>
+        <a href="https://note.com/eigokobo/n/n01242eebaefc" target="_blank" style="margin-top:auto;padding-top:10px;font-size:0.82rem;color:var(--green);text-decoration:none;border-bottom:1px solid var(--green);align-self:flex-start;">クラスの説明はこちら→</a>
       </div>
     </div>
 
@@ -1587,20 +1588,45 @@ const GAS_URL = 'https://script.google.com/macros/s/AKfycbx_hCWNYkN9Hctsi12yq3T0
 
 async function loadHpNotices() {
   const area = document.getElementById('hp-notice-area');
-  if (!area) return;
+  const danceArea = document.getElementById('dance-notice-text');
+  let notices = [];
+
   try {
     const res = await fetch(GAS_URL + '?action=notices');
     const data = await res.json();
-    const notices = data.notices || [];
+    notices = data.notices || [];
+  } catch (e) {
+    if (area) area.innerHTML = '<p style="color:var(--text-light);font-size:0.85rem;">お知らせの読み込みに失敗しました。</p>';
+    return;
+  }
 
-    if (notices.length === 0) {
+  // ダンスクラスの開催日程カードに反映（カテゴリが「ダンス」のお知らせ）
+  if (danceArea) {
+    const danceNotices = notices.filter(n => (n.category || '').trim() === 'ダンス');
+    if (danceNotices.length > 0) {
+      danceArea.innerHTML = danceNotices.map(n => {
+        let inner = `<span>${n.text}</span>`;
+        if (n.url && n.linkText) {
+          inner += `　<a href="${n.url}" target="_blank" style="color:var(--green);text-decoration:none;border-bottom:1px solid var(--green);">${n.linkText}</a>`;
+        }
+        return inner;
+      }).join('<br>');
+    }
+  }
+
+  if (!area) return;
+  try {
+    // 「ダンス」カテゴリはイベントカード側に表示済みなので、お知らせ一覧からは除外
+    const noticesForBox = notices.filter(n => (n.category || '').trim() !== 'ダンス');
+
+    if (noticesForBox.length === 0) {
       area.innerHTML = '<p style="color:var(--text-light);font-size:0.85rem;">現在お知らせはありません。</p>';
       return;
     }
 
     // カテゴリ別にグループ化
     const grouped = {};
-    notices.forEach(n => {
+    noticesForBox.forEach(n => {
       const cat = n.category || 'お知らせ';
       if (!grouped[cat]) grouped[cat] = [];
       grouped[cat].push(n);

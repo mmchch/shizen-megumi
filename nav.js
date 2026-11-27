@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <div class="nav-drawer" id="nav-drawer">
       <ul>
         <li><a href="/index.html">TOP</a></li>
-        <li><a href="/about.html">About us</a></li>
+        <li><a href="/about.html">About</a></li>
         <li><a href="/yoga.html">ヨガ</a></li>
         <li><a href="/eigo.html">英語</a></li>
         <li><a href="/index.html#schedule">スケジュール</a></li>
